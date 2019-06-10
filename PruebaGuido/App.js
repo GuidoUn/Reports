@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   title:{
     textAlign:'center',
     fontSize: 22,
-    marginBottom: 30
+    marginBottom: 15
   },
   button:{
     backgroundColor: 'red',
