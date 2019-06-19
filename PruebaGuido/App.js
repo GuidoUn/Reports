@@ -51,11 +51,57 @@ class Test extends React.Component {
     this.setState({ comment })
   }
   buttonPressed() {
-    if (this.state.comment && this.state.pais && this.state.direc && this.state.ciudad && this.state.PickerValue != "") {
-      alert('Completó todos los campos correctamente')
+    if (this.state.comment && this.state.PickerValue != "") {
+      /*
+      fetch('https://10.10.6.9:3000/api/obstaculos/', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          locationLat: this.state.latitude,
+          locationLng: this.state.longitude,
+          description: this.state.comment,
+          photo: "foto",
+          clasification: "total"
+        })
+      }).catch(error => {
+        console.log(error);
+      })
+      */
+      fetch('http://10.10.6.124:3000/api/obstaculos/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          locationLat: this.state.latitude,
+          locationLng: this.state.longitude,
+          description: this.state.comment,
+          photo: 'foto',
+          clasification: 'total',
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('RESULTS HERE:', responseData)
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        });
+        alert('Se ha efectuado el reporte');
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Se produjo un error efectuando un reporte')
+      })
     } else {
       alert('Por favor complete todos los campos')
     }
+
   }
   componentWillMount() {
     /*
@@ -65,7 +111,7 @@ class Test extends React.Component {
       });
     */
     //} else {
-      this._getLocationAsync();
+    this._getLocationAsync();
     //}
     let lattext = 'Waiting..';
     let lontext = 'Waiting..';
@@ -95,12 +141,12 @@ class Test extends React.Component {
     }
 
     let location = await Location.getCurrentPositionAsync({});
-    this.setState({ latitude:location.coords.latitude , longitude:location.coords.longitude });
+    this.setState({ latitude: location.coords.latitude, longitude: location.coords.longitude });
   };
   componentDidMount() {
     this.interval = setInterval(() => this.setState({ Location: this._getLocationAsync() }), 1000);
   }
-  
+
   render() {
 
     let lattext = 'Waiting..';
