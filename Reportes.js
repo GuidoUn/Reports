@@ -12,7 +12,6 @@ import {
 import * as Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 class Reportes extends React.Component {
     constructor() {
@@ -76,7 +75,14 @@ class Reportes extends React.Component {
   
     }
     componentWillMount() {
-      this._getLocationAsync();
+        /*
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+            this.setState({
+              errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+            });
+          } else {*/
+          this._getLocationAsync();
+          //}
       let lattext = 'Waiting..';
       let lontext = 'Waiting..';
       if (this.state.errorMessage) {

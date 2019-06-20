@@ -4,23 +4,19 @@ import {
   Text,
   View,
   Button,
-  TextInput,
   TouchableHighlight,
-  Picker,
-  Platform
 } from 'react-native';
-import * as Constants from 'expo-constants';
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Reportes from './Reportes';
+import Ajustes from './Ajustes';
 
 class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>Home</Text>
-        <Button onPress={() => this.props.navigation.navigate('ReportesScreen')} title="Hacer un reporte"></Button>
+        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesScreen')}><Text style={styles.textButton}>Realizar un reporte</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
       </View>
     )
   }
@@ -31,6 +27,9 @@ const AppNavigator = createStackNavigator({
   },
   ReportesScreen: {
     screen: Reportes
+  },
+  Ajustes: {
+    screen: Ajustes
   }
 },
   {
@@ -69,9 +68,9 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   button: {
-    backgroundColor: 'red',
-    paddingTop: 15,
-    paddingBottom: 15
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    marginBottom:10,
   },
   button2: {
     backgroundColor: 'blue',
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: 'center',
-    color: 'white'
+    color: 'black'
   },
   input: {
     height: 40,
