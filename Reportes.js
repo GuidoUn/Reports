@@ -76,15 +76,7 @@ class Reportes extends React.Component {
   
     }
     componentWillMount() {
-      /*
-      if (Platform.OS === 'android' && !Constants.isDevice) {
-        this.setState({
-          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-        });
-      */
-      //} else {
       this._getLocationAsync();
-      //}
       let lattext = 'Waiting..';
       let lontext = 'Waiting..';
       if (this.state.errorMessage) {
@@ -93,15 +85,6 @@ class Reportes extends React.Component {
         lattext = JSON.stringify(this.state.latitude);
         lontext = JSON.stringify(this.state.longitude);
       }
-      /*
-      Geocoder.from(lattext, lontext)
-          .then(json => {
-        var addressComponent = json.results[0].formatted_address;
-        console.log(addressComponent);
-   
-          })
-      .catch(error => console.warn(error));
-      */
     }
   
     _getLocationAsync = async () => {
@@ -115,10 +98,6 @@ class Reportes extends React.Component {
       let location = await Location.getCurrentPositionAsync({});
       this.setState({ latitude: location.coords.latitude, longitude: location.coords.longitude });
     };
-    componentDidMount() {
-      this.interval = setInterval(() => this.setState({ Location: this._getLocationAsync() }), 1000000);
-    }
-  
     render() {
   
       let lattext = 'Waiting..';
