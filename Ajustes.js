@@ -11,16 +11,53 @@ import {
 } from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 import SwitchToggle from 'react-native-switch-toggle';
+import Switch from 'react-native-switch-pro';
 
 
 class Ajustes extends React.Component {
-    
+  state={
+    value: false,
+    value1: true
+  }
+
     render() {
           return (
             <View style={styles.container}>
               <Text style={styles.title}>Ajustes</Text>
+              <View style ={styles.rowContainer}>
+              <Text style={{marginTop: 25, fontSize: 20}} > Modo ciego</Text>
+              <Switch width={60}
+                height={30}
+                label={2} 
+                value={this.state.value} 
+                style={{position: 'absolute', left: '75%', top: '50%'}} 
+                onSyncPress={(value) => this.setState({value})} />              
+              </View>
+              <View style ={styles.rowContainer}>
+              <Text style={{marginTop: 25, fontSize: 20}} > Modo noche</Text>
+              <Switch width={60}
+                height={30}
+                label={2} 
+                value={this.state.value} 
+                style={{position: 'absolute', left: '75%', top: '50%'}} 
+                onSyncPress={(value) => this.setState({value})} />              
+              </View>
+              <View style ={styles.rowContainer}>
+              <Text style={{marginTop: 25, fontSize: 20}} > Notificaciones</Text>
+              <Picker
+              style={{ width: '55%', position: 'absolute', left: '50%', top: '30%'}}
+              selectedValue={this.state.PickerValue}
+              onValueChange={(itemValue, itemIndex) => this.setState
+                ({ PickerValue: itemValue })}
+              >
+              <Picker.Item label="Seleccionar" value="" />
+              <Picker.Item label="Nunca" value="nunca" />
+              <Picker.Item label="Semanalmente" value="semanal" />
+              <Picker.Item label="Diariamente" value="diario" />
+            </Picker>             
+              </View>
+              
             </View>
-            
           )
         }
 }
@@ -32,6 +69,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingLeft: 15,
     paddingRight: 15
+  },
+  rowContainer: {
+    flexDirection: 'row'
   },
   direc: {
     textAlign: 'center',
@@ -50,7 +90,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 22,
+    fontSize: 30,
     marginBottom: 15
   },
   button: {
