@@ -15,6 +15,12 @@ import Switch from 'react-native-switch-pro';
 
 
 class Ajustes extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      PickerNot: '',
+    };
+  }
   state={
     value: false,
     value1: true
@@ -46,9 +52,9 @@ class Ajustes extends React.Component {
               <Text style={{marginTop: 25, fontSize: 20}} > Notificaciones</Text>
               <Picker
               style={{ width: '55%', position: 'absolute', left: '50%', top: '30%'}}
-              selectedValue={this.state.PickerValue}
+              selectedValue={this.state.PickerNot}
               onValueChange={(itemValue, itemIndex) => this.setState
-                ({ PickerValue: itemValue })}
+                ({ PickerNot: itemValue })}
               >
               <Picker.Item label="Seleccionar" value="" />
               <Picker.Item label="Nunca" value="nunca" />
@@ -56,7 +62,6 @@ class Ajustes extends React.Component {
               <Picker.Item label="Diariamente" value="diario" />
             </Picker>             
               </View>
-              
             </View>
           )
         }

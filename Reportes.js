@@ -131,12 +131,6 @@ class Reportes extends React.Component {
               <Picker.Item label="Parcialmente Transitable" value="parcial" />
               <Picker.Item label="Intransitable" value="total" />
             </Picker>
-            <TouchableHighlight
-              style={styles.button2}
-            //onPress={() => this.buttonPressed()}
-            >
-              <Text style={styles.textButton}>Seleccionar ubicación en el mapa</Text>
-            </TouchableHighlight>
             <Text>Dirección</Text>
             <TextInput
               style={styles.input}
