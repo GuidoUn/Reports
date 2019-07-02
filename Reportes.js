@@ -13,6 +13,7 @@ import * as Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapView from 'react-native-maps';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 class Reportes extends React.Component {
     constructor() {
@@ -132,6 +133,12 @@ class Reportes extends React.Component {
               <Picker.Item label="Parcialmente Transitable" value="parcial" />
               <Picker.Item label="Intransitable" value="total" />
             </Picker>
+            <TouchableHighlight
+            style={styles.button2}
+            //onPress={() => this.props.navigation.navigate('MapaReportes')}
+          >
+            <Text style={styles.textButton}>Seleccionar ubicación en el mapa</Text>
+          </TouchableHighlight>
             <Text>Dirección</Text>
             <TextInput
               style={styles.input}
@@ -175,6 +182,7 @@ class Reportes extends React.Component {
       )
     }
   }
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,

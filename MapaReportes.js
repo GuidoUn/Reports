@@ -9,12 +9,14 @@ import {
   Picker,
   Platform
 } from 'react-native';
+import Reportes from './Reportes';
+import MapView from 'react-native-maps';
 import ToggleSwitch from 'toggle-switch-react-native';
 import SwitchToggle from 'react-native-switch-toggle';
 import Switch from 'react-native-switch-pro';
 
 
-class MapaReportes extends React.Component {
+export default class MapaReportes extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -22,10 +24,14 @@ class MapaReportes extends React.Component {
   }
     render() {
           return (
-            <View>
-              <Text>prueba MapaReportes</Text>
-            </View>
+            <MapView style={{flex: 1}}
+            region={{
+                latitude: Reportes.state.lattext,
+                longitude: Reportes.state.lontext,
+                latitudeDelta: 0.015,
+                longitudeDelta:0.0121,
+            }}
+             />
           )
         }
 }
-export default MapaReportes;
