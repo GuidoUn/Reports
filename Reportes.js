@@ -13,7 +13,7 @@ import * as Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapView from 'react-native-maps';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Modal from "react-native-modal";
 
 class Reportes extends React.Component {
     constructor() {
@@ -27,6 +27,7 @@ class Reportes extends React.Component {
         latitude: null,
         longitude: null,
         estado: '',
+        mapaAbierto: false,
       };
     }
     changeDirec(direc) {
@@ -94,7 +95,11 @@ class Reportes extends React.Component {
         lontext = JSON.stringify(this.state.longitude);
       }
     }
-  
+    
+    abrirMapa = () => {
+      this.setState({mapaAbierto: true})
+    }
+
     _getLocationAsync = async () => {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
       if (status !== 'granted') {
@@ -115,7 +120,6 @@ class Reportes extends React.Component {
       } else if (this.state.latitude) {
         lattext = JSON.stringify(this.state.latitude);
         lontext = JSON.stringify(this.state.longitude);
-  
       }
       return (
         <View style={styles.container}>
@@ -135,10 +139,22 @@ class Reportes extends React.Component {
             </Picker>
             <TouchableHighlight
             style={styles.button2}
-            //onPress={() => this.props.navigation.navigate('MapaReportes')}
+            onPress={() => this.abrirMapa()}
           >
             <Text style={styles.textButton}>Seleccionar ubicación en el mapa</Text>
           </TouchableHighlight>
+          {/*
+          <Modal isVisible={this.state.mapaAbierto}>
+          <MapView style={{flex: 1}}
+            region={{
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                latitudeDelta: 0.015,
+                longitudeDelta:0.015,
+            }}
+             />
+          </Modal>
+          */}
             <Text>Dirección</Text>
             <TextInput
               style={styles.input}
