@@ -7,8 +7,8 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Reportes from './Reportes';
-import Ajustes from './Ajustes';
+import Reportes from './Screens/Reportes';
+import Ajustes from './Screens/Ajustes';
 
 class Home extends React.Component {
   render() {

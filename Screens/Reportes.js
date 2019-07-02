@@ -34,8 +34,10 @@ class Reportes extends React.Component {
           longitude: ''
         },
         marcaCambiada: false,
-        longitudeCambiada: '',
-        latitudeCambiada: '',
+        coordinateCambiada: {
+          latitude: '',
+          longitude: '',
+        } 
       };
     }
     
@@ -51,17 +53,16 @@ class Reportes extends React.Component {
     changeComment(comment) {
       this.setState({ comment })
     }
-    buttonPressed() {
-      if (this.state.comment && this.state.PickerValue != "") {
-        fetch('http://10.10.6.124:3000/api/obstaculos/', {
+    hacerFetch (sendLatitude, sendLongitude){
+      fetch('http://10.10.6.124:3000/api/obstaculos/', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            locationLat: this.state.latitude,
-            locationLng: this.state.longitude,
+            locationLat: sendLatitude,
+            locationLng: sendLongitude,
             description: this.state.comment,
             photo: 'foto',
             clasification: this.state.PickerValue,
@@ -81,7 +82,14 @@ class Reportes extends React.Component {
           console.error(error);
           alert('Se produjo un error efectuando un reporte')
         })
-      } else {
+    }
+    buttonPressed() {
+      if (this.state.comment && this.state.PickerValue != "" && this.state.marcaCambiada==false) {
+        hacerFetch(this.state.latitude, this.state.longitude)
+      } else if (this.state.comment && this.state.PickerValue != "" && this.state.marcaCambiada==true){
+        hacerFetch(this.state.coordinateCambiada.latitude, this.state.coordinateCambiada.longitude)
+      }
+      else {
         alert('Por favor complete todos los campos')
       }
   
@@ -122,6 +130,11 @@ class Reportes extends React.Component {
       this.setState({mapaAbierto: false})
     }
 
+    cambiarMarca = () => {
+
+      this.setState({marcaCambiada: true, mapaAbierto: false})
+    }
+
     _getLocationAsync = async () => {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
       if (status !== 'granted') {
@@ -140,8 +153,16 @@ class Reportes extends React.Component {
       if (this.state.errorMessage) {
         lattext = this.state.errorMessage;
       } else if (this.state.latitude) {
-        lattext = JSON.stringify(this.state.latitude);
-        lontext = JSON.stringify(this.state.longitude);
+        if(this.state.marcaCambiada==true){
+          
+          lattext = JSON.stringify(this.state.latitude) + '. Reportando en: ' +this.state.coordinateCambiada.latitude;
+          lontext = JSON.stringify(this.state.longitude) + '. Reportando en: ' +this.state.coordinateCambiada.longitude;
+        }
+        else if (this.state.marcaCambiada==false){
+          lattext = JSON.stringify(this.state.latitude) + '. Reportando en: ' +JSON.stringify(this.state.latitude);
+          lontext = JSON.stringify(this.state.longitude) + '. Reportando en: ' +JSON.stringify(this.state.longitude);
+        }
+        
       }
       return (
         <View style={styles.container}>
@@ -178,8 +199,8 @@ class Reportes extends React.Component {
             }}>
               <Marker draggable
                 coordinate={this.state.coordinate}
-                onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
-  />
+                onDragEnd={(e) => this.setState({ coordinateCambiada: e.nativeEvent.coordinate })}
+            />
             </MapView>
              <View style={styles.containerButtons}>
              <TouchableHighlight
@@ -190,7 +211,7 @@ class Reportes extends React.Component {
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.button4}
-            onPress={() => this.cerrarMapa()}
+            onPress={() => this.cambiarMarca()}
           >
             <Text style={styles.textButton}>Utilizar marca</Text>
           </TouchableHighlight>
