@@ -42,22 +42,6 @@ class Ajustes extends React.Component {
       this.setState({ModoNoche: 'activado'})
     }
   }
-  /*
-  confButtonPressed() {
-    if(this.state.valueCiego==false){
-      this.setState({ModoCiego: 'desactivado'})
-    }
-    else if(this.state.valueCiego==true){
-      this.setState({ModoCiego: 'activado'})
-    }
-    if(this.state.valueNoche==false){
-      this.setState({ModoNoche: 'desactivado'})
-    } else if(this.state.valueNoche){
-      this.setState({ModoNoche: 'activado'})
-    }
-    this.mostrarEnPantalla();
-  }
-  */
   mostrarEnPantalla(){
     if(this.state.PickerNot!='nunca'){
       alert('Ajustes guardados: Modo ciego '+this.state.ModoCiego + '. Modo noche '+this.state.ModoNoche+ '. Usted recibirá notificaciones '+this.state.PickerNot+'.');
