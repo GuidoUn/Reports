@@ -9,7 +9,6 @@ import {
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Reportes from './Reportes';
 import Ajustes from './Ajustes';
-import MapaReportes from './MapaReportes';
 
 class Home extends React.Component {
   render() {
@@ -18,8 +17,7 @@ class Home extends React.Component {
         <Text>Home</Text>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesScreen')}><Text style={styles.textButton}>Realizar un reporte</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('MapaReportes')}><Text style={styles.textButton}>Prueba MapaReportes</Text></TouchableHighlight>
-      </View>
+        </View>
     )
   }
 }
@@ -29,9 +27,6 @@ const AppNavigator = createStackNavigator({
   },
   ReportesScreen: {
     screen: Reportes
-  },
-  MapaReportes: {
-    screen: MapaReportes
   },
   Ajustes: {
     screen: Ajustes

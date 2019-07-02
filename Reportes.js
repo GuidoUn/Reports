@@ -97,7 +97,16 @@ class Reportes extends React.Component {
     }
     
     abrirMapa = () => {
-      this.setState({mapaAbierto: true})
+      if(this.state.latitude && this.state.longitude){
+        this.setState({mapaAbierto: true})
+      }
+      else {
+        alert('Espere mientras tomamos su ubicación')
+      }
+    }
+
+    cerrarMapa = () => {
+      this.setState({mapaAbierto: false})
     }
 
     _getLocationAsync = async () => {
@@ -143,18 +152,32 @@ class Reportes extends React.Component {
           >
             <Text style={styles.textButton}>Seleccionar ubicación en el mapa</Text>
           </TouchableHighlight>
-          {/*
           <Modal isVisible={this.state.mapaAbierto}>
-          <MapView style={{flex: 1}}
+          
+          <MapView style={{flex: 10}}
             region={{
                 latitude: this.state.latitude,
                 longitude: this.state.longitude,
-                latitudeDelta: 0.015,
-                longitudeDelta:0.015,
+                latitudeDelta: 0.0015,
+                longitudeDelta:0.0015,
             }}
              />
+             <View style={styles.containerButtons}>
+             <TouchableHighlight
+            style={styles.button3}
+            onPress={() => this.cerrarMapa()}
+          >
+            <Text style={styles.textButton}>cerrar mapa</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button4}
+            onPress={() => this.cerrarMapa()}
+          >
+            <Text style={styles.textButton}>Utilizar marca</Text>
+          </TouchableHighlight>
+             </View>
           </Modal>
-          */}
+     
             <Text>Dirección</Text>
             <TextInput
               style={styles.input}
@@ -207,6 +230,11 @@ class Reportes extends React.Component {
       paddingLeft: 15,
       paddingRight: 15
     },
+    containerButtons:{
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
     direc: {
       textAlign: 'center',
       fontSize: 18,
@@ -235,7 +263,21 @@ class Reportes extends React.Component {
     button2: {
       backgroundColor: 'blue',
       paddingTop: 5,
-      paddingBottom: 5
+      paddingBottom: 5,
+    },
+    button3: {
+      backgroundColor: 'blue',
+      paddingTop: 5,
+      paddingBottom: 5,
+      width: '50%',
+      height: 30
+    },
+    button4: {
+      backgroundColor: 'green',
+      paddingTop: 5,
+      paddingBottom: 5,
+      width: '50%',
+      height: 30
     },
     textButton: {
       textAlign: 'center',
