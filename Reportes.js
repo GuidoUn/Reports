@@ -30,8 +30,8 @@ class Reportes extends React.Component {
         estado: '',
         mapaAbierto: false,
         coordinate:{
-          latitude: 0,
-          longitude: 0
+          latitude: '',
+          longitude: ''
         },
         marcaCambiada: false,
         longitudeCambiada: '',
@@ -107,8 +107,10 @@ class Reportes extends React.Component {
     
     abrirMapa = () => {
       if(this.state.latitude && this.state.longitude){
-        this.state.coordinate.latitude = this.state.latitude;
-        this.state.coordinate.longitude = this.state.longitude;
+        if (this.state.coordinate.latitude==''){
+          this.state.coordinate.latitude = this.state.latitude;
+          this.state.coordinate.longitude = this.state.longitude;
+        }
         this.setState({mapaAbierto: true})
       }
       else {
