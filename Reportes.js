@@ -12,7 +12,8 @@ import {
 import * as Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { Marker } from 'react-native-maps';
 import Modal from "react-native-modal";
 
 class Reportes extends React.Component {
@@ -28,8 +29,16 @@ class Reportes extends React.Component {
         longitude: null,
         estado: '',
         mapaAbierto: false,
+        coordinate:{
+          latitude: 0,
+          longitude: 0
+        },
+        marcaCambiada: false,
+        longitudeCambiada: '',
+        latitudeCambiada: '',
       };
     }
+    
     changeDirec(direc) {
       this.setState({ direc })
     }
@@ -98,6 +107,8 @@ class Reportes extends React.Component {
     
     abrirMapa = () => {
       if(this.state.latitude && this.state.longitude){
+        this.state.coordinate.latitude = this.state.latitude;
+        this.state.coordinate.longitude = this.state.longitude;
         this.setState({mapaAbierto: true})
       }
       else {
@@ -154,14 +165,20 @@ class Reportes extends React.Component {
           </TouchableHighlight>
           <Modal isVisible={this.state.mapaAbierto}>
           
-          <MapView style={{flex: 10}}
+          <MapView 
+            provider={PROVIDER_GOOGLE}
+            style={{flex: 10}}
             region={{
                 latitude: this.state.latitude,
                 longitude: this.state.longitude,
                 latitudeDelta: 0.0015,
                 longitudeDelta:0.0015,
-            }}
-             />
+            }}>
+              <Marker draggable
+                coordinate={this.state.coordinate}
+                onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
+  />
+            </MapView>
              <View style={styles.containerButtons}>
              <TouchableHighlight
             style={styles.button3}
