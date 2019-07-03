@@ -20,12 +20,14 @@ class Ajustes extends React.Component {
     this.state = {
       PickerNot: 'semanalmente',
       ModoCiego: 'desactivado',
-      ModoNoche: 'desactivado'
+      ModoNoche: 'desactivado',
+      Sonido: 'activado,'
     };
   }
   state={
     valueCiego: false,
-    valueNoche: false
+    valueNoche: false,
+    valueSonido: true,
   }
   switch1Cambiado(valor){
     if(valor==false){
@@ -42,6 +44,15 @@ class Ajustes extends React.Component {
       this.setState({ModoNoche: 'activado'})
     }
   }
+
+  switch3Cambiado(valor){
+    if(valor==false){
+      this.setState({Sonido: 'desactivado'})
+    } else if(valor==true){
+      this.setState({Sonido: 'activado'})
+    }
+  }
+
   mostrarEnPantalla(){
     if(this.state.PickerNot!='nunca'){
       alert('Ajustes guardados: Modo ciego '+this.state.ModoCiego + '. Modo noche '+this.state.ModoNoche+ '. Usted recibirá notificaciones '+this.state.PickerNot+'.');
@@ -70,8 +81,19 @@ class Ajustes extends React.Component {
                 label={2} 
                 value={this.state.valueNoche} 
                 style={{position: 'absolute', left: '75%', top: '50%'}} 
-                onSyncPress={(value) => this.switch2Cambiado(value)} />              
+                onSyncPress={(value) => this.switch2Cambiado(value)} />                          
               </View>
+              {/*
+              <View style ={styles.rowContainer}>
+              <Text style={{marginTop: 25, fontSize: 20}} > Sonido</Text>
+              <Switch width={60}
+                height={30}
+                label={2} 
+                value={this.state.valueSonido} 
+                style={{position: 'absolute', left: '75%', top: '50%'}} 
+                onSyncPress={(value) => this.switch3Cambiado(value)} />                          
+              </View>
+              */}
               <View style ={styles.rowContainer}>
               <Text style={{marginTop: 25, fontSize: 20}} > Notificaciones</Text>
               <Picker
