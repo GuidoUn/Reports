@@ -307,7 +307,7 @@ class Reportes extends React.Component {
       paddingBottom: 5,
     },
     button3: {
-      backgroundColor: 'blue',
+      backgroundColor: 'grey',
       paddingTop: 5,
       paddingBottom: 5,
       width: '50%',

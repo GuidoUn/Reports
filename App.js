@@ -9,6 +9,8 @@ import {
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Reportes from './Screens/Reportes';
 import Ajustes from './Screens/Ajustes';
+import Login from './Screens/Login'
+import Registrarse from './Screens/Registrarse'
 
 class Home extends React.Component {
   render() {
@@ -17,6 +19,8 @@ class Home extends React.Component {
         <Text>Home</Text>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesScreen')}><Text style={styles.textButton}>Realizar un reporte</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
         </View>
     )
   }
@@ -30,7 +34,13 @@ const AppNavigator = createStackNavigator({
   },
   Ajustes: {
     screen: Ajustes
-  }
+  },
+  Login:{
+    screen: Login
+  },
+  Registrarse:{
+    screen: Registrarse
+  },
 },
   {
     initialRouteName: "Home"
