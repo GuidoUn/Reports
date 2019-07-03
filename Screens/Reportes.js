@@ -118,7 +118,7 @@ class Reportes extends React.Component {
         if (this.state.coordinate.latitude==''){
           this.state.coordinate.latitude = this.state.latitude;
           this.state.coordinate.longitude = this.state.longitude;
-        }
+        } 
         this.setState({mapaAbierto: true})
       }
       else {
