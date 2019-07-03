@@ -54,7 +54,7 @@ class Reportes extends React.Component {
       this.setState({ comment })
     }
     hacerFetch (sendLatitude, sendLongitude){
-      fetch('http://10.10.6.124:3000/api/obstaculos/', {
+      fetch('http://10.10.6.112:3000/api/obstaculos/creo', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -71,11 +71,12 @@ class Reportes extends React.Component {
         .then((response) => response.json())
         .then((responseData) => {
           console.log('RESULTS HERE:', responseData)
-  
+          /*
           this.setState({
             isLoading: false,
             dataSource: responseJson,
           });
+          */
           alert('Se ha efectuado el reporte');
         })
         .catch((error) => {
@@ -85,9 +86,9 @@ class Reportes extends React.Component {
     }
     buttonPressed() {
       if (this.state.comment && this.state.PickerValue != "" && this.state.marcaCambiada==false) {
-        hacerFetch(this.state.latitude, this.state.longitude)
+        this.hacerFetch(this.state.latitude, this.state.longitude)
       } else if (this.state.comment && this.state.PickerValue != "" && this.state.marcaCambiada==true){
-        hacerFetch(this.state.coordinateCambiada.latitude, this.state.coordinateCambiada.longitude)
+        this.hacerFetch(this.state.coordinateCambiada.latitude, this.state.coordinateCambiada.longitude)
       }
       else {
         alert('Por favor complete todos los campos')
