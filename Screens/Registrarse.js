@@ -20,15 +20,15 @@ import Modal from "react-native-modal";
 
 
 export default class Login extends React.Component {
-  constructor (){
+  constructor() {
     super()
     this.state = {
       createUserInput: '',
-      createMailInput:'',
-      createPassInput:'',
+      createMailInput: '',
+      createPassInput: '',
     }
   }
-  
+
   changeCreateUserInput(createUserInput) {
     this.setState({ createUserInput })
   }
@@ -42,7 +42,38 @@ export default class Login extends React.Component {
   }
 
   createPressed() {
-    alert('Usuario creado: '+this.state.createUserInput + ' Email creado: '+this.state.createMailInput + ' Contraseña creada: '+this.state.createPassInput)
+    if (this.state.createUserInput && this.state.createMailInput && this.state.createPassInput) {
+      fetch('http://10.10.6.112:3000/api/obstaculos/creo', { //esto hay que cambiarlo
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: createUserInput,
+          email: createMailInput,
+          password: createPassInput,
+        }),
+      })
+        .then((response) => response.json())
+        .then((responseData) => {
+          console.log('RESULTS HERE:', responseData)
+          /*
+          this.setState({
+            isLoading: false,
+            dataSource: responseJson,
+          });
+          */
+          alert('Usuario creado: ' + this.state.createUserInput + ' Email creado: ' + this.state.createMailInput + ' Contraseña creada: ' + this.state.createPassInput)
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Se ha producido un error registrando su cuenta')
+        })
+    }
+    else{
+      alert('Por favor complete todos los campos')
+    }
   }
 
   render() {
@@ -52,32 +83,32 @@ export default class Login extends React.Component {
           <Text style={styles.title}>Registro</Text>
           <Text>Nombre de usuario</Text>
           <TextInput
-              style={styles.input}
-              placeholder=""
-              value={this.state.createUserInput}
-              onChangeText={(createUserInput) => this.changeCreateUserInput(createUserInput)}
-            />
-            <Text>Email</Text>
-            <TextInput
-              style={styles.input}
-              placeholder=""
-              value={this.state.createMailInput}
-              onChangeText={(createMailInput) => this.changeCreateMailInput(createMailInput)}
-            />
-            <Text>Contraseña</Text>
-            <TextInput
-              style={styles.input}
-              placeholder=""
-              value={this.state.createPassInput}
-              secureTextEntry
-              onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
-            />
-            <TouchableHighlight
-              style={styles.button}
-              onPress={() => this.createPressed()}
-            >
-              <Text style={styles.textButton}>Crear cuenta</Text>
-            </TouchableHighlight>
+            style={styles.input}
+            placeholder=""
+            value={this.state.createUserInput}
+            onChangeText={(createUserInput) => this.changeCreateUserInput(createUserInput)}
+          />
+          <Text>Email</Text>
+          <TextInput
+            style={styles.input}
+            placeholder=""
+            value={this.state.createMailInput}
+            onChangeText={(createMailInput) => this.changeCreateMailInput(createMailInput)}
+          />
+          <Text>Contraseña</Text>
+          <TextInput
+            style={styles.input}
+            placeholder=""
+            value={this.state.createPassInput}
+            secureTextEntry
+            onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
+          />
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => this.createPressed()}
+          >
+            <Text style={styles.textButton}>Crear cuenta</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -116,7 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
     marginTop: 20,
     padding: 10,
-    marginBottom:10,
+    marginBottom: 10,
   },
   button2: {
     backgroundColor: 'blue',
