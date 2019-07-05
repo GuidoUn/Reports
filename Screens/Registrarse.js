@@ -109,6 +109,7 @@ export default class Login extends React.Component {
           >
             <Text style={styles.textButton}>Crear cuenta</Text>
           </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
         </View>
       </View>
     );
@@ -145,9 +146,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'lightblue',
-    marginTop: 20,
+    marginTop: 7,
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 7,
   },
   button2: {
     backgroundColor: 'blue',
