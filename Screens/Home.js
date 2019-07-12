@@ -18,6 +18,7 @@ export default class Home extends React.Component {
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesPrueba')}><Text style={styles.textButton}>ReportesPrueba</Text></TouchableHighlight>
       </View>
     )
   }

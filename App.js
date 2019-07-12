@@ -12,10 +12,11 @@ import Ajustes from './Screens/Ajustes';
 import Login from './Screens/Login';
 import Registrarse from './Screens/Registrarse';
 import Home from './Screens/Home';
+import ReportesPrueba from './Screens/ReportesPrueba';
 
 const AppNavigator = createStackNavigator({
   Home: {
-    screen: Home,
+    screen: Home
   },
   ReportesScreen: {
     screen: Reportes
@@ -28,6 +29,9 @@ const AppNavigator = createStackNavigator({
   },
   Registrarse:{
     screen: Registrarse
+  },
+  ReportesPrueba:{
+    screen: ReportesPrueba
   },
 },
   {

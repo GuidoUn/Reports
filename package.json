@@ -17,6 +17,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-maps": "^0.24.2",
     "react-native-modal": "^11.1.0",
+    "react-native-swiper": "^1.6.0-nightly.2",
     "react-native-switch-pro": "^1.0.4",
     "react-native-switch-toggle": "^1.1.0",
     "react-native-web": "^0.11.4",
