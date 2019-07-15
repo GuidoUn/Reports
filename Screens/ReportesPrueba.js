@@ -87,6 +87,12 @@ class Reportes extends React.Component {
         alert('Se produjo un error efectuando un reporte')
       })
   }
+
+  pressedLeve(){
+    this.setState({ PickerValue: "leve" })
+    
+  }
+
   buttonPressed() {
     if (this.state.comment && this.state.PickerValue != "" && this.state.marcaCambiada == false) {
       this.hacerFetch(this.state.latitude, this.state.longitude)
@@ -267,11 +273,33 @@ if (Platform.OS === 'android' && !Constants.isDevice) {
     */
     return (
       <View style={styles.container}>
-<Text style={styles.title}>Formulario de reportes</Text>
-        <Swiper style={styles.wrapper} showsButtons={true} height={200} horizontal={true}>
-          <View style={styles.slide1}>
-            <Text>Tipo de obstáculo</Text>
-            <Text style={styles.text}>Hello Swiper</Text>
+        <Text style={styles.title}>Formulario de reportes</Text>
+        <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}>
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text styles={styles.title}>Tipo de obstáculo</Text>
+            <TouchableHighlight
+              style={styles.buttonSlide1}
+              onPress={() => this.pressedLeve()}
+              onPress={() => this.setState({ PickerValue: "leve" })}
+            >
+              <Text style={styles.textButton}>Transitable</Text>
+
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.buttonSlide1}
+              onPress={() => this.setState({ PickerValue: "parcial" })}
+            >
+              <Text style={styles.textButton}>Parcialmente Transitable</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={styles.buttonSlide1}
+              onPress={() => this.setState({ PickerValue: "total" })}
+            >
+              <Text style={styles.textButton}>Intransitable</Text>
+
+            </TouchableHighlight>
           </View>
           <View style={styles.slide2}>
             <Text style={styles.text}>Beautiful</Text>
@@ -279,6 +307,7 @@ if (Platform.OS === 'android' && !Constants.isDevice) {
           <View style={styles.slide3}>
             <Text style={styles.text}>And simple</Text>
           </View>
+
         </Swiper>
         {/*
         <Swiper style={styles.wrapper} height={240}
@@ -357,12 +386,12 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  button3: {
+  buttonSlide1: {
     backgroundColor: 'grey',
-    paddingTop: 5,
-    paddingBottom: 5,
-    width: '50%',
-    height: 30
+    marginTop: 10,
+    justifyContent: 'center',
+    width: 250,
+    height: 130
   },
   button4: {
     backgroundColor: 'green',
@@ -375,10 +404,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  slide1: {
+  slide3: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#9DD6EB'
+  },
+  buttonSlideContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
   },
   slide2: {
     flex: 1,
@@ -386,7 +421,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#97CAE5'
   },
-  slide3: {
+  slide1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
