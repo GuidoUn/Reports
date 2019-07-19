@@ -32,6 +32,9 @@ class Reportes extends React.Component {
       longitude: null,
       estado: '',
       mapaAbierto: false,
+      oneClicked: false,
+      twoClicked: false,
+      threeClicked: false,
       coordinate: {
         latitude: '',
         longitude: ''
@@ -41,6 +44,7 @@ class Reportes extends React.Component {
         latitude: '',
         longitude: '',
       }
+      
     };
   }
 
@@ -89,8 +93,78 @@ class Reportes extends React.Component {
   }
 
   pressedLeve(){
-    this.setState({ PickerValue: "leve" })
-    
+    this.setState({ PickerValue: 'leve' })
+    styles.buttonSlide11={
+      backgroundColor: 'black',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
+    styles.buttonSlide12={
+      backgroundColor: 'blue',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
+    styles.buttonSlide13={
+      backgroundColor: 'blue',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
+  }
+
+  pressedParcial() {
+    this.setState({PickerValue: 'parcial'})
+    styles.buttonSlide11={
+      backgroundColor: 'blue',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
+    styles.buttonSlide12={
+      backgroundColor: 'black',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
+    styles.buttonSlide13={
+      backgroundColor: 'blue',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
+  }
+
+  pressedTotal() {
+    this.setState({PickerValue: 'total'})
+    styles.buttonSlide11={
+      backgroundColor: 'blue',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
+    styles.buttonSlide12={
+      backgroundColor: 'blue',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
+    styles.buttonSlide13={
+      backgroundColor: 'black',
+      marginTop: 10,
+      justifyContent: 'center',
+      width: 250,
+      height: 130
+    }
   }
 
   buttonPressed() {
@@ -105,14 +179,7 @@ class Reportes extends React.Component {
 
   }
   componentWillMount() {
-    /*
-if (Platform.OS === 'android' && !Constants.isDevice) {
-        this.setState({
-          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-        });
-      } else {*/
     this._getLocationAsync();
-    //}
     let lattext = 'Waiting..';
     let lontext = 'Waiting..';
     if (this.state.errorMessage) {
@@ -172,141 +239,55 @@ if (Platform.OS === 'android' && !Constants.isDevice) {
         lattext = JSON.stringify(this.state.latitude) + '. Reportando en: ' + JSON.stringify(this.state.latitude);
         lontext = JSON.stringify(this.state.longitude) + '. Reportando en: ' + JSON.stringify(this.state.longitude);
       }
-
     }
-    /*
-    return (
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.title}>Formulario de reportes</Text>
-          <Text>Tipo de obstáculo</Text>
-          <Picker
-            style={{ width: '100%' }}
-            selectedValue={this.state.PickerValue}
-            onValueChange={(itemValue, itemIndex) => this.setState
-              ({ PickerValue: itemValue })}
-          >
-            <Picker.Item label="Seleccionar" value="" />
-            <Picker.Item label="Transitable" value="leve" />
-            <Picker.Item label="Parcialmente Transitable" value="parcial" />
-            <Picker.Item label="Intransitable" value="total" />
-          </Picker>
-          <TouchableHighlight
-          style={styles.button2}
-          onPress={() => this.abrirMapa()}
-        >
-          <Text style={styles.textButton}>Seleccionar ubicación en el mapa</Text>
-        </TouchableHighlight>
-        <Modal isVisible={this.state.mapaAbierto}>
-        
-        <MapView 
-          provider={PROVIDER_GOOGLE}
-          style={{flex: 10}}
-          region={{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
-              latitudeDelta: 0.0015,
-              longitudeDelta:0.0015,
-          }}>
-            <Marker draggable
-              coordinate={this.state.coordinate}
-              onDragEnd={(e) => this.setState({ coordinateCambiada: e.nativeEvent.coordinate })}
-          />
-          </MapView>
-           <View style={styles.containerButtons}>
-           <TouchableHighlight
-          style={styles.button3}
-          onPress={() => this.cerrarMapa()}
-        >
-          <Text style={styles.textButton}>cerrar mapa</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.button4}
-          onPress={() => this.cambiarMarca()}
-        >
-          <Text style={styles.textButton}>Utilizar marca</Text>
-        </TouchableHighlight>
-           </View>
-        </Modal>
-   
-          <Text>Dirección</Text>
-          <TextInput
-            style={styles.input}
-            placeholder=" Libertador 6532"
-            value={this.state.direc}
-            onChangeText={(direc) => this.changeDirec(direc)}
-          />
-          <Text>Ciudad</Text>
-          <TextInput
-            style={styles.input}
-            placeholder=" CABA"
-            value={this.state.ciudad}
-            onChangeText={(ciudad) => this.changeCiudad(ciudad)}
-          />
-          <Text>Pais</Text>
-          <TextInput
-            style={styles.input}
-            placeholder=" Argentina"
-            value={this.state.pais}
-            onChangeText={(pais) => this.changePais(pais)}
-          />
- 
-          <Text>Comentarios</Text>
-          <TextInput
-            multiline={true}
-            style={[styles.input, styles.textArea]}
-            placeholder=" Pozo profundo"
-            value={this.state.comment}
-            onChangeText={(comment) => this.changeComment(comment)}
-          />
-          <TouchableHighlight
-            style={styles.button}
-            onPress={() => this.buttonPressed()}
-          >
-            <Text style={styles.textButton}>Reportar</Text>
-          </TouchableHighlight>
-          <Text style={styles.paragraph}>{lattext}</Text>
-          <Text style={styles.paragraph}>{lontext}</Text>
-        </View>
-      </View>
-    )
-    */
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Formulario de reportes</Text>
-        <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}>
+        <Swiper style={styles.wrapper} showsButtons={false} height={500} horizontal={true}>
           <View style={{
             justifyContent: 'center',
             alignItems: 'center',
           }}>
             <Text styles={styles.title}>Tipo de obstáculo</Text>
             <TouchableHighlight
-              style={styles.buttonSlide1}
+              style={styles.buttonSlide11}
               onPress={() => this.pressedLeve()}
-              onPress={() => this.setState({ PickerValue: "leve" })}
             >
               <Text style={styles.textButton}>Transitable</Text>
 
             </TouchableHighlight>
-            <TouchableHighlight style={styles.buttonSlide1}
-              onPress={() => this.setState({ PickerValue: "parcial" })}
+            <TouchableHighlight style={styles.buttonSlide12}
+              onPress={() => this.pressedParcial()}
             >
               <Text style={styles.textButton}>Parcialmente Transitable</Text>
             </TouchableHighlight>
             <TouchableHighlight
-              style={styles.buttonSlide1}
-              onPress={() => this.setState({ PickerValue: "total" })}
+              style={styles.buttonSlide13}
+              onPress={() => this.pressedTotal()}
             >
               <Text style={styles.textButton}>Intransitable</Text>
 
             </TouchableHighlight>
           </View>
-          <View style={styles.slide2}>
+          <View style={{alignItems: 'center'}}>
+            
             <Text style={styles.text}>Beautiful</Text>
+            <View style={styles.slide2}>
+            <TouchableHighlight
+              style={styles.buttonSlide21}
+            >
+              <Text style={styles.textButton}>Transitable</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.buttonSlide22}
+            >
+              <Text style={styles.textButton}>Parcialmente Transitable</Text>
+            </TouchableHighlight>
+          </View>  
           </View>
           <View style={styles.slide3}>
             <Text style={styles.text}>And simple</Text>
           </View>
+          
 
         </Swiper>
         {/*
@@ -386,12 +367,44 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  buttonSlide1: {
-    backgroundColor: 'grey',
+  buttonSlide11: {
+    backgroundColor: 'blue',
     marginTop: 10,
     justifyContent: 'center',
     width: 250,
     height: 130
+  },
+  buttonSlide12: {
+    backgroundColor: 'blue',
+    marginTop: 10,
+    justifyContent: 'center',
+    width: 250,
+    height: 130
+  },
+  buttonSlide13: {
+    backgroundColor: 'blue',
+    marginTop: 10,
+    justifyContent: 'center',
+    width: 250,
+    height: 130
+  },
+  buttonSlide21: {
+    backgroundColor: 'blue',
+    marginTop: 175,
+    marginRight:5,
+    marginLeft: 5,
+    justifyContent: 'center',
+    width: 125,
+    height: 150
+  },
+  buttonSlide22: {
+    backgroundColor: 'blue',
+    marginTop: 175,
+    marginRight:5,
+    marginLeft: 5,
+    justifyContent: 'center',
+    width: 125,
+    height: 150
   },
   button4: {
     backgroundColor: 'green',
@@ -417,9 +430,10 @@ const styles = StyleSheet.create({
   },
   slide2: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#97CAE5'
   },
   slide1: {
     flex: 1,
