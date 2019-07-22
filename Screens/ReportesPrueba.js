@@ -35,6 +35,7 @@ class Reportes extends React.Component {
       oneClicked: false,
       twoClicked: false,
       threeClicked: false,
+      mensajeUbicacion: 'Cargando..',
       coordinate: {
         latitude: '',
         longitude: ''
@@ -43,8 +44,8 @@ class Reportes extends React.Component {
       coordinateCambiada: {
         latitude: '',
         longitude: '',
-      }
-      
+      },
+      tipoObstaculo: '',
     };
   }
 
@@ -92,23 +93,23 @@ class Reportes extends React.Component {
       })
   }
 
-  pressedLeve(){
+  pressedLeve() {
     this.setState({ PickerValue: 'leve' })
-    styles.buttonSlide11={
-      backgroundColor: 'black',
+    styles.buttonSlide11 = {
+      backgroundColor: 'green',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
       height: 130
     }
-    styles.buttonSlide12={
+    styles.buttonSlide12 = {
       backgroundColor: 'blue',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
       height: 130
     }
-    styles.buttonSlide13={
+    styles.buttonSlide13 = {
       backgroundColor: 'blue',
       marginTop: 10,
       justifyContent: 'center',
@@ -118,22 +119,22 @@ class Reportes extends React.Component {
   }
 
   pressedParcial() {
-    this.setState({PickerValue: 'parcial'})
-    styles.buttonSlide11={
+    this.setState({ PickerValue: 'parcial' })
+    styles.buttonSlide11 = {
       backgroundColor: 'blue',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
       height: 130
     }
-    styles.buttonSlide12={
-      backgroundColor: 'black',
+    styles.buttonSlide12 = {
+      backgroundColor: 'green',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
       height: 130
     }
-    styles.buttonSlide13={
+    styles.buttonSlide13 = {
       backgroundColor: 'blue',
       marginTop: 10,
       justifyContent: 'center',
@@ -143,23 +144,23 @@ class Reportes extends React.Component {
   }
 
   pressedTotal() {
-    this.setState({PickerValue: 'total'})
-    styles.buttonSlide11={
+    this.setState({ PickerValue: 'total' })
+    styles.buttonSlide11 = {
       backgroundColor: 'blue',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
       height: 130
     }
-    styles.buttonSlide12={
+    styles.buttonSlide12 = {
       backgroundColor: 'blue',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
       height: 130
     }
-    styles.buttonSlide13={
-      backgroundColor: 'black',
+    styles.buttonSlide13 = {
+      backgroundColor: 'green',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
@@ -167,6 +168,91 @@ class Reportes extends React.Component {
     }
   }
 
+  tipoPressed(tipo) {
+    this.setState({ tipoObstaculo: tipo })
+    this.screen2blue();
+    if (tipo == 'Obra') {
+      styles.buttonSlide21 = {
+        backgroundColor: 'green',
+        marginTop: 125,
+        marginRight: 5,
+        marginLeft: 5,
+        justifyContent: 'center',
+        width: 125,
+        height: 175
+      }
+    } else if (tipo == 'Pozo') {
+      styles.buttonSlide22 = {
+        backgroundColor: 'green',
+        marginTop: 125,
+        marginRight: 5,
+        marginLeft: 5,
+        justifyContent: 'center',
+        width: 125,
+        height: 175
+      }
+    } else if (tipo == 'noLuz') {
+      styles.buttonSlide23 = {
+        backgroundColor: 'green',
+        marginTop: 125,
+        marginRight: 5,
+        marginLeft: 5,
+        justifyContent: 'center',
+        width: 125,
+        height: 175
+      }
+    } else if (tipo == 'Otro') {
+      styles.buttonSlide24 = {
+        backgroundColor: 'green',
+        marginTop: 125,
+        marginRight: 5,
+        marginLeft: 5,
+        justifyContent: 'center',
+        width: 125,
+        height: 175
+      }
+    }
+  }
+
+  screen2blue() {
+    styles.buttonSlide21 = {
+      backgroundColor: 'blue',
+      marginTop: 125,
+      marginRight: 5,
+      marginLeft: 5,
+      justifyContent: 'center',
+      width: 125,
+      height: 175
+    }
+    styles.buttonSlide22 = {
+      backgroundColor: 'blue',
+      marginTop: 125,
+      marginRight: 5,
+      marginLeft: 5,
+      justifyContent: 'center',
+      width: 125,
+      height: 175
+    }
+    styles.buttonSlide23 = {
+      backgroundColor: 'blue',
+      marginTop: 125,
+      marginRight: 5,
+      marginLeft: 5,
+      justifyContent: 'center',
+      width: 125,
+      height: 175
+    }
+    styles.buttonSlide24 = {
+      backgroundColor: 'blue',
+      marginTop: 125,
+      marginRight: 5,
+      marginLeft: 5,
+      justifyContent: 'center',
+      width: 125,
+      height: 175
+    }
+
+  }
   buttonPressed() {
     if (this.state.comment && this.state.PickerValue != "" && this.state.marcaCambiada == false) {
       this.hacerFetch(this.state.latitude, this.state.longitude)
@@ -180,11 +266,12 @@ class Reportes extends React.Component {
   }
   componentWillMount() {
     this._getLocationAsync();
-    let lattext = 'Waiting..';
-    let lontext = 'Waiting..';
+    let lattext = 'Cargando..';
+    let lontext = 'Cargando..';
     if (this.state.errorMessage) {
       lattext = this.state.errorMessage;
     } else if (this.state.latitude) {
+
       lattext = JSON.stringify(this.state.latitude);
       lontext = JSON.stringify(this.state.longitude);
     }
@@ -225,8 +312,8 @@ class Reportes extends React.Component {
   };
   render() {
 
-    let lattext = 'Waiting..';
-    let lontext = 'Waiting..';
+    let lattext = 'Cargando..';
+    let lontext = 'Cargando..';
     if (this.state.errorMessage) {
       lattext = this.state.errorMessage;
     } else if (this.state.latitude) {
@@ -238,17 +325,48 @@ class Reportes extends React.Component {
       else if (this.state.marcaCambiada == false) {
         lattext = JSON.stringify(this.state.latitude) + '. Reportando en: ' + JSON.stringify(this.state.latitude);
         lontext = JSON.stringify(this.state.longitude) + '. Reportando en: ' + JSON.stringify(this.state.longitude);
+        this.state.mensajeUbicacion = 'Seleccionar ubicación en el mapa';
       }
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Formulario de reportes</Text>
-        <Swiper style={styles.wrapper} showsButtons={false} height={500} horizontal={true}>
+        <Text style={styles.title}>Realizando un reporte</Text>
+        <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}>
+          <View style={{ alignItems: 'center' }}>
+
+            <Text style={styles.text}>¿Qué tipo de obstáculo es?</Text>
+            <View style={styles.slide2}>
+              <TouchableHighlight
+                style={styles.buttonSlide21}
+                onPress={() => this.tipoPressed('Obra')}
+              >
+                <Text style={styles.textButton}>Obra en construcción</Text>
+              </TouchableHighlight>
+              <TouchableHighlight style={styles.buttonSlide22}
+                onPress={() => this.tipoPressed('Pozo')}
+              >
+                <Text style={styles.textButton}>Pozo o daño en la vereda</Text>
+              </TouchableHighlight>
+            </View>
+            <View style={styles.slide23}>
+              <TouchableHighlight
+                style={styles.buttonSlide23}
+                onPress={() => this.tipoPressed('noLuz')}
+              >
+                <Text style={styles.textButton}>Calle sin iluminación</Text>
+              </TouchableHighlight>
+              <TouchableHighlight style={styles.buttonSlide24}
+                onPress={() => this.tipoPressed('Otro')}
+              >
+                <Text style={styles.textButton}>Otro</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
           <View style={{
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-            <Text styles={styles.title}>Tipo de obstáculo</Text>
+            <Text styles={styles.title}>¿Es transitable?</Text>
             <TouchableHighlight
               style={styles.buttonSlide11}
               onPress={() => this.pressedLeve()}
@@ -269,25 +387,76 @@ class Reportes extends React.Component {
 
             </TouchableHighlight>
           </View>
-          <View style={{alignItems: 'center'}}>
-            
-            <Text style={styles.text}>Beautiful</Text>
-            <View style={styles.slide2}>
+
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text styles={styles.title}>Ubicación</Text>
+            <Text style={{
+              marginTop: 30,
+            }}>Introducir dirección manualmente</Text>
+            <TextInput
+              style={styles.inputSlide3}
+              placeholder=" Libertador 6532"
+              value={this.state.direc}
+              onChangeText={(direc) => this.changeDirec(direc)}
+            />
             <TouchableHighlight
-              style={styles.buttonSlide21}
+              style={styles.button2}
+              onPress={() => this.abrirMapa()}
             >
-              <Text style={styles.textButton}>Transitable</Text>
+              <Text style={styles.textButton}>{this.state.mensajeUbicacion}</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.buttonSlide22}
-            >
-              <Text style={styles.textButton}>Parcialmente Transitable</Text>
-            </TouchableHighlight>
-          </View>  
+            <Modal isVisible={this.state.mapaAbierto}>
+
+              <MapView
+                provider={PROVIDER_GOOGLE}
+                style={{ flex: 10 }}
+                region={{
+                  latitude: this.state.latitude,
+                  longitude: this.state.longitude,
+                  latitudeDelta: 0.0015,
+                  longitudeDelta: 0.0015,
+                }}>
+                <Marker draggable
+                  coordinate={this.state.coordinate}
+                  onDragEnd={(e) => this.setState({ coordinateCambiada: e.nativeEvent.coordinate })}
+                />
+              </MapView>
+              <View style={styles.containerButtons}>
+                <TouchableHighlight
+                  style={styles.buttonMapClose}
+                  onPress={() => this.cerrarMapa()}
+                >
+                  <Text style={styles.textButton}>cerrar mapa</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.button4}
+                  onPress={() => this.cambiarMarca()}
+                >
+                  <Text style={styles.textButton}>Utilizar marca</Text>
+                </TouchableHighlight>
+              </View>
+            </Modal>
+            <Text style={styles.paragraph}>{lattext}</Text>
+            <Text style={styles.paragraph}>{lontext}</Text>
           </View>
-          <View style={styles.slide3}>
-            <Text style={styles.text}>And simple</Text>
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text styles={styles.title}>Comentarios acerca del reporte</Text>
+            <TextInput
+              multiline={true}
+              style={[styles.input, styles.textArea]}
+              placeholder=" Pozo profundo"
+              value={this.state.comment}
+              onChangeText={(comment) => this.changeComment(comment)}
+
+            />
           </View>
-          
+
 
         </Swiper>
         {/*
@@ -366,6 +535,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     paddingTop: 5,
     paddingBottom: 5,
+    paddingHorizontal: 22,
+  },
+  buttonMapClose: {
+    backgroundColor: 'grey',
+    paddingTop: 5,
+    paddingBottom: 5,
+    width: '50%',
+    height: 30
   },
   buttonSlide11: {
     backgroundColor: 'blue',
@@ -390,21 +567,39 @@ const styles = StyleSheet.create({
   },
   buttonSlide21: {
     backgroundColor: 'blue',
-    marginTop: 175,
-    marginRight:5,
+    marginTop: 125,
+    marginRight: 5,
     marginLeft: 5,
     justifyContent: 'center',
     width: 125,
-    height: 150
+    height: 175
   },
   buttonSlide22: {
     backgroundColor: 'blue',
-    marginTop: 175,
-    marginRight:5,
+    marginTop: 125,
+    marginRight: 5,
     marginLeft: 5,
     justifyContent: 'center',
     width: 125,
-    height: 150
+    height: 175
+  },
+  buttonSlide23: {
+    backgroundColor: 'blue',
+    marginTop: 125,
+    marginRight: 5,
+    marginLeft: 5,
+    justifyContent: 'center',
+    width: 125,
+    height: 175
+  },
+  buttonSlide24: {
+    backgroundColor: 'blue',
+    marginTop: 125,
+    marginRight: 5,
+    marginLeft: 5,
+    justifyContent: 'center',
+    width: 125,
+    height: 175
   },
   button4: {
     backgroundColor: 'green',
@@ -430,6 +625,15 @@ const styles = StyleSheet.create({
   },
   slide2: {
     flex: 1,
+    marginTop: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide23: {
+    flex: 1,
+    marginTop: 200,
     flexDirection: 'row',
     justifyContent: 'space-between',
     justifyContent: 'center',
@@ -451,8 +655,18 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 2
   },
+  inputSlide3: {
+    height: 40,
+    width: 250,
+    borderColor: '#ccc',
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 2
+  },
   textArea: {
-    height: 60
+    height: 400,
+    width: 250,
+    textAlignVertical: 'top',
   }
 });
 export default Reportes;
