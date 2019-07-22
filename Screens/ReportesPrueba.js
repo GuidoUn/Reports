@@ -277,6 +277,9 @@ class Reportes extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.interval = setInterval(() => this.componentWillMount(), 1000);
+  }
   abrirMapa = () => {
     if (this.state.latitude && this.state.longitude) {
       if (this.state.coordinate.latitude == '') {
