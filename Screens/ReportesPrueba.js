@@ -8,6 +8,7 @@ import {
   Button,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   Picker,
   Platform
 } from 'react-native';
@@ -18,6 +19,7 @@ import * as Permissions from 'expo-permissions';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Modal from "react-native-modal";
+import { Camera } from 'expo-camera';
 
 class Reportes extends React.Component {
   constructor() {
@@ -32,6 +34,7 @@ class Reportes extends React.Component {
       longitude: null,
       estado: '',
       mapaAbierto: false,
+      camaraAbierta: false,
       oneClicked: false,
       twoClicked: false,
       threeClicked: false,
@@ -46,6 +49,9 @@ class Reportes extends React.Component {
         longitude: '',
       },
       tipoObstaculo: '',
+      hasCameraPermission: null,
+      PermissionCameraAsked: 0,
+      Type: Camera.Constants.Type.back,
     };
   }
 
@@ -266,6 +272,7 @@ class Reportes extends React.Component {
   }
   componentWillMount() {
     this._getLocationAsync();
+    this._getCameraPermissionAsync();
     let lattext = 'Cargando..';
     let lontext = 'Cargando..';
     if (this.state.errorMessage) {
@@ -280,6 +287,13 @@ class Reportes extends React.Component {
   componentDidMount() {
     this.interval = setInterval(() => this.componentWillMount(), 1000);
   }
+
+  snap = async () => {
+    if (this.camera) {
+      let photo = await this.camera.takePictureAsync();
+    }
+  };
+
   abrirMapa = () => {
     if (this.state.latitude && this.state.longitude) {
       if (this.state.coordinate.latitude == '') {
@@ -289,7 +303,7 @@ class Reportes extends React.Component {
       this.setState({ mapaAbierto: true })
     }
     else {
-      alert('Espere mientras tomamos su ubicación')
+      alert('Espere mientras obtenemos su ubicación')
     }
   }
 
@@ -312,6 +326,18 @@ class Reportes extends React.Component {
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ latitude: location.coords.latitude, longitude: location.coords.longitude });
+  };
+  _getCameraPermissionAsync = async () => {
+    if (this.state.PermissionCameraAsked == 0) {
+      let { status } = await Permissions.askAsync(Permissions.CAMERA);
+      this.setState({ hasCameraPermission: status === 'granted' })
+    }
+    else if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access camera was denied',
+        PermissionCameraAsked: 0,
+      });
+    }
   };
   render() {
 
@@ -459,38 +485,63 @@ class Reportes extends React.Component {
 
             />
           </View>
-
-
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text styles={styles.title}>Tomar una fotografía</Text>
+            <TouchableHighlight
+              style={styles.button2}
+              onPress={() => this.setState({ camaraAbierta: true })}
+            >
+              <Text style={styles.textButton}>Abrir cámara</Text>
+            </TouchableHighlight>
+            <Modal isVisible={this.state.camaraAbierta}>
+              <View style={{ flex: 1 }}>
+                <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => {
+                  this.camera = ref;
+                }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      backgroundColor: 'transparent',
+                      flexDirection: 'row',
+                    }}>
+                    <TouchableOpacity
+                      style={{
+                        flex: 0.2,
+                        alignSelf: 'flex-end',
+                        alignItems: 'center',
+                      }}
+                      onPress={() => {
+                        this.setState({
+                          type:
+                            this.state.type === Camera.Constants.Type.back
+                              ? Camera.Constants.Type.front
+                              : Camera.Constants.Type.back,
+                        });
+                      }}>
+                      <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Rotar</Text>
+                    </TouchableOpacity>
+                  </View>
+                </Camera>
+                
+                <TouchableHighlight
+                  style={styles.button2}
+                  onPress={() => this.snap()}
+                >
+                  <Text style={styles.textButton}>Tomar fotografía</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.buttonCerrarCamara}
+                  onPress={() => this.setState({ camaraAbierta: false })}
+                >
+                  <Text style={styles.textButton}>cerrar cámara</Text>
+                </TouchableHighlight>
+              </View>
+            </Modal>
+          </View>
         </Swiper>
-        {/*
-        <Swiper style={styles.wrapper} height={240}
-          onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
-          dot={<View style={{ backgroundColor: 'rgba(0,0,0,.2)', width: 5, height: 5, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3 }} />}
-          activeDot={<View style={{ backgroundColor: '#000', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3 }} />}
-          paginationStyle={{
-            bottom: -23, left: null, right: 10
-          }} loop>
-          <View style={styles.slide} title={<Text numberOfLines={1}>Aussie tourist dies at Bali hotel</Text>}>
-            {/*<Image resizeMode='stretch' style={styles.image} source={require('./img/1.jpg')} />*/}
-        {/*}
-          </View>
-          */}
-        {/*}
-          <View style={styles.slide} title={<Text numberOfLines={1}>Big lie behind Nine’s new show</Text>}>
-            {/*<Image resizeMode='stretch' style={styles.image} source={require('./img/2.jpg')} />*/}
-        {/*
-          </View>
-          */}
-        {/*
-          <View style={styles.slide} title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
-            {/*<Image resizeMode='stretch' style={styles.image} source={require('./img/3.jpg')} /> */}
-        {/*
-          </View>
-          <View style={styles.slide} title={<Text numberOfLines={1}>Learn from Kim K to land that job</Text>}>
-            {/*<Image resizeMode='stretch' style={styles.image} source={require('./img/4.jpg')} />*}
-          </View>
-        </Swiper>
-          */}
       </View>
     )
   }
@@ -536,6 +587,12 @@ const styles = StyleSheet.create({
   },
   button2: {
     backgroundColor: 'blue',
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingHorizontal: 22,
+  },
+  buttonCerrarCamara: {
+    backgroundColor: 'grey',
     paddingTop: 5,
     paddingBottom: 5,
     paddingHorizontal: 22,
