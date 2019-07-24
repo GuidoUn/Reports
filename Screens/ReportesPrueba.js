@@ -52,6 +52,7 @@ class Reportes extends React.Component {
       hasCameraPermission: null,
       PermissionCameraAsked: 0,
       Type: Camera.Constants.Type.back,
+      previewUri: undefined,
     };
   }
 
@@ -290,7 +291,10 @@ class Reportes extends React.Component {
 
   snap = async () => {
     if (this.camera) {
+      alert('Taking Photo')
       let photo = await this.camera.takePictureAsync();
+      alert('Photo taken')
+      this.setState({ previewUri: photo.uri })
     }
   };
 
@@ -357,6 +361,7 @@ class Reportes extends React.Component {
         this.state.mensajeUbicacion = 'Seleccionar ubicación en el mapa';
       }
     }
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Realizando un reporte</Text>
@@ -496,6 +501,11 @@ class Reportes extends React.Component {
             >
               <Text style={styles.textButton}>Abrir cámara</Text>
             </TouchableHighlight>
+            <Image
+              Source={{ uri: this.state.previewUri }}
+            >
+
+            </Image>
             <Modal isVisible={this.state.camaraAbierta}>
               <View style={{ flex: 1 }}>
                 <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => {
@@ -525,7 +535,7 @@ class Reportes extends React.Component {
                     </TouchableOpacity>
                   </View>
                 </Camera>
-                
+
                 <TouchableHighlight
                   style={styles.button2}
                   onPress={() => this.snap()}
