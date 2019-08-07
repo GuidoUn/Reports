@@ -20,6 +20,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Modal from "react-native-modal";
 import { Camera } from 'expo-camera';
+import { takeSnapshotAsync } from 'expo';
 
 class Reportes extends React.Component {
   constructor() {
@@ -53,6 +54,7 @@ class Reportes extends React.Component {
       PermissionCameraAsked: 0,
       Type: Camera.Constants.Type.back,
       previewUri: undefined,
+      previewBase64: undefined,
     };
   }
 
@@ -69,7 +71,8 @@ class Reportes extends React.Component {
     this.setState({ comment })
   }
   hacerFetch(sendLatitude, sendLongitude) {
-    fetch('http://10.10.6.112:3000/api/obstaculos/creo', {
+    console.log('reportando');
+    fetch('http://10.10.6.9:3000/api/obstaculos/creo', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -79,7 +82,7 @@ class Reportes extends React.Component {
         locationLat: sendLatitude,
         locationLng: sendLongitude,
         description: this.state.comment,
-        photo: 'foto',
+        photo: this.state.previewBase64,
         clasification: this.state.PickerValue,
       }),
     })
@@ -291,10 +294,14 @@ class Reportes extends React.Component {
 
   snap = async () => {
     if (this.camera) {
-      alert('Taking Photo')
-      let photo = await this.camera.takePictureAsync();
-      alert('Photo taken')
-      this.setState({ previewUri: photo.uri })
+      const photo = this.camera.takePictureAsync({ base64: true }).then((data) => {
+        const previewBase64 = data.base64;
+        this.setState({ previewBase64 });
+        console.log('photo taken');
+      }).catch((err) => {
+        console.error(err);
+        alert('There was an error taking the picture');
+      });
     }
   };
 
@@ -447,7 +454,7 @@ class Reportes extends React.Component {
               <MapView
                 provider={PROVIDER_GOOGLE}
                 style={{ flex: 10 }}
-                region={{
+                initialRegion={{
                   latitude: this.state.latitude,
                   longitude: this.state.longitude,
                   latitudeDelta: 0.0015,
@@ -501,14 +508,21 @@ class Reportes extends React.Component {
             >
               <Text style={styles.textButton}>Abrir cámara</Text>
             </TouchableHighlight>
+            <TouchableHighlight
+              style={styles.button}
+              onPress={() => this.buttonPressed()}
+            >
+              <Text style={styles.textButton}>Reportar</Text>
+            </TouchableHighlight>
             <Image
               Source={{ uri: this.state.previewUri }}
             >
 
             </Image>
+            
             <Modal isVisible={this.state.camaraAbierta}>
-              <View style={{ flex: 1 }}>
-                <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => {
+              <View style={{ flex: 1}}>
+                <Camera style={{ flex: 0.8 }} type={this.state.type} ref={ref => {
                   this.camera = ref;
                 }}>
                   <View
