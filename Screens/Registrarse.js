@@ -92,6 +92,7 @@ export default class Login extends React.Component {
       createUserInput: '',
       createMailInput: '',
       createPassInput: '',
+      createBarrio: '',
     }
   }
 
@@ -174,8 +175,7 @@ export default class Login extends React.Component {
             selectedItems={this.state.selectedItems}
             onItemSelect={(item) => {
               const items = this.state.selectedItems;
-              items.push(item)
-              this.setState({ selectedItems: items });
+              this.setState({ createBarrio: items});
             }}
             containerStyle={{ padding: 5 }}
             onRemoveItem={(item, index) => {
