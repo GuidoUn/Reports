@@ -121,7 +121,6 @@ export default class Login extends React.Component {
                 </TouchableHighlight>
               </View>
             </View>
-
           </Modal>
         </View>
       </View>

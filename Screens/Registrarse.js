@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   Image,
   StyleSheet,
@@ -16,8 +16,74 @@ import * as Permissions from 'expo-permissions';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Modal from "react-native-modal";
+import SearchableDropdown from 'react-native-searchable-dropdown';
 
-
+var items = [
+  {
+    id: 1,
+    name: 'Agronomía',
+  },
+  {
+    id: 2,
+    name: 'Almagro',
+  },
+  {
+    id: 3,
+    name: 'Balvanera',
+  },
+  {
+    id: 4,
+    name: 'Barracas',
+  },
+  {
+    id: 5,
+    name: 'Belgrano',
+  },
+  {
+    id: 6,
+    name: 'Boedo',
+  },
+  {
+    id: 7,
+    name: 'Caballito',
+  },
+  {
+    id: 8,
+    name: 'Chacarita',
+  },
+  {
+    id: 9,
+    name: 'Coghlan',
+  },
+  {
+    id: 10,
+    name: 'Colegiales',
+  },
+  {
+    id: 11,
+    name: 'Constitución',
+  },
+  {
+    id: 12,
+    name: 'Flores',
+  },
+  {
+    id: 13,
+    name: 'Floresta',
+  },
+  {
+    id: 14,
+    name: 'La Boca',
+  },
+  {
+    id: 15,
+    name: 'La Paternal',
+  },
+  {
+    id: 16,
+    name: 'Liniers',
+  },
+];
 
 export default class Login extends React.Component {
   constructor() {
@@ -43,16 +109,16 @@ export default class Login extends React.Component {
 
   createPressed() {
     if (this.state.createUserInput && this.state.createMailInput && this.state.createPassInput) {
-      fetch('http://10.10.6.9:3000/api/usuarios/reg', {
+      fetch('http://10.10.6.17:3000/api/usuarios/reg', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user: createUserInput,
-          email: createMailInput,
-          password: createPassInput,
+          user: this.state.createUserInput,
+          email: this.state.createMailInput,
+          password: this.state.createPassInput,
         }),
       })
         .then((response) => response.json())
@@ -103,6 +169,53 @@ export default class Login extends React.Component {
             secureTextEntry
             onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
           />
+          <SearchableDropdown
+            multi={true}
+            selectedItems={this.state.selectedItems}
+            onItemSelect={(item) => {
+              const items = this.state.selectedItems;
+              items.push(item)
+              this.setState({ selectedItems: items });
+            }}
+            containerStyle={{ padding: 5 }}
+            onRemoveItem={(item, index) => {
+              const items = this.state.selectedItems.filter((sitem) => sitem.id !== item.id);
+              this.setState({ selectedItems: items });
+            }}
+            itemStyle={{
+              padding: 10,
+              marginTop: 2,
+              backgroundColor: '#ddd',
+              borderColor: '#bbb',
+              borderWidth: 1,
+              borderRadius: 5,
+            }}
+            itemTextStyle={{ color: '#222' }}
+            itemsContainerStyle={{ maxHeight: 140 }}
+            items={items}
+            defaultIndex={0}
+            chip={true}
+            resetValue={false}
+            textInputProps={
+              {
+                placeholder: "Belgrano",
+                underlineColorAndroid: "transparent",
+                style: {
+                    padding: 12,
+                    borderWidth: 1,
+                    borderColor: '#ccc',
+                    borderRadius: 5,
+                },
+              }
+            }
+            listProps={
+              {
+                nestedScrollEnabled: true,
+              }
+            }
+          />
+          {/* Single */}
+          
           <TouchableHighlight
             style={styles.button}
             onPress={() => this.createPressed()}
