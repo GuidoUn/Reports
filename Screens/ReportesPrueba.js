@@ -111,71 +111,80 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
     styles.buttonSlide12 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
     styles.buttonSlide13 = {
       backgroundColor: 'blue',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
   }
 
   pressedParcial() {
     this.setState({ PickerValue: 'parcial' })
     styles.buttonSlide11 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
     styles.buttonSlide12 = {
       backgroundColor: 'green',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
     styles.buttonSlide13 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
   }
 
   pressedTotal() {
     this.setState({ PickerValue: 'total' })
     styles.buttonSlide11 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
     styles.buttonSlide12 = {
       backgroundColor: 'blue',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
     styles.buttonSlide13 = {
       backgroundColor: 'green',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130
+      height: 130,
+      borderRadius: 50,
     }
   }
 
@@ -190,7 +199,8 @@ class Reportes extends React.Component {
         marginLeft: 5,
         justifyContent: 'center',
         width: 125,
-        height: 175
+        height: 175,
+        borderRadius: 50,
       }
     } else if (tipo == 'Pozo') {
       styles.buttonSlide22 = {
@@ -200,7 +210,8 @@ class Reportes extends React.Component {
         marginLeft: 5,
         justifyContent: 'center',
         width: 125,
-        height: 175
+        height: 175,
+        borderRadius: 50,
       }
     } else if (tipo == 'noLuz') {
       styles.buttonSlide23 = {
@@ -210,7 +221,8 @@ class Reportes extends React.Component {
         marginLeft: 5,
         justifyContent: 'center',
         width: 125,
-        height: 175
+        height: 175,
+        borderRadius: 50,
       }
     } else if (tipo == 'Otro') {
       styles.buttonSlide24 = {
@@ -220,47 +232,52 @@ class Reportes extends React.Component {
         marginLeft: 5,
         justifyContent: 'center',
         width: 125,
-        height: 175
+        height: 175,
+        borderRadius: 50,
       }
     }
   }
 
   screen2blue() {
     styles.buttonSlide21 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 125,
       marginRight: 5,
       marginLeft: 5,
       justifyContent: 'center',
       width: 125,
-      height: 175
+      height: 175,
+      borderRadius: 50,
     }
     styles.buttonSlide22 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 125,
       marginRight: 5,
       marginLeft: 5,
       justifyContent: 'center',
       width: 125,
-      height: 175
+      height: 175,
+      borderRadius: 50,
     }
     styles.buttonSlide23 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 125,
       marginRight: 5,
       marginLeft: 5,
       justifyContent: 'center',
       width: 125,
-      height: 175
+      height: 175,
+      borderRadius: 50,
     }
     styles.buttonSlide24 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 125,
       marginRight: 5,
       marginLeft: 5,
       justifyContent: 'center',
       width: 125,
-      height: 175
+      height: 175,
+      borderRadius: 50,
     }
 
   }
@@ -412,26 +429,26 @@ class Reportes extends React.Component {
               alignItems: 'center',
             }}>
               <Text styles={styles.title}>¿Es transitable?</Text>
-              <TouchableHighlight
-                style={styles.buttonSlide11}
-                onPress={() => this.pressedLeve()}
-              >
-                <Text style={styles.textButton}>Transitable</Text>
+                <TouchableHighlight
+                  style={styles.buttonSlide11}
+                  onPress={() => this.pressedLeve()}
+                >
+                  <Text style={styles.textButton}>Transitable</Text>
 
-              </TouchableHighlight>
-              <TouchableHighlight style={styles.buttonSlide12}
-                onPress={() => this.pressedParcial()}
-              >
-                <Text style={styles.textButton}>Parcialmente Transitable</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={styles.buttonSlide13}
-                onPress={() => this.pressedTotal()}
-              >
-                <Text style={styles.textButton}>Intransitable</Text>
+                </TouchableHighlight>
+                <TouchableHighlight style={styles.buttonSlide12}
+                  onPress={() => this.pressedParcial()}
+                >
+                  <Text style={styles.textButton}>Parcialmente Transitable</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.buttonSlide13}
+                  onPress={() => this.pressedTotal()}
+                >
+                  <Text style={styles.textButton}>Intransitable</Text>
 
-              </TouchableHighlight>
-            </View>
+                </TouchableHighlight>
+               </View>
 
             <View style={{
               justifyContent: 'center',
@@ -513,7 +530,7 @@ class Reportes extends React.Component {
                 <Text style={styles.textButton}>Abrir cámara</Text>
               </TouchableHighlight>
               <TouchableHighlight
-                style={styles.button}
+                style={styles.buttonReport}
                 onPress={() => this.buttonPressed()}
               >
                 <Text style={styles.textButton}>Reportar</Text>
@@ -615,6 +632,12 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15
   },
+  buttonReport: {
+    backgroundColor: 'red',
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingHorizontal:22,
+  },
   button2: {
     backgroundColor: 'blue',
     paddingTop: 5,
@@ -635,61 +658,68 @@ const styles = StyleSheet.create({
     height: 30
   },
   buttonSlide11: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
     width: 250,
-    height: 130
+    height: 130,
+    borderRadius: 50,
   },
   buttonSlide12: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
     width: 250,
-    height: 130
+    height: 130,
+    borderRadius: 50,
   },
   buttonSlide13: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
     width: 250,
-    height: 130
+    height: 130,
+    borderRadius: 50,
   },
   buttonSlide21: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     marginTop: 125,
     marginRight: 5,
     marginLeft: 5,
     justifyContent: 'center',
     width: 125,
-    height: 175
+    height: 175,
+    borderRadius: 50,
   },
   buttonSlide22: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     marginTop: 125,
     marginRight: 5,
     marginLeft: 5,
     justifyContent: 'center',
     width: 125,
-    height: 175
+    height: 175,
+    borderRadius: 50,
   },
   buttonSlide23: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     marginTop: 125,
     marginRight: 5,
     marginLeft: 5,
     justifyContent: 'center',
     width: 125,
-    height: 175
+    height: 175,
+    borderRadius: 50,
   },
   buttonSlide24: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     marginTop: 125,
     marginRight: 5,
     marginLeft: 5,
     justifyContent: 'center',
     width: 125,
-    height: 175
+    height: 175,
+    borderRadius: 50,
   },
   button4: {
     backgroundColor: 'green',
@@ -737,7 +767,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: 'center',
-    color: 'white'
+    color: 'black'
   },
   input: {
     height: 40,

@@ -55,6 +55,7 @@ class Ajustes extends React.Component {
 
   mostrarEnPantalla(){
     if(this.state.PickerNot!='nunca'){
+      
       alert('Ajustes guardados: Modo ciego '+this.state.ModoCiego + '. Modo noche '+this.state.ModoNoche+ '. Usted recibirá notificaciones '+this.state.PickerNot+'.');
     }
     else {
