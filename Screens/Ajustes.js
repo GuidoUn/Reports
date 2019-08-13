@@ -13,7 +13,6 @@ import ToggleSwitch from 'toggle-switch-react-native';
 import SwitchToggle from 'react-native-switch-toggle';
 import Switch from 'react-native-switch-pro';
 
-
 class Ajustes extends React.Component {
   constructor() {
     super()
@@ -53,9 +52,9 @@ class Ajustes extends React.Component {
     }
   }
 
+
   mostrarEnPantalla(){
     if(this.state.PickerNot!='nunca'){
-      
       alert('Ajustes guardados: Modo ciego '+this.state.ModoCiego + '. Modo noche '+this.state.ModoNoche+ '. Usted recibirá notificaciones '+this.state.PickerNot+'.');
     }
     else {

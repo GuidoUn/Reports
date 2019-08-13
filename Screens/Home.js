@@ -10,6 +10,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 
 export default class Home extends React.Component {
+  
   render() {
     return (
       <View style={styles.container}>
@@ -19,7 +20,7 @@ export default class Home extends React.Component {
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesPrueba')}><Text style={styles.textButton}>ReportesPrueba</Text></TouchableHighlight>
-      </View>
+        </View>
     )
   }
 }
