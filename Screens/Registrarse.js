@@ -83,6 +83,134 @@ var items = [
     id: 16,
     name: 'Liniers',
   },
+  {
+    id: 17,
+    name: 'Mataderos',
+  },
+  {
+    id: 18,
+    name: 'Monte Castro',
+  },
+  {
+    id: 19,
+    name: 'Monserrat',
+  },
+  {
+    id: 20,
+    name: 'Nueva Pompeya',
+  },
+  {
+    id: 21,
+    name: 'Nuñez',
+  },
+  {
+    id: 22,
+    name: 'Palermo',
+  },
+  {
+    id: 23,
+    name: 'Parque Avellaneda',
+  },
+  {
+    id: 24,
+    name: 'Parque Chacabuco',
+  },
+  {
+    id: 25,
+    name: 'Parque chas',
+  },
+  {
+    id: 26,
+    name: 'Parque Patricios',
+  },
+  {
+    id: 27,
+    name: 'Puerto Madero',
+  },
+  {
+    id: 28,
+    name: 'Recoleta',
+  },
+  {
+    id: 29,
+    name: 'Retiro ',
+  },
+  {
+    id: 30,
+    name: 'Saavedra',
+  },
+  {
+    id: 31,
+    name: 'San Cristóbal',
+  },
+  {
+    id: 32,
+    name: 'San Nicolás',
+  },
+  {
+    id: 33,
+    name: 'San Telmo',
+  },
+  {
+    id: 34,
+    name: 'Veléz Sársfield',
+  },
+  {
+    id: 35,
+    name: 'Versalles',
+  },
+  {
+    id: 36,
+    name: 'Villa Crespo',
+  },
+  {
+    id: 37,
+    name: 'Villa del Parque',
+  },
+  {
+    id: 38,
+    name: 'Villa Devoto',
+  },
+  {
+    id: 39,
+    name: 'Villa General Mitre',
+  },
+  {
+    id: 40,
+    name: 'Villa Lugano',
+  },
+  {
+    id: 41,
+    name: 'Villa Luro',
+  },
+  {
+    id: 42,
+    name: 'Villa Ortúzar',
+  },
+  {
+    id: 43,
+    name: 'Villa Pueyrredón',
+  },
+  {
+    id: 44,
+    name: 'Villa Real',
+  },
+  {
+    id: 45,
+    name: 'Villa Riachuelo',
+  },
+  {
+    id: 46,
+    name: 'Villa Santa Rita',
+  },
+  {
+    id: 47,
+    name: 'Villa Soldati',
+  },
+  {
+    id: 48,
+    name: 'Villa Urquiza',
+  },
 ];
 
 export default class Login extends React.Component {
@@ -92,7 +220,11 @@ export default class Login extends React.Component {
       createUserInput: '',
       createMailInput: '',
       createPassInput: '',
-      createBarrio: '',
+      selectedItems: [
+        {
+          id: 0,
+          name: '',
+        }],
     }
   }
 
@@ -110,6 +242,7 @@ export default class Login extends React.Component {
 
   createPressed() {
     if (this.state.createUserInput && this.state.createMailInput && this.state.createPassInput) {
+      alert(this.state.selectedItems.name)
       fetch('http://10.10.6.17:3000/api/usuarios/reg', {
         method: 'POST',
         headers: {
@@ -120,6 +253,7 @@ export default class Login extends React.Component {
           user: this.state.createUserInput,
           email: this.state.createMailInput,
           password: this.state.createPassInput,
+          barrio: this.state.selectedItems.name,
         }),
       })
         .then((response) => response.json())
@@ -138,7 +272,7 @@ export default class Login extends React.Component {
           alert('Se ha producido un error registrando su cuenta')
         })
     }
-    else{
+    else {
       alert('Por favor complete todos los campos')
     }
   }
@@ -148,6 +282,48 @@ export default class Login extends React.Component {
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>Registro</Text>
+          <SearchableDropdown
+            onItemSelect={(item) => {
+              //const items = this.state.selectedItems;
+              //items.push(item)
+              this.setState({ selectedItems: item });
+            }}
+            containerStyle={{ padding: 5 }}
+            onRemoveItem={(item, index) => {
+              const items = this.state.selectedItems.filter((sitem) => sitem.id !== item.id);
+              this.setState({ createBarrio: items });
+            }}
+            itemStyle={{
+              padding: 10,
+              marginTop: 2,
+              backgroundColor: '#ddd',
+              borderColor: '#bbb',
+              borderWidth: 1,
+              borderRadius: 5,
+            }}
+            itemTextStyle={{ color: '#222' }}
+            itemsContainerStyle={{ maxHeight: 140 }}
+            items={items}
+            defaultIndex={0}
+            resetValue={false}
+            textInputProps={
+              {
+                placeholder: "Belgrano",
+                underlineColorAndroid: "transparent",
+                style: {
+                  padding: 12,
+                  borderWidth: 1,
+                  borderColor: '#ccc',
+                  borderRadius: 5,
+                },
+              }
+            }
+            listProps={
+              {
+                nestedScrollEnabled: true,
+              }
+            }
+          />
           <Text>Nombre de usuario</Text>
           <TextInput
             style={styles.input}
@@ -170,52 +346,7 @@ export default class Login extends React.Component {
             secureTextEntry
             onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
           />
-          <SearchableDropdown
-            multi={true}
-            selectedItems={this.state.selectedItems}
-            onItemSelect={(item) => {
-              const items = this.state.selectedItems;
-              this.setState({ createBarrio: items});
-            }}
-            containerStyle={{ padding: 5 }}
-            onRemoveItem={(item, index) => {
-              const items = this.state.selectedItems.filter((sitem) => sitem.id !== item.id);
-              this.setState({ selectedItems: items });
-            }}
-            itemStyle={{
-              padding: 10,
-              marginTop: 2,
-              backgroundColor: '#ddd',
-              borderColor: '#bbb',
-              borderWidth: 1,
-              borderRadius: 5,
-            }}
-            itemTextStyle={{ color: '#222' }}
-            itemsContainerStyle={{ maxHeight: 140 }}
-            items={items}
-            defaultIndex={0}
-            chip={true}
-            resetValue={false}
-            textInputProps={
-              {
-                placeholder: "Belgrano",
-                underlineColorAndroid: "transparent",
-                style: {
-                    padding: 12,
-                    borderWidth: 1,
-                    borderColor: '#ccc',
-                    borderRadius: 5,
-                },
-              }
-            }
-            listProps={
-              {
-                nestedScrollEnabled: true,
-              }
-            }
-          />
-          {/* Single */}
-          
+
           <TouchableHighlight
             style={styles.button}
             onPress={() => this.createPressed()}
