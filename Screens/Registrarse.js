@@ -251,6 +251,9 @@ export default class Login extends React.Component {
         },
         body: JSON.stringify({
           user: this.state.createUserInput,
+          dni: 'dni',
+          name: 'nombre',
+          surname: 'apellido',
           email: this.state.createMailInput,
           password: this.state.createPassInput,
           barrio: this.state.selectedItems.name,
