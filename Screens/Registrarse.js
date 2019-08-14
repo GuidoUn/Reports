@@ -223,7 +223,7 @@ export default class Login extends React.Component {
       selectedItems: [
         {
           id: 0,
-          name: '',
+          name: 'no ha seleccionado barrio',
         }],
     }
   }
@@ -243,7 +243,7 @@ export default class Login extends React.Component {
   createPressed() {
     if (this.state.createUserInput && this.state.createMailInput && this.state.createPassInput) {
       alert(this.state.selectedItems.name)
-      fetch('http://10.10.6.17:3000/api/usuarios/reg', {
+      fetch('http://10.10.32.8:3000/api/usuarios/reg', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
