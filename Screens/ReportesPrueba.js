@@ -123,7 +123,7 @@ class Reportes extends React.Component {
       borderRadius: 50,
     }
     styles.buttonSlide13 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
@@ -171,7 +171,7 @@ class Reportes extends React.Component {
       borderRadius: 50,
     }
     styles.buttonSlide12 = {
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
@@ -588,7 +588,6 @@ class Reportes extends React.Component {
             </View>
           </Swiper>
         </ImageBackground>
-
       </View>
     )
   }

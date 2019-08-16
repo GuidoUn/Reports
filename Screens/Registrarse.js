@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ImageBackground,
   Button,
   TextInput,
   TouchableHighlight,
@@ -218,6 +219,7 @@ export default class Login extends React.Component {
     super()
     this.state = {
       createUserInput: '',
+      createDNIInput: '',
       createMailInput: '',
       createPassInput: '',
       selectedItems: [
@@ -236,6 +238,10 @@ export default class Login extends React.Component {
     this.setState({ createMailInput })
   }
 
+  changeCreateDNIInput(createDNIInput) {
+    this.setState({ createDNIInput })
+  }
+
   changeCreatePassInput(createPassInput) {
     this.setState({ createPassInput })
   }
@@ -243,7 +249,7 @@ export default class Login extends React.Component {
   createPressed() {
     if (this.state.createUserInput && this.state.createMailInput && this.state.createPassInput) {
       alert(this.state.selectedItems.name)
-      fetch('http://10.10.32.8:3000/api/usuarios/reg', {
+      fetch('http://10.10.6.63:3000/api/usuarios/reg', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -251,7 +257,7 @@ export default class Login extends React.Component {
         },
         body: JSON.stringify({
           user: this.state.createUserInput,
-          dni: 'dni',
+          dni: 43448490,
           name: 'nombre',
           surname: 'apellido',
           email: this.state.createMailInput,
@@ -283,81 +289,92 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.title}>Registro</Text>
-          <SearchableDropdown
-            onItemSelect={(item) => {
-              //const items = this.state.selectedItems;
-              //items.push(item)
-              this.setState({ selectedItems: item });
-            }}
-            containerStyle={{ padding: 5 }}
-            onRemoveItem={(item, index) => {
-              const items = this.state.selectedItems.filter((sitem) => sitem.id !== item.id);
-              this.setState({ createBarrio: items });
-            }}
-            itemStyle={{
-              padding: 10,
-              marginTop: 2,
-              backgroundColor: '#ddd',
-              borderColor: '#bbb',
-              borderWidth: 1,
-              borderRadius: 5,
-            }}
-            itemTextStyle={{ color: '#222' }}
-            itemsContainerStyle={{ maxHeight: 140 }}
-            items={items}
-            defaultIndex={0}
-            resetValue={false}
-            textInputProps={
-              {
-                placeholder: "Belgrano",
-                underlineColorAndroid: "transparent",
-                style: {
-                  padding: 12,
-                  borderWidth: 1,
-                  borderColor: '#ccc',
-                  borderRadius: 5,
-                },
+        {/*<ImageBackground source={require('../Images/back2.jpeg')} style={{ width: '100%', height: '100%' }}>*/}
+          <View>
+            <Text style={styles.title}>Registro</Text>
+            <SearchableDropdown
+              onItemSelect={(item) => {
+                //const items = this.state.selectedItems;
+                //items.push(item)
+                this.setState({ selectedItems: item });
+              }}
+              containerStyle={{ padding: 5 }}
+              onRemoveItem={(item, index) => {
+                const items = this.state.selectedItems.filter((sitem) => sitem.id !== item.id);
+                this.setState({ createBarrio: items });
+              }}
+              itemStyle={{
+                padding: 10,
+                marginTop: 2,
+                backgroundColor: '#ddd',
+                borderColor: '#bbb',
+                borderWidth: 1,
+                borderRadius: 5,
+              }}
+              itemTextStyle={{ color: '#222' }}
+              itemsContainerStyle={{ maxHeight: 140 }}
+              items={items}
+              defaultIndex={0}
+              resetValue={false}
+              textInputProps={
+                {
+                  placeholderTextColor:'black',
+                  placeholder: "Seleccionar barrio",
+                  underlineColorAndroid: "transparent",
+                  style: {
+                    height:50,
+                    borderWidth: 1,
+                    borderColor: '#ccc',
+                    borderRadius: 5,
+                  },
+                }
               }
-            }
-            listProps={
-              {
-                nestedScrollEnabled: true,
+              listProps={
+                {
+                  nestedScrollEnabled: true,
+                }
               }
-            }
-          />
-          <Text>Nombre de usuario</Text>
-          <TextInput
-            style={styles.input}
-            placeholder=""
-            value={this.state.createUserInput}
-            onChangeText={(createUserInput) => this.changeCreateUserInput(createUserInput)}
-          />
-          <Text>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder=""
-            value={this.state.createMailInput}
-            onChangeText={(createMailInput) => this.changeCreateMailInput(createMailInput)}
-          />
-          <Text>Contraseña</Text>
-          <TextInput
-            style={styles.input}
-            placeholder=""
-            value={this.state.createPassInput}
-            secureTextEntry
-            onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
-          />
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='white'
+              placeholder=" Nombre de Usuario"
+              value={this.state.createUserInput}
+              onChangeText={(createUserInput) => this.changeCreateUserInput(createUserInput)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='white'
+              placeholder=" Dirección de Email"
+              value={this.state.createMailInput}
+              onChangeText={(createMailInput) => this.changeCreateMailInput(createMailInput)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='white'
+              placeholder=" DNI"
+              value={this.state.createDNIInput}
+              onChangeText={(createDNIInput) => this.changeCreateDNIInput(createDNIInput)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor='white'
+              placeholder=" Contraseña"
+              value={this.state.createPassInput}
+              secureTextEntry
+              onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
+            />
 
-          <TouchableHighlight
-            style={styles.button}
-            onPress={() => this.createPressed()}
-          >
-            <Text style={styles.textButton}>Crear cuenta</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
-        </View>
+            <TouchableHighlight
+              style={styles.button}
+              onPress={() => this.createPressed()}
+            >
+              <Text style={styles.textButton}>Crear cuenta</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
+          </View>
+        {/*</ImageBackground>*/}
+
       </View>
     );
   }
@@ -366,10 +383,10 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#EFEFEF',
     marginTop: 5,
-    paddingLeft: 15,
-    paddingRight: 15
+    paddingLeft: 0,
+    paddingRight: 0
   },
   direc: {
     textAlign: 'center',
@@ -408,7 +425,12 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    color: 'white',
+    backgroundColor: '#663399',
+    borderBottomRightRadius: 30,
+    borderTopRightRadius:30,
+    marginRight:50,
+    borderColor: '#663399',
     marginBottom: 15,
     borderWidth: 2
   },
