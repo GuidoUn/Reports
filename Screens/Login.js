@@ -10,6 +10,8 @@ import {
   Picker,
   Platform
 } from 'react-native';
+//import { CheckBox } from 'react-native-elements';
+import CheckBox from 'react-native-check-box';
 import * as Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -24,6 +26,7 @@ export default class Login extends React.Component {
       userInput: '',
       passInput: '',
       modalPass: false,
+      checked: true,
     }
   }
 
@@ -52,6 +55,10 @@ export default class Login extends React.Component {
     this.cerrarModalPass();
   }
 
+  goToRecuperarPass() {
+    this.props.navigation.navigate('RecuperarPass')
+  }
+
   goToRegistrarse() {
     this.props.navigation.navigate('Registrarse')
   }
@@ -61,38 +68,42 @@ export default class Login extends React.Component {
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>Log-In</Text>
-          <Text>Nombre de usuario</Text>
           <TextInput
             style={styles.input}
-            placeholder=""
+            placeholder=" Usuario o correo electrónico"
             value={this.state.userInput}
             onChangeText={(userInput) => this.changeUserInput(userInput)}
           />
-          <Text>Contraseña</Text>
           <TextInput
             style={styles.input}
-            placeholder=""
+            placeholder=" Contraseña"
             value={this.state.passInput}
             secureTextEntry
             onChangeText={(passInput) => this.changePassInput(passInput)}
+          />
+          <CheckBox
+            style={styles.checkbox}
+            left
+            rightText='Recordarme'
+            onClick={() => this.setState({ checked: !this.state.checked })}
+            isChecked={this.state.checked}
           />
           <TouchableHighlight
             style={styles.button}
             onPress={() => this.loginPressed()}
           >
-            <Text style={styles.textButton}>Iniciar sesión</Text>
+            <Text style={styles.textButton}>Entrar</Text>
           </TouchableHighlight>
-
           <TouchableHighlight
             style={styles.button}
-            onPress={() => this.recuperarPass()}
+            onPress={() => this.goToRecuperarPass()}
           >
             <Text style={styles.textButton}>Recuperar contraseña</Text>
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.button}
             onPress={() => this.goToRegistrarse()}
-            >
+          >
             <Text style={styles.textButton}>Registrarse</Text>
           </TouchableHighlight>
 
@@ -131,7 +142,7 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#CDCDCD',
     marginTop: 5,
     paddingLeft: 15,
     paddingRight: 15
@@ -171,9 +182,13 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   button: {
-    backgroundColor: 'lightblue',
+    backgroundColor: 'transparent',
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: '#663399',
+    height: 50,
     marginTop: 7,
-    padding: 10,
+    padding: 15,
     marginBottom: 7,
   },
   modalText: {
@@ -188,11 +203,13 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: 'center',
-    color: 'black'
+    color: '#663399',
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
+    height: 50,
+    borderColor: '#CDCDCD',
+    backgroundColor: '#EFEFEF',
+    borderRadius: 30,
     marginBottom: 15,
     borderWidth: 2
   },
@@ -222,5 +239,9 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     width: '50%',
     height: 30
+  },
+  checkbox: {
+    backgroundColor: '#CDCDCD',
+    height: 35,
   },
 });

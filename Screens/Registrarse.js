@@ -291,7 +291,7 @@ export default class Login extends React.Component {
       <View style={styles.container}>
         {/*<ImageBackground source={require('../Images/back2.jpeg')} style={{ width: '100%', height: '100%' }}>*/}
           <View>
-            <Text style={styles.title}>Registro</Text>
+            <Text style={styles.title}>Sign Up</Text>
             <SearchableDropdown
               onItemSelect={(item) => {
                 //const items = this.state.selectedItems;
@@ -319,7 +319,7 @@ export default class Login extends React.Component {
               textInputProps={
                 {
                   placeholderTextColor:'black',
-                  placeholder: "Seleccionar barrio",
+                  placeholder: " Seleccionar barrio",
                   underlineColorAndroid: "transparent",
                   style: {
                     height:50,
@@ -345,14 +345,14 @@ export default class Login extends React.Component {
             <TextInput
               style={styles.input}
               placeholderTextColor='white'
-              placeholder=" Dirección de Email"
+              placeholder=" Correo electrónico"
               value={this.state.createMailInput}
               onChangeText={(createMailInput) => this.changeCreateMailInput(createMailInput)}
             />
             <TextInput
               style={styles.input}
               placeholderTextColor='white'
-              placeholder=" DNI"
+              placeholder=" Número de documento"
               value={this.state.createDNIInput}
               onChangeText={(createDNIInput) => this.changeCreateDNIInput(createDNIInput)}
             />
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   ciudad: {
     textAlign: 'center',
     fontSize: 18,
-    marginBottom: 15
+    marginBottom: 15,
   },
   pais: {
     textAlign: 'center',
@@ -404,14 +404,19 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   title: {
-    textAlign: 'center',
+    textAlign: 'left',
+    marginTop: 15,
+    marginLeft: 30,
     fontSize: 22,
     marginBottom: 15
   },
   button: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#663399',
     marginTop: 7,
-    padding: 10,
+    marginHorizontal: 30,
+    borderRadius: 50,
+    height: 50,
+    padding: 15,
     marginBottom: 7,
   },
   button2: {
@@ -421,7 +426,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: 'center',
-    color: 'black'
+    color: 'white',
   },
   input: {
     height: 40,

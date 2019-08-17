@@ -13,6 +13,7 @@ import Login from './Screens/Login';
 import Registrarse from './Screens/Registrarse';
 import Home from './Screens/Home';
 import ReportesPrueba from './Screens/ReportesPrueba';
+import RecuperarPass from './Screens/RecuperarPass';
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -32,6 +33,9 @@ const AppNavigator = createStackNavigator({
   },
   ReportesPrueba:{
     screen: ReportesPrueba
+  },
+  RecuperarPass:{
+    screen: RecuperarPass
   },
 },
   {
