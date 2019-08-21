@@ -248,8 +248,7 @@ export default class Login extends React.Component {
 
   createPressed() {
     if (this.state.createUserInput && this.state.createMailInput && this.state.createPassInput) {
-      alert(this.state.selectedItems.name)
-      fetch('http://10.10.6.63:3000/api/usuarios/reg', {
+      fetch('http://10.10.6.94:3000/api/usuarios/reg', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -257,7 +256,7 @@ export default class Login extends React.Component {
         },
         body: JSON.stringify({
           user: this.state.createUserInput,
-          dni: 43448490,
+          dni: this.state.createDNIInput,
           name: 'nombre',
           surname: 'apellido',
           email: this.state.createMailInput,
@@ -411,7 +410,7 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   button: {
-    backgroundColor: '#663399',
+    backgroundColor: '#787FF6',
     marginTop: 7,
     marginHorizontal: 30,
     borderRadius: 50,
@@ -431,11 +430,11 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     color: 'white',
-    backgroundColor: '#663399',
+    backgroundColor: '#787FF6',
     borderBottomRightRadius: 30,
     borderTopRightRadius:30,
     marginRight:50,
-    borderColor: '#663399',
+    borderColor: '#787FF6',
     marginBottom: 15,
     borderWidth: 2
   },

@@ -455,12 +455,9 @@ class Reportes extends React.Component {
               alignItems: 'center',
             }}>
               <Text styles={styles.title}>Ubicación</Text>
-              <Text style={{
-                marginTop: 30,
-              }}>Introducir dirección manualmente</Text>
               <TextInput
                 style={styles.inputSlide3}
-                placeholder=" Libertador 6532"
+                placeholder=" Introducir manualmente"
                 value={this.state.direc}
                 onChangeText={(direc) => this.changeDirec(direc)}
               />
@@ -471,7 +468,6 @@ class Reportes extends React.Component {
                 <Text style={styles.textButton}>{this.state.mensajeUbicacion}</Text>
               </TouchableHighlight>
               <Modal isVisible={this.state.mapaAbierto}>
-
                 <MapView
                   provider={PROVIDER_GOOGLE}
                   style={{ flex: 10 }}
@@ -524,7 +520,7 @@ class Reportes extends React.Component {
             }}>
               <Text styles={styles.title}>Tomar una fotografía</Text>
               <TouchableHighlight
-                style={styles.button2}
+                style={styles.buttonOpenCamera}
                 onPress={() => this.setState({ camaraAbierta: true })}
               >
                 <Text style={styles.textButton}>Abrir cámara</Text>
@@ -636,12 +632,22 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     paddingHorizontal:22,
+    marginTop:10,
+    borderRadius: 30,
   },
   button2: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
+    borderRadius: 30,
     paddingTop: 5,
     paddingBottom: 5,
-    paddingHorizontal: 22,
+    paddingHorizontal: 10,
+  },
+  buttonOpenCamera: {
+    backgroundColor: 'white',
+    borderRadius: 30,
+    paddingTop: 5,
+    paddingBottom: 5,
+    width:120, 
   },
   buttonCerrarCamara: {
     backgroundColor: 'grey',
@@ -777,7 +783,9 @@ const styles = StyleSheet.create({
   inputSlide3: {
     height: 40,
     width: 250,
-    borderColor: '#ccc',
+    borderRadius:30,
+    borderColor: 'white',
+    backgroundColor: 'white',
     marginTop: 15,
     marginBottom: 15,
     borderWidth: 2

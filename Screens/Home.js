@@ -15,11 +15,11 @@ export default class Home extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Home</Text>
-        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesScreen')}><Text style={styles.textButton}>Realizar un reporte</Text></TouchableHighlight>
+        {/*<TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesScreen')}><Text style={styles.textButton}>Realizar un reporte</Text></TouchableHighlight>*/}
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesPrueba')}><Text style={styles.textButton}>ReportesPrueba</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesPrueba')}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
         </View>
     )
   }

@@ -40,6 +40,30 @@ export default class Login extends React.Component {
 
   loginPressed() {
     alert('Usuario: ' + this.state.userInput + ' Contraseña: ' + this.state.passInput)
+    fetch('http://10.10.6.112:3000/api/obstaculos/creo', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => response.json())
+        /*
+        .then((response) =>
+        
+        )
+        */
+        .then((responseData) => {
+          console.log('RESULTS HERE:', responseData)
+          
+          this.setState({
+            dataSource: responseJson,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Se produjo un error logueando')
+        })
   }
 
   recuperarPass() {
@@ -185,7 +209,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderRadius: 50,
     borderWidth: 1,
-    borderColor: '#663399',
+    borderColor: '#787FF6',
     height: 50,
     marginTop: 7,
     padding: 15,
@@ -203,7 +227,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: 'center',
-    color: '#663399',
+    color: '#787FF6',
   },
   input: {
     height: 50,
