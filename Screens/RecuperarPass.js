@@ -97,10 +97,10 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     button: {
-        backgroundColor: '#663399',
+        backgroundColor: '#787FF6',
         borderRadius: 50,
         borderWidth: 1,
-        borderColor: '#663399',
+        borderColor: '#787FF6',
         height: 50,
         marginTop: 7,
         padding: 15,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     input: {
         height: 50,
         borderColor: '#CDCDCD',
-        backgroundColor: '#EFEFEF',
+        backgroundColor: '#787FF6',
         borderRadius: 30,
         marginBottom: 15,
         borderWidth: 2

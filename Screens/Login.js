@@ -18,6 +18,7 @@ import * as Permissions from 'expo-permissions';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Modal from "react-native-modal";
+import { AsyncStorage } from 'react-native';
 
 export default class Login extends React.Component {
   constructor() {
@@ -27,6 +28,10 @@ export default class Login extends React.Component {
       passInput: '',
       modalPass: false,
       checked: true,
+
+      userResponse: '',
+      token: '',
+
     }
   }
 
@@ -39,31 +44,49 @@ export default class Login extends React.Component {
   }
 
   loginPressed() {
-    alert('Usuario: ' + this.state.userInput + ' Contraseña: ' + this.state.passInput)
-    fetch('http://10.10.6.112:3000/api/obstaculos/creo', {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-        })
+    if (this.state.userInput && this.state.passInput) {
+      fetch(`http://10.10.32.52:3000/api/usuarios/log?email=${this.state.userInput}&password=${this.state.passInput}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
         .then((response) => response.json())
-        /*
+
         .then((response) =>
-        
+
+          this.setState({
+            userResponse: response.user,
+
+            token: response.token,
+            /*
+            _storeData = async () => {
+              try {
+                await AsyncStorage.setItem('@MySuperStore:key', response.token);
+              } catch (error) {
+                alert('error saving token')
+              }
+            }
+            */
+          })
         )
-        */
+
         .then((responseData) => {
           console.log('RESULTS HERE:', responseData)
-          
+          /*
           this.setState({
             dataSource: responseJson,
           });
+          */
         })
         .catch((error) => {
           console.error(error);
           alert('Se produjo un error logueando')
         })
+        alert('Usuario: ' + this.state.userInput + ' Contraseña: ' + this.state.passInput)
+    }
+    alert('Por favor ingrese mail y contraseña')
   }
 
   recuperarPass() {
@@ -94,7 +117,7 @@ export default class Login extends React.Component {
           <Text style={styles.title}>Log-In</Text>
           <TextInput
             style={styles.input}
-            placeholder=" Usuario o correo electrónico"
+            placeholder=" Ingresar correo electrónico"
             value={this.state.userInput}
             onChangeText={(userInput) => this.changeUserInput(userInput)}
           />

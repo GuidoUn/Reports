@@ -53,6 +53,7 @@ class Reportes extends React.Component {
       tipoObstaculo: '',
       hasCameraPermission: null,
       PermissionCameraAsked: 0,
+      PermissionLocationAsked: 0,
       Type: Camera.Constants.Type.back,
       previewUri: undefined,
       previewBase64: undefined,
@@ -73,7 +74,7 @@ class Reportes extends React.Component {
   }
   hacerFetch(sendLatitude, sendLongitude) {
     console.log('reportando');
-    fetch('http://10.10.6.17:3000/api/obstaculos/creo', {
+    fetch('http://10.10.32.52:3000/api/obstaculos/creo', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -346,12 +347,17 @@ class Reportes extends React.Component {
   }
 
   _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
+    if (this.state.PermissionLocationAsked == 0) {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      this.setState({ hasLocationPermission: status === 'granted', PermissionLocationAsked: 1 })
+      if (status !== 'granted') {
+        this.setState({
+          errorMessage: 'Permission to access location was denied',
+          PermissionLocationAsked: 0,
+        });
+      }
     }
+
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ latitude: location.coords.latitude, longitude: location.coords.longitude });
@@ -359,13 +365,13 @@ class Reportes extends React.Component {
   _getCameraPermissionAsync = async () => {
     if (this.state.PermissionCameraAsked == 0) {
       let { status } = await Permissions.askAsync(Permissions.CAMERA);
-      this.setState({ hasCameraPermission: status === 'granted' })
-    }
-    else if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access camera was denied',
-        PermissionCameraAsked: 0,
-      });
+      this.setState({ hasCameraPermission: status === 'granted', PermissionCameraAsked: 1 })
+      if (status !== 'granted') {
+        this.setState({
+          errorMessage: 'Permission to access camera was denied',
+          PermissionCameraAsked: 0,
+        });
+      }
     }
   };
   render() {
@@ -429,26 +435,26 @@ class Reportes extends React.Component {
               alignItems: 'center',
             }}>
               <Text styles={styles.title}>¿Es transitable?</Text>
-                <TouchableHighlight
-                  style={styles.buttonSlide11}
-                  onPress={() => this.pressedLeve()}
-                >
-                  <Text style={styles.textButton}>Transitable</Text>
+              <TouchableHighlight
+                style={styles.buttonSlide11}
+                onPress={() => this.pressedLeve()}
+              >
+                <Text style={styles.textButton}>Transitable</Text>
 
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.buttonSlide12}
-                  onPress={() => this.pressedParcial()}
-                >
-                  <Text style={styles.textButton}>Parcialmente Transitable</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                  style={styles.buttonSlide13}
-                  onPress={() => this.pressedTotal()}
-                >
-                  <Text style={styles.textButton}>Intransitable</Text>
+              </TouchableHighlight>
+              <TouchableHighlight style={styles.buttonSlide12}
+                onPress={() => this.pressedParcial()}
+              >
+                <Text style={styles.textButton}>Parcialmente Transitable</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                style={styles.buttonSlide13}
+                onPress={() => this.pressedTotal()}
+              >
+                <Text style={styles.textButton}>Intransitable</Text>
 
-                </TouchableHighlight>
-               </View>
+              </TouchableHighlight>
+            </View>
 
             <View style={{
               justifyContent: 'center',
@@ -631,8 +637,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     paddingTop: 5,
     paddingBottom: 5,
-    paddingHorizontal:22,
-    marginTop:10,
+    paddingHorizontal: 22,
+    marginTop: 10,
     borderRadius: 30,
   },
   button2: {
@@ -647,7 +653,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingTop: 5,
     paddingBottom: 5,
-    width:120, 
+    width: 120,
   },
   buttonCerrarCamara: {
     backgroundColor: 'grey',
@@ -783,7 +789,7 @@ const styles = StyleSheet.create({
   inputSlide3: {
     height: 40,
     width: 250,
-    borderRadius:30,
+    borderRadius: 30,
     borderColor: 'white',
     backgroundColor: 'white',
     marginTop: 15,

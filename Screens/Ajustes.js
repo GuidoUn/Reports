@@ -70,6 +70,7 @@ class Ajustes extends React.Component {
               <Switch width={60}
                 height={30}
                 label={2} 
+                backgroundActive={'#787FF6'}
                 value={this.state.valueCiego} 
                 style={{position: 'absolute', left: '75%', top: '50%'}} 
                 onSyncPress={(value) => this.switch1Cambiado(value)} />            
@@ -78,7 +79,8 @@ class Ajustes extends React.Component {
               <Text style={{marginTop: 25, fontSize: 20}} > Modo noche</Text>
               <Switch width={60}
                 height={30}
-                label={2} 
+                label={2}
+                backgroundActive={'#787FF6'} 
                 value={this.state.valueNoche} 
                 style={{position: 'absolute', left: '75%', top: '50%'}} 
                 onSyncPress={(value) => this.switch2Cambiado(value)} />                          
@@ -150,7 +152,8 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   button: {
-    backgroundColor: 'red',
+    backgroundColor: '#787FF6',
+    borderRadius:40,
     marginTop: 30,
     paddingTop: 15,
     paddingBottom: 15
