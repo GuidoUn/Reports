@@ -14,6 +14,7 @@ import Registrarse from './Screens/Registrarse';
 import Home from './Screens/Home';
 import ReportesPrueba from './Screens/ReportesPrueba';
 import RecuperarPass from './Screens/RecuperarPass';
+import MapaScreen from './Screens/map'
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -37,9 +38,12 @@ const AppNavigator = createStackNavigator({
   RecuperarPass:{
     screen: RecuperarPass
   },
+  MapaScreen:{
+      screen: MapaScreen
+  },
 },
   {
-    initialRouteName: "Home"
+    initialRouteName: "MapaScreen"
   }
 );
 
