@@ -43,7 +43,7 @@ const AppNavigator = createStackNavigator({
   },
 },
   {
-    initialRouteName: "MapaScreen"
+    initialRouteName: "Home"
   }
 );
 
