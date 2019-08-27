@@ -15,6 +15,7 @@ import Home from './Screens/Home';
 import ReportesPrueba from './Screens/ReportesPrueba';
 import RecuperarPass from './Screens/RecuperarPass';
 import MapaScreen from './Screens/map'
+import MapaBlind from './Screens/map1'
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -41,6 +42,9 @@ const AppNavigator = createStackNavigator({
   MapaScreen:{
       screen: MapaScreen
   },
+  MapaBlind:{
+    screen: MapaBlind
+},
 },
   {
     initialRouteName: "Home"
