@@ -27,24 +27,24 @@ const AppNavigator = createStackNavigator({
   Ajustes: {
     screen: Ajustes
   },
-  Login:{
+  Login: {
     screen: Login
   },
-  Registrarse:{
+  Registrarse: {
     screen: Registrarse
   },
-  ReportesPrueba:{
+  ReportesPrueba: {
     screen: ReportesPrueba
   },
-  RecuperarPass:{
+  RecuperarPass: {
     screen: RecuperarPass
   },
-  MapaScreen:{
-      screen: MapaScreen
+  MapaScreen: {
+    screen: MapaScreen
   },
-  MapaBlind:{
+  MapaBlind: {
     screen: MapaBlind
-},
+  },
 },
   {
     initialRouteName: "Home"
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#DDDDDD',
     padding: 10,
-    marginBottom:10,
+    marginBottom: 10,
   },
   button2: {
     backgroundColor: 'blue',
