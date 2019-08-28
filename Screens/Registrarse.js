@@ -248,7 +248,7 @@ export default class Login extends React.Component {
 
   createPressed() {
     if (this.state.createUserInput && this.state.createMailInput && this.state.createPassInput) {
-      fetch('http://10.10.32.52:3000/api/usuarios/reg', {
+      fetch('http://10.10.32.4:3000/api/usuarios/reg', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

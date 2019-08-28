@@ -74,7 +74,7 @@ class Reportes extends React.Component {
   }
   hacerFetch(sendLatitude, sendLongitude) {
     console.log('reportando');
-    fetch('http://10.10.32.52:3000/api/obstaculos/creo', {
+    fetch('http://10.10.32.4:3000/api/obstaculos/creo', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

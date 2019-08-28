@@ -45,7 +45,7 @@ export default class Login extends React.Component {
 
   loginPressed() {
     if (this.state.userInput && this.state.passInput) {
-      fetch(`http://10.10.32.52:3000/api/usuarios/log?email=${this.state.userInput}&password=${this.state.passInput}`, {
+      fetch(`http://10.10.32.4:3000/api/usuarios/log?email=${this.state.userInput}&password=${this.state.passInput}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
