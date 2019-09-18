@@ -398,7 +398,9 @@ class Reportes extends React.Component {
       <View style={styles.container}>
         <ImageBackground source={require('../Images/back1.jpeg')} style={{ width: '100%', height: '100%' }}>
           <Text style={styles.title}>Realizando un reporte</Text>
-          <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}>
+          <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}
+          showsPagination={true} paginationStyle={{marginBottom:500}}>
+            
             <View style={{ alignItems: 'center' }}>
 
               <Text style={styles.text}>¿Qué tipo de obstáculo es?</Text>
@@ -499,21 +501,17 @@ class Reportes extends React.Component {
               </Modal>
               <Text style={styles.paragraph}>{lattext}</Text>
               <Text style={styles.paragraph}>{lontext}</Text>
-            </View>
-            <View style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
               <Text styles={styles.title}>Comentarios acerca del reporte</Text>
               <TextInput
                 multiline={true}
-                style={[styles.input, styles.textArea]}
+                style={[styles.inputBox, styles.textArea]}
                 placeholder=" Pozo profundo"
                 value={this.state.comment}
                 onChangeText={(comment) => this.changeComment(comment)}
 
               />
             </View>
+            
             <View style={{
               justifyContent: 'center',
               alignItems: 'center',
@@ -619,6 +617,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
+    marginTop: 55,
     fontSize: 22,
     marginBottom: 15
   },
@@ -789,6 +788,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 2
   },
+  inputBox: {
+    height: 40,
+    borderColor: '#ccc',
+    marginTop: 15,
+    marginLeft:15,
+    borderWidth: 2,
+    padding: 15,
+  },
   inputSlide3: {
     height: 40,
     width: 250,
@@ -800,9 +807,10 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   textArea: {
-    height: 400,
+    height: 300,
     width: 250,
     textAlignVertical: 'top',
+    borderRadius:37,
   }
 });
 export default Reportes;
