@@ -461,12 +461,6 @@ class Reportes extends React.Component {
               alignItems: 'center',
             }}>
               <Text styles={styles.title}>Ubicación</Text>
-              <TextInput
-                style={styles.inputSlide3}
-                placeholder=" Introducir manualmente"
-                value={this.state.direc}
-                onChangeText={(direc) => this.changeDirec(direc)}
-              />
               <TouchableHighlight
                 style={styles.button2}
                 onPress={() => this.abrirMapa()}
@@ -634,26 +628,34 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   buttonReport: {
-    backgroundColor: 'red',
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingHorizontal: 22,
-    marginTop: 10,
+    height: 40,
+    width: 226,
     borderRadius: 30,
+    borderColor: 'red',
+    backgroundColor: 'red',
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 2
   },
   button2: {
-    backgroundColor: 'white',
+    height: 40,
+    width: 226,
     borderRadius: 30,
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingHorizontal: 10,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 2
   },
   buttonOpenCamera: {
-    backgroundColor: 'white',
+    height: 40,
+    width: 226,
     borderRadius: 30,
-    paddingTop: 5,
-    paddingBottom: 5,
-    width: 120,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 2
   },
   buttonCerrarCamara: {
     backgroundColor: 'grey',
@@ -778,7 +780,8 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: 'center',
-    color: 'black'
+    color: 'black',
+    marginTop:8,
   },
   input: {
     height: 40,
