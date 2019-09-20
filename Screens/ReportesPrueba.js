@@ -591,9 +591,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 5,
-    paddingLeft: 15,
-    paddingRight: 15
   },
   containerButtons: {
     flex: 1,
@@ -604,6 +601,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     marginBottom: 15
+  },
+  text: {
+    marginTop: 15,
   },
   ciudad: {
     textAlign: 'center',
@@ -757,7 +757,7 @@ const styles = StyleSheet.create({
   },
   slide2: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     justifyContent: 'center',
@@ -789,7 +789,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   inputBox: {
-    height: 40,
+    height: 35,
     borderColor: '#ccc',
     marginTop: 15,
     marginLeft:15,
