@@ -436,7 +436,7 @@ class Reportes extends React.Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <Text styles={styles.title}>¿Es transitable?</Text>
+              <Text styles={styles.text}>¿Es transitable?</Text>
               <TouchableHighlight
                 style={styles.buttonSlide11}
                 onPress={() => this.pressedLeve()}
@@ -462,7 +462,7 @@ class Reportes extends React.Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <Text styles={styles.title}>Ubicación</Text>
+              <Text styles={styles.text}>Ubicación</Text>
               <TouchableHighlight
                 style={styles.button2}
                 onPress={() => this.abrirMapa()}
@@ -499,9 +499,9 @@ class Reportes extends React.Component {
                   </TouchableHighlight>
                 </View>
               </Modal>
-              <Text style={styles.paragraph}>{lattext}</Text>
-              <Text style={styles.paragraph}>{lontext}</Text>
-              <Text styles={styles.title}>Comentarios acerca del reporte</Text>
+              {/*<Text style={styles.paragraph}>{lattext}</Text>
+              <Text style={styles.paragraph}>{lontext}</Text>*/}
+              <Text styles={styles.text}>Comentarios acerca del reporte</Text>
               <TextInput
                 multiline={true}
                 style={[styles.inputBox, styles.textArea]}
@@ -516,7 +516,7 @@ class Reportes extends React.Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <Text styles={styles.title}>Tomar una fotografía</Text>
+              <Text styles={styles.text}>Tomar una fotografía</Text>
               <TouchableHighlight
                 style={styles.buttonOpenCamera}
                 onPress={() => this.setState({ camaraAbierta: true })}
@@ -566,7 +566,7 @@ class Reportes extends React.Component {
                   </Camera>
 
                   <TouchableHighlight
-                    style={styles.button2}
+                    style={styles.imageButton}
                     onPress={() => this.snap()}
                   >
                     <Text style={styles.textButton}>Tomar fotografía</Text>
@@ -646,6 +646,22 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 2
   },
+  imageButton: {
+    height: 40,
+    width: 226,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingHorizontal: 22,
+    borderRadius: 30,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    marginTop: 15,
+    marginBottom: 15,
+    marginLeft:55,
+    borderWidth: 2,
+    alignItems: 'center',
+    
+  },
   buttonOpenCamera: {
     height: 40,
     width: 226,
@@ -661,6 +677,18 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     paddingHorizontal: 22,
+    height: 40,
+    width: 226,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingHorizontal: 22,
+    borderRadius: 30,
+    borderColor: 'white',
+    marginTop: 15,
+    marginBottom: 15,
+    marginLeft:55,
+    borderWidth: 2,
+    alignItems: 'center',
   },
   buttonMapClose: {
     backgroundColor: 'grey',
@@ -780,8 +808,10 @@ const styles = StyleSheet.create({
   textButton: {
     textAlign: 'center',
     color: 'black',
-    marginTop:8,
+    marginTop:8
+    ,
   },
+  
   input: {
     height: 40,
     borderColor: '#ccc',
@@ -789,7 +819,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   inputBox: {
-    height: 35,
+    height: 30,
     borderColor: '#ccc',
     marginTop: 15,
     marginLeft:15,
