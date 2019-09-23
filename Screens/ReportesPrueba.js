@@ -112,7 +112,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
     styles.buttonSlide12 = {
@@ -120,7 +120,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
     styles.buttonSlide13 = {
@@ -128,7 +128,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
   }
@@ -140,7 +140,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
     styles.buttonSlide12 = {
@@ -148,7 +148,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
     styles.buttonSlide13 = {
@@ -156,7 +156,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
   }
@@ -168,7 +168,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
     styles.buttonSlide12 = {
@@ -176,7 +176,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
     styles.buttonSlide13 = {
@@ -184,7 +184,7 @@ class Reportes extends React.Component {
       marginTop: 10,
       justifyContent: 'center',
       width: 250,
-      height: 130,
+      height: 120,
       borderRadius: 50,
     }
   }
@@ -192,93 +192,113 @@ class Reportes extends React.Component {
   tipoPressed(tipo) {
     this.setState({ tipoObstaculo: tipo })
     this.screen2blue();
+    
     if (tipo == 'Obra') {
       styles.buttonSlide21 = {
         backgroundColor: 'green',
-        marginTop: 125,
+        
         marginRight: 5,
         marginLeft: 5,
         justifyContent: 'center',
-        width: 125,
-        height: 175,
-        borderRadius: 50,
+        marginTop: 200,
+        marginRight: 5,
+        marginLeft: 5,
+        justifyContent: 'center',
+        width: 142,
+        height: 142,
+        borderRadius: 37,
+        
       }
     } else if (tipo == 'Pozo') {
       styles.buttonSlide22 = {
         backgroundColor: 'green',
-        marginTop: 125,
+        
         marginRight: 5,
         marginLeft: 5,
         justifyContent: 'center',
-        width: 125,
-        height: 175,
-        borderRadius: 50,
+        marginTop: 200,
+        marginRight: 5,
+        marginLeft: 5,
+        justifyContent: 'center',
+        width: 142,
+        height: 142,
+        borderRadius: 37,
+        
       }
     } else if (tipo == 'noLuz') {
       styles.buttonSlide23 = {
         backgroundColor: 'green',
-        marginTop: 125,
+        
         marginRight: 5,
         marginLeft: 5,
         justifyContent: 'center',
-        width: 125,
-        height: 175,
-        borderRadius: 50,
+        marginTop: 150,
+        marginRight: 5,
+        marginLeft: 5,
+        justifyContent: 'center',
+        width: 142,
+        height: 142,
+        borderRadius: 37,
+        
       }
     } else if (tipo == 'Otro') {
       styles.buttonSlide24 = {
         backgroundColor: 'green',
-        marginTop: 125,
+        
         marginRight: 5,
         marginLeft: 5,
         justifyContent: 'center',
-        width: 125,
-        height: 175,
-        borderRadius: 50,
+        marginTop: 150,
+        justifyContent: 'center',
+        width: 142,
+        height: 142,
+        borderRadius: 37,
+        
       }
     }
+    
   }
 
   screen2blue() {
     styles.buttonSlide21 = {
       backgroundColor: 'white',
-      marginTop: 125,
       marginRight: 5,
       marginLeft: 5,
       justifyContent: 'center',
-      width: 125,
-      height: 175,
-      borderRadius: 50,
+      marginTop: 200,
+      width: 142,
+      height: 142,
+      borderRadius: 37,
     }
     styles.buttonSlide22 = {
       backgroundColor: 'white',
-      marginTop: 125,
       marginRight: 5,
       marginLeft: 5,
       justifyContent: 'center',
-      width: 125,
-      height: 175,
-      borderRadius: 50,
+      marginTop: 200,
+      width: 142,
+      height: 142,
+      borderRadius: 37,
     }
     styles.buttonSlide23 = {
       backgroundColor: 'white',
-      marginTop: 125,
-      marginRight: 5,
-      marginLeft: 5,
-      justifyContent: 'center',
-      width: 125,
-      height: 175,
-      borderRadius: 50,
+    marginTop: 150,
+    marginRight: 5,
+    marginLeft: 5,
+    justifyContent: 'center',
+    width: 142,
+    height: 142,
+    borderRadius: 37,
     }
     styles.buttonSlide24 = {
       backgroundColor: 'white',
-      marginTop: 125,
       marginRight: 5,
       marginLeft: 5,
       justifyContent: 'center',
-      width: 125,
-      height: 175,
-      borderRadius: 50,
+      marginTop: 150,
+      width: 142,
+      height: 142,
+      borderRadius: 37,
     }
 
   }
@@ -399,8 +419,8 @@ class Reportes extends React.Component {
         <ImageBackground source={require('../Images/back1.jpeg')} style={{ width: '100%', height: '100%' }}>
           <Text style={styles.title}>Realizando un reporte</Text>
           <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}
-          showsPagination={true} paginationStyle={{marginBottom:500}}>
-            
+            showsPagination={true} paginationStyle={{ marginBottom: 500 }}>
+
             <View style={{ alignItems: 'center' }}>
 
               <Text style={styles.text}>¿Qué tipo de obstáculo es?</Text>
@@ -433,10 +453,11 @@ class Reportes extends React.Component {
             </View>
 
             <View style={{
-              justifyContent: 'center',
+              //justifyContent: 'center',
               alignItems: 'center',
+              marginTop: 15,
             }}>
-              <Text styles={styles.text}>¿Es transitable?</Text>
+              <Text styles={styles.textEspecial}>¿Es transitable?</Text>
               <TouchableHighlight
                 style={styles.buttonSlide11}
                 onPress={() => this.pressedLeve()}
@@ -459,8 +480,9 @@ class Reportes extends React.Component {
             </View>
 
             <View style={{
-              justifyContent: 'center',
+              //justifyContent: 'center',
               alignItems: 'center',
+              marginTop: 15,
             }}>
               <Text styles={styles.text}>Ubicación</Text>
               <TouchableHighlight
@@ -511,10 +533,11 @@ class Reportes extends React.Component {
 
               />
             </View>
-            
+
             <View style={{
-              justifyContent: 'center',
+              //justifyContent: 'center',
               alignItems: 'center',
+              marginTop: 15,
             }}>
               <Text styles={styles.text}>Tomar una fotografía</Text>
               <TouchableHighlight
@@ -569,13 +592,13 @@ class Reportes extends React.Component {
                     style={styles.imageButton}
                     onPress={() => this.snap()}
                   >
-                    <Text style={styles.textButton}>Tomar fotografía</Text>
+                    <Text style={styles.textButtonCamera}>Tomar fotografía</Text>
                   </TouchableHighlight>
                   <TouchableHighlight
                     style={styles.buttonCerrarCamara}
                     onPress={() => this.setState({ camaraAbierta: false })}
                   >
-                    <Text style={styles.textButton}>cerrar cámara</Text>
+                    <Text style={styles.textButtonCamera}>cerrar cámara</Text>
                   </TouchableHighlight>
                 </View>
               </Modal>
@@ -604,6 +627,9 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 15,
+  },
+  textEspecial: {
+    marginTop: 150,
   },
   ciudad: {
     textAlign: 'center',
@@ -657,10 +683,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 15,
     marginBottom: 15,
-    marginLeft:55,
+    marginLeft: 55,
     borderWidth: 2,
     alignItems: 'center',
-    
+
   },
   buttonOpenCamera: {
     height: 40,
@@ -686,7 +712,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     marginTop: 15,
     marginBottom: 15,
-    marginLeft:55,
+    marginLeft: 55,
     borderWidth: 2,
     alignItems: 'center',
   },
@@ -702,7 +728,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'center',
     width: 250,
-    height: 130,
+    height: 120,
     borderRadius: 50,
   },
   buttonSlide12: {
@@ -710,7 +736,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'center',
     width: 250,
-    height: 130,
+    height: 120,
     borderRadius: 50,
   },
   buttonSlide13: {
@@ -718,7 +744,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'center',
     width: 250,
-    height: 130,
+    height: 120,
     borderRadius: 50,
   },
   buttonSlide21: {
@@ -808,10 +834,13 @@ const styles = StyleSheet.create({
   textButton: {
     textAlign: 'center',
     color: 'black',
-    marginTop:8
-    ,
+    marginTop: 8,
   },
-  
+  textButtonCamera: {
+    textAlign: 'center',
+    color: 'black',
+    marginTop: 4,
+  },
   input: {
     height: 40,
     borderColor: '#ccc',
@@ -822,7 +851,7 @@ const styles = StyleSheet.create({
     height: 30,
     borderColor: '#ccc',
     marginTop: 15,
-    marginLeft:15,
+    marginLeft: 15,
     borderWidth: 2,
     padding: 15,
   },
@@ -840,7 +869,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: 250,
     textAlignVertical: 'top',
-    borderRadius:37,
+    borderRadius: 37,
   }
 });
 export default Reportes;
