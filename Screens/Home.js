@@ -16,11 +16,11 @@ export default class Home extends React.Component {
       <View style={styles.container}>
         <Text>Menú</Text>
         {/*<TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesScreen')}><Text style={styles.textButton}>Realizar un reporte</Text></TouchableHighlight>*/}
-        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('ReportesPrueba')}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('MapaScreen')}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('ReportesPrueba')}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('MapaScreen')}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
         {/*<TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('MapaBlind')}><Text style={styles.textButton}>Mapa en modo ciego (No apretar)</Text></TouchableHighlight>*/}
       </View>
     )
@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginTop: 5,
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    alignItems: 'center',
+
   },
   direc: {
     textAlign: 'center',
@@ -61,13 +63,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button2: {
-    backgroundColor: 'blue',
-    paddingTop: 5,
-    paddingBottom: 5
+    alignItems:'center',
+    height: 40,
+    width: 226,
+    borderRadius: 30,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 2
   },
   textButton: {
     textAlign: 'center',
-    color: 'black'
+    color: 'black',
+    marginTop: 8,
   },
   input: {
     height: 40,
