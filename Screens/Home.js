@@ -20,8 +20,8 @@ export default class Home extends React.Component {
         <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('ReportesPrueba')}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('MapaScreen')}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
-        {/*<TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('MapaBlind')}><Text style={styles.textButton}>Mapa en modo ciego (No apretar)</Text></TouchableHighlight>*/}
+        <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('MapaScreen')}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>        
+        <TouchableHighlight style={styles.button2} onPress={() => this.props.navigation.navigate('MapaBlind')}><Text style={styles.textButton}>Mapa en modo ciego</Text></TouchableHighlight>
       </View>
     )
   }
