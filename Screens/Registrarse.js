@@ -215,8 +215,8 @@ var items = [
 ];
 
 export default class Login extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       createUserInput: '',
       createDNIInput: '',
@@ -227,6 +227,7 @@ export default class Login extends React.Component {
           id: 0,
           name: 'no ha seleccionado barrio',
         }],
+      
     }
   }
 
@@ -286,6 +287,7 @@ export default class Login extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         {/*<ImageBackground source={require('../Images/back2.jpeg')} style={{ width: '100%', height: '100%' }}>*/}

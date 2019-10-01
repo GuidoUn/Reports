@@ -11,27 +11,39 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 export default class Home extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       userEmail: this.props.navigation.state.params.userEmail,
+      not: this.props.navigation.state.params.notificaciones,
+      ajustes: {
+        notificaciones: this.props.navigation.state.params.notificaciones,
+        modoCiego: this.props.navigation.state.params.modoCiego,
+        modoNoche: this.props.navigation.state.params.modoNoche,
+        sonido: this.props.navigation.state.params.sonido,
+      }
     };
   }
 
+  
   render() {
-    const { navigate } =this.props.navigation
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <Text>Bienvenido {this.state.userEmail}</Text>
+        <Text>{this.props.navigation.state.params.notificaciones}</Text>
+        <Text>{this.props.navigation.state.params.modoCiego}</Text>
         <TouchableHighlight style={styles.button2} onPress={() => navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button2} onPress={() => navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={() => navigate('MapaScreen')}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>        
+        <TouchableHighlight style={styles.button2} onPress={() => navigate('MapaScreen', {modoCiego: this.props.navigation.state.params.modoCiego, modoCiego: this.props.navigation.state.params.modoNoche})}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
         <TouchableHighlight style={styles.button2} onPress={() => navigate('MapaBlind')}><Text style={styles.textButton}>Mapa en modo ciego</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.button2} onPress={() => console.log(this.state.notificaciones)}><Text style={styles.textButton}>debug</Text></TouchableHighlight>
       </View>
     )
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -70,7 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button2: {
-    alignItems:'center',
+    alignItems: 'center',
     height: 40,
     width: 226,
     borderRadius: 30,
