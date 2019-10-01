@@ -20,10 +20,11 @@ import { Marker } from 'react-native-maps';
 import Modal from "react-native-modal";
 import { AsyncStorage } from 'react-native';
 import { ThemeConsumer } from 'react-native-elements';
+import ThreeAxisSensor from 'expo-sensors/build/ThreeAxisSensor';
 
 export default class Login extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       userInput: '',
       passInput: '',
@@ -32,7 +33,7 @@ export default class Login extends React.Component {
       ip: 'http://10.8.5.20:3000/api/usuarios/log?',
       userResponse: '',
       token: '',
-
+      accountLogged: '',
     }
   }
 
@@ -63,6 +64,7 @@ export default class Login extends React.Component {
           console.log('RESULTS HERE:', response)
             this.setState({
               userResponse: response.email,
+              
           });
           
         })
@@ -70,8 +72,7 @@ export default class Login extends React.Component {
           console.error(error);
           alert('Se produjo un error logueando')
         })
-      //alert('Usuario: ' + this.state.userInput + ' Contraseña: ' + this.state.passInput)
-      //alert('logueado en: '+ this.state.userResponse)
+      this.props.navigation.navigate('Home',{userEmail: 'hola'})
     }
     
     else{
