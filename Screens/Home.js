@@ -3,9 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
+  ImageBackground,
   Button,
   TouchableHighlight,
 } from 'react-native';
+
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 
@@ -25,21 +27,24 @@ export default class Home extends React.Component {
     };
   }
 
-  
+
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <Text>Bienvenido {this.state.userEmail}</Text>
-        <Text>{this.props.navigation.state.params.notificaciones}</Text>
-        <Text>{this.props.navigation.state.params.modoCiego}</Text>
-        <TouchableHighlight style={styles.button2} onPress={() => navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={() => navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={() => navigate('MapaScreen', {modoCiego: this.props.navigation.state.params.modoCiego, modoCiego: this.props.navigation.state.params.modoNoche})}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={() => navigate('MapaBlind')}><Text style={styles.textButton}>Mapa en modo ciego</Text></TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={() => console.log(this.state.notificaciones)}><Text style={styles.textButton}>debug</Text></TouchableHighlight>
+        <ImageBackground source={require('../Images/fondo.png')} style={{
+          width: '110%', height: '100%', flex: 1,
+          paddingLeft: 15,
+          paddingRight: 15,
+          alignItems: 'center',
+        }}>
+          <TouchableHighlight style={styles.button2} onPress={() => navigate('Ajustes')}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
+          <TouchableHighlight style={styles.button2} onPress={() => navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
+          <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
+          <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
+          <TouchableHighlight style={styles.button2} onPress={() => navigate('MapaScreen', { modoCiego: this.props.navigation.state.params.modoCiego, modoCiego: this.props.navigation.state.params.modoNoche })}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
+          {/*<TouchableHighlight style={styles.button2} onPress={() => navigate('MapaBlind')}><Text style={styles.textButton}>Mapa en modo ciego</Text></TouchableHighlight>}*/}
+        </ImageBackground>
       </View>
     )
   }
@@ -50,7 +55,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 5,
     paddingLeft: 15,
     paddingRight: 15,
     alignItems: 'center',

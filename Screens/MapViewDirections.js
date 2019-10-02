@@ -83,7 +83,7 @@ class MapViewDirections extends Component {
 
 	fetchRoute = (origin, destination, apikey) => {
 		const mode = 'walking';
-		const url = `http://10.10.32.4:3000/api/ruta?origin=${origin}&destination=${destination}`;
+		const url = `http://10.8.5.20:3000/api/ruta?origin=${origin}&destination=${destination}`;
 
 		console.log(url);
 

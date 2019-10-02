@@ -66,13 +66,14 @@ export default class Login extends React.Component {
               userResponse: response.email,
               
           });
+          this.props.navigation.navigate('Home',{userEmail: 'hola'})
+
           
         })
         .catch((error) => {
-          console.error(error);
           alert('Se produjo un error logueando')
         })
-      this.props.navigation.navigate('Home',{userEmail: 'hola'})
+
     }
     
     else{

@@ -74,7 +74,7 @@ class Reportes extends React.Component {
   }
   hacerFetch(sendLatitude, sendLongitude) {
     console.log('reportando');
-    fetch('http://10.10.32.4:3000/api/obstaculos/creo', {
+    fetch('http://10.8.5.20:3000/api/obstaculos/creo', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -100,7 +100,7 @@ class Reportes extends React.Component {
         alert('Se ha efectuado el reporte');
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
         alert('Se produjo un error efectuando un reporte')
       })
   }
@@ -419,7 +419,7 @@ class Reportes extends React.Component {
         <ImageBackground source={require('../Images/back1.jpeg')} style={{ width: '100%', height: '100%' }}>
           <Text style={styles.title}>Realizando un reporte</Text>
           <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}
-            showsPagination={true} paginationStyle={{ marginBottom: 500 }}>
+            showsPagination={true} paginationStyle={{ marginBottom: 10 }}>
 
             <View style={{ alignItems: 'center' }}>
 

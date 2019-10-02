@@ -183,7 +183,7 @@ onReady = (result) => {
       console.log(this.distance(this.state.latitude,this.state.longitude,-34.564112, -58.489167,"K"));
       this._getLocationAsync();
      
-      fetch(`http://10.10.32.4:3000/api/obstaculos?locationlat=${this.state.latitude}&locationlng=${this.state.longitude}`, {
+      fetch(`http://10.8.5.20:3000/api/obstaculos?locationlat=${this.state.latitude}&locationlng=${this.state.longitude}`, {
       
         method: 'GET',  
       })
@@ -242,7 +242,7 @@ onReady = (result) => {
     }
   }
   tomartodosobjs(){
-    fetch(`http://10.10.32.52:3000/api/obstaculos/todos`, {
+    fetch(`http://10.8.5.20:3000/api/obstaculos/todos`, {
      
       method: 'GET',  
     })
