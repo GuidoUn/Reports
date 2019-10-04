@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, Button, Component, Animated, Dimensions } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, Component, Animated, Dimensions ,TouchableOpacity} from 'react-native';
 import { Callout, Notifications, Speech } from 'expo';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -52,6 +52,8 @@ export default class Map extends React.Component {
     serach: '',
     show: false,
     anim: false,
+    showmenu: false,
+    animmenu: false,
     coordinates: [
       {
         latitude: 1,
@@ -114,6 +116,22 @@ export default class Map extends React.Component {
       })
       setTimeout(() => this.setState({
         show: false
+      }), 500)
+    }
+
+  }
+  togglemenu = () => {
+    if (!this.state.showmenu)
+      this.setState({
+        showmenu: true,
+        animmenu: true
+      })
+    else {
+      this.setState({
+        animmenu: true
+      })
+      setTimeout(() => this.setState({
+        showmenu: false
       }), 500)
     }
 
@@ -412,16 +430,19 @@ export default class Map extends React.Component {
             />
           )}
 
-        </MapView>
-        {!this.state.show &&
-          <Animatable.View style={{
-            position: 'absolute', alignItems: 'center', top: 40,
-            marginLeft: 150,
-          }} animation={this.state.anim ? showAnimation : hideAnimation}>
-            <View style={styles.viewbottonhome} >
-
-            </View>
+{this.state.show &&
+  <Animatable.View style={styles.searchbarview} animation={this.state.anim ? showAnimation : hideAnimation}>
+    <View>
+    <TouchableOpacity
+         style={styles.togglemenu}
+         onPress={this.onPress}
+       >
+         <Text> Touch Here </Text>
+       </TouchableOpacity>
+        </View>
           </Animatable.View>}
+        </MapView>
+       
       </View>
 
     );
@@ -480,5 +501,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: 40,
     marginLeft: 150,
-  }
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10
+  },
 });
