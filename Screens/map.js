@@ -9,6 +9,7 @@ import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapViewDirections from './MapViewDirections';
+import { selectAssetSource } from 'expo-asset/build/AssetSources';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -52,8 +53,11 @@ export default class Map extends React.Component {
     serach: '',
     show: false,
     anim: false,
+    animad: false,
+
     showmenu: false,
     animmenu: false,
+    showadjus: false,
     coordinates: [
       {
         latitude: 1,
@@ -237,6 +241,15 @@ export default class Map extends React.Component {
       }
     }
   }
+  onPressad = () => {
+    // console.debug(this.state);
+    // console.debug(this.state.showadjus);
+    if (!this.state.showadjus) {
+      this.setState({showadjus: true, animad: true});
+    } else {
+      this.setState({showadjus: false, animad: false});
+    }
+  }
   distance(lat1, lon1, lat2, lon2, unit) {
     if ((lat1 == lat2) && (lon1 == lon2)) {
       return 0;
@@ -315,6 +328,12 @@ export default class Map extends React.Component {
       <View style={styles.container}>
         {!this.state.show &&
           <Animatable.View style={styles.searchbarview} animation={this.state.anim ? showAnimation : hideAnimation}>
+            <TouchableOpacity
+         style={{marginRight:270}}
+         onPress={this.onPressad}
+       >
+         <Ionicons name="ios-menu" size={28} color="#000000"  />
+       </TouchableOpacity>
             <GooglePlacesAutocomplete
               style={{ backgroundColor: '#fff' }}
               placeholder='Search'
@@ -429,20 +448,14 @@ export default class Map extends React.Component {
               onError={this.onError}
             />
           )}
+          {this.state.showadjus &&
+        
+            <View style={{backgroundColor:"#000000",height:20,width:40}}>
+              </View>
+             }
 
-{this.state.show &&
-  <Animatable.View style={styles.searchbarview} animation={this.state.anim ? showAnimation : hideAnimation}>
-    <View>
-    <TouchableOpacity
-         style={styles.togglemenu}
-         onPress={this.onPress}
-       >
-         <Text> Touch Here </Text>
-       </TouchableOpacity>
-        </View>
-          </Animatable.View>}
         </MapView>
-       
+        
       </View>
 
     );
