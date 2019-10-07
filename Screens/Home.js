@@ -16,6 +16,7 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      /*
       userEmail: this.props.navigation.state.params.userEmail,
       not: this.props.navigation.state.params.notificaciones,
       ajustes: {
@@ -24,6 +25,7 @@ export default class Home extends React.Component {
         modoNoche: this.props.navigation.state.params.modoNoche,
         sonido: this.props.navigation.state.params.sonido,
       }
+      */
     };
   }
 

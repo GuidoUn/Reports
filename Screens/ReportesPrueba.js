@@ -192,11 +192,11 @@ class Reportes extends React.Component {
   tipoPressed(tipo) {
     this.setState({ tipoObstaculo: tipo })
     this.screen2blue();
-    
+
     if (tipo == 'Obra') {
       styles.buttonSlide21 = {
         backgroundColor: 'green',
-        
+
         marginRight: 5,
         marginLeft: 5,
         justifyContent: 'center',
@@ -207,12 +207,12 @@ class Reportes extends React.Component {
         width: 142,
         height: 142,
         borderRadius: 37,
-        
+
       }
     } else if (tipo == 'Pozo') {
       styles.buttonSlide22 = {
         backgroundColor: 'green',
-        
+
         marginRight: 5,
         marginLeft: 5,
         justifyContent: 'center',
@@ -223,12 +223,12 @@ class Reportes extends React.Component {
         width: 142,
         height: 142,
         borderRadius: 37,
-        
+
       }
     } else if (tipo == 'noLuz') {
       styles.buttonSlide23 = {
         backgroundColor: 'green',
-        
+
         marginRight: 5,
         marginLeft: 5,
         justifyContent: 'center',
@@ -239,12 +239,12 @@ class Reportes extends React.Component {
         width: 142,
         height: 142,
         borderRadius: 37,
-        
+
       }
     } else if (tipo == 'Otro') {
       styles.buttonSlide24 = {
         backgroundColor: 'green',
-        
+
         marginRight: 5,
         marginLeft: 5,
         justifyContent: 'center',
@@ -253,10 +253,10 @@ class Reportes extends React.Component {
         width: 142,
         height: 142,
         borderRadius: 37,
-        
+
       }
     }
-    
+
   }
 
   screen2blue() {
@@ -282,13 +282,13 @@ class Reportes extends React.Component {
     }
     styles.buttonSlide23 = {
       backgroundColor: 'white',
-    marginTop: 150,
-    marginRight: 5,
-    marginLeft: 5,
-    justifyContent: 'center',
-    width: 142,
-    height: 142,
-    borderRadius: 37,
+      marginTop: 150,
+      marginRight: 5,
+      marginLeft: 5,
+      justifyContent: 'center',
+      width: 142,
+      height: 142,
+      borderRadius: 37,
     }
     styles.buttonSlide24 = {
       backgroundColor: 'white',
@@ -429,12 +429,17 @@ class Reportes extends React.Component {
                   style={styles.buttonSlide21}
                   onPress={() => this.tipoPressed('Obra')}
                 >
-                  <Text style={styles.textButton}>Obra en construcción</Text>
-                </TouchableHighlight>
+                  <ImageBackground source={require('../Images/cono.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
+                    <Text style={styles.textButton1}>Obra en construcción</Text>
+                  </ImageBackground>
+                  {//<}
+                  }</TouchableHighlight>
                 <TouchableHighlight style={styles.buttonSlide22}
                   onPress={() => this.tipoPressed('Pozo')}
                 >
-                  <Text style={styles.textButton}>Pozo o daño en la vereda</Text>
+                  <ImageBackground source={require('../Images/barrera.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
+                    <Text style={styles.textButton1}>Pozo o daño en la vereda</Text>
+                  </ImageBackground>
                 </TouchableHighlight>
               </View>
               <View style={styles.slide23}>
@@ -442,12 +447,16 @@ class Reportes extends React.Component {
                   style={styles.buttonSlide23}
                   onPress={() => this.tipoPressed('noLuz')}
                 >
-                  <Text style={styles.textButton}>Calle sin iluminación</Text>
+                  <ImageBackground source={require('../Images/luz.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
+                    <Text style={styles.textButton1}>Calle sin iluminación</Text>
+                  </ImageBackground>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.buttonSlide24}
                   onPress={() => this.tipoPressed('Otro')}
                 >
-                  <Text style={styles.textButton}>Otro</Text>
+                  <ImageBackground source={require('../Images/otro.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
+                    <Text style={styles.textButton1}>Otro</Text>
+                  </ImageBackground>
                 </TouchableHighlight>
               </View>
             </View>
@@ -833,6 +842,13 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: 'center',
+    color: 'black',
+    marginTop: 8,
+  },
+  textButton1: {
+    textAlign: 'center',
+    marginRight: 25,
+    paddingTop: 75,
     color: 'black',
     marginTop: 8,
   },
