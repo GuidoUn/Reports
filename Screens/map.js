@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, Button, Component, Animated, Dimensions ,TouchableOpacity} from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, Component, Animated, Dimensions ,TouchableOpacity,TouchableHighlight} from 'react-native';
 import { Callout, Notifications, Speech } from 'expo';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -55,8 +55,8 @@ export default class Map extends React.Component {
     anim: false,
     animad: false,
 
-    showmenu: false,
-    animmenu: false,
+    showmenu: true,
+    animmenu: true,
     showadjus: false,
     coordinates: [
       {
@@ -124,22 +124,25 @@ export default class Map extends React.Component {
     }
 
   }
-  togglemenu = () => {
-    if (!this.state.showmenu)
-      this.setState({
-        showmenu: true,
-        animmenu: true
-      })
-    else {
-      this.setState({
-        animmenu: true
-      })
-      setTimeout(() => this.setState({
-        showmenu: false
-      }), 500)
-    }
 
+  _showMenu = () => {
+    console.log('MOSTRAR');
+    this.setState({
+      showmenu: true,
+      animmenu: true
+    })
   }
+
+  _hideMenu = () => {
+    console.log('ESCONDER');
+    this.setState({
+      showanim: false,
+    });
+    setTimeout(() => this.setState({
+      showmenu: false,
+    }), 500)
+  }
+
   onMapPress = (e) => {
     if (this.state.coordinates.length == 2) {
       this.setState({
@@ -326,14 +329,14 @@ export default class Map extends React.Component {
     const { firstQuery } = this.state.serach;
     return (
       <View style={styles.container}>
-        {!this.state.show &&
+        {!this.state.show && !this.state.showmenu &&
           <Animatable.View style={styles.searchbarview} animation={this.state.anim ? showAnimation : hideAnimation}>
             <TouchableOpacity
-         style={{marginRight:270}}
-         onPress={this.onPressad}
-       >
-         <Ionicons name="ios-menu" size={28} color="#000000"  />
-       </TouchableOpacity>
+              style={{marginRight:270}}
+              onPress={this._showMenu}
+            >
+              <Ionicons name="ios-menu" size={28} color="#000000"  />
+            </TouchableOpacity>
             <GooglePlacesAutocomplete
               style={{ backgroundColor: '#fff' }}
               placeholder='Search'
@@ -448,14 +451,20 @@ export default class Map extends React.Component {
               onError={this.onError}
             />
           )}
-          {this.state.showadjus &&
-        
-            <View style={{backgroundColor:"#000000",height:20,width:40}}>
-              </View>
-             }
+
+          {this.state.showmenu &&(
+            <Animatable.View style={{backgroundColor:"#000000",height:'99%',width:'40%'}} animation={this.state.animmenu ? showAnimation : hideAnimation}>
+              <TouchableHighlight
+                style={styles.button}
+                onPress={this._hideMenu}
+              >
+                <Text style={styles.textButton}>Crear cuenta</Text>
+              </TouchableHighlight>
+              <Text style={{color: '#ffffff'}}>{this.state.showmenu ? 'MOSTRADO' : 'ESCONDIDO'}</Text>
+            </Animatable.View>
+          )}
 
         </MapView>
-        
       </View>
 
     );
@@ -519,5 +528,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 10
+  },
+  button: {
+    backgroundColor: '#787FF6',
+    marginTop: 7,
+    marginHorizontal: 30,
+    borderRadius: 50,
+    height: 20,
+    padding: 15,
+    marginBottom: 7,
   },
 });

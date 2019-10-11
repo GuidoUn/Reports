@@ -44,7 +44,7 @@ export default class Home extends React.Component {
           <TouchableHighlight style={styles.button2} onPress={() => navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
           <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
           <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
-          <TouchableHighlight style={styles.button2} onPress={() => navigate('MapaScreen', { modoCiego: this.props.navigation.state.params.modoCiego, modoCiego: this.props.navigation.state.params.modoNoche })}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
+          <TouchableHighlight style={styles.button2} onPress={() => navigate('MapaScreen')}><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
           {/*<TouchableHighlight style={styles.button2} onPress={() => navigate('MapaBlind')}><Text style={styles.textButton}>Mapa en modo ciego</Text></TouchableHighlight>}*/}
         </ImageBackground>
       </View>
