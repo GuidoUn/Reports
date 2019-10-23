@@ -8,8 +8,8 @@ import {
   Button,
   ImageBackground,
   TextInput,
-  TouchableHighlight,
   TouchableOpacity,
+  TouchableHighlight,
   Picker,
   Platform
 } from 'react-native';
@@ -425,7 +425,7 @@ class Reportes extends React.Component {
 
               <Text style={styles.text}>¿Qué tipo de obstáculo es?</Text>
               <View style={styles.slide2}>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.buttonSlide21}
                   onPress={() => this.tipoPressed('Obra')}
                 >
@@ -433,31 +433,31 @@ class Reportes extends React.Component {
                     <Text style={styles.textButton1}>Obra en construcción</Text>
                   </ImageBackground>
                   {//<}
-                  }</TouchableHighlight>
-                <TouchableHighlight style={styles.buttonSlide22}
+                  }</TouchableOpacity>
+                <TouchableOpacity style={styles.buttonSlide22}
                   onPress={() => this.tipoPressed('Pozo')}
                 >
                   <ImageBackground source={require('../Images/barrera.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Pozo o daño en la vereda</Text>
                   </ImageBackground>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
               <View style={styles.slide23}>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.buttonSlide23}
                   onPress={() => this.tipoPressed('noLuz')}
                 >
                   <ImageBackground source={require('../Images/luz.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Calle sin iluminación</Text>
                   </ImageBackground>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.buttonSlide24}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonSlide24}
                   onPress={() => this.tipoPressed('Otro')}
                 >
                   <ImageBackground source={require('../Images/otro.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Otro</Text>
                   </ImageBackground>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
             </View>
 
@@ -467,25 +467,26 @@ class Reportes extends React.Component {
               marginTop: 15,
             }}>
               <Text styles={styles.textEspecial}>¿Es transitable?</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.buttonSlide11}
                 onPress={() => this.pressedLeve()}
               >
+
                 <Text style={styles.textButton}>Transitable</Text>
 
-              </TouchableHighlight>
-              <TouchableHighlight style={styles.buttonSlide12}
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonSlide12}
                 onPress={() => this.pressedParcial()}
               >
                 <Text style={styles.textButton}>Parcialmente Transitable</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={styles.buttonSlide13}
                 onPress={() => this.pressedTotal()}
               >
                 <Text style={styles.textButton}>Intransitable</Text>
 
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
 
             <View style={{
@@ -494,12 +495,12 @@ class Reportes extends React.Component {
               marginTop: 15,
             }}>
               <Text styles={styles.text}>Ubicación</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.button2}
                 onPress={() => this.abrirMapa()}
               >
                 <Text style={styles.textButton}>{this.state.mensajeUbicacion}</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
               <Modal isVisible={this.state.mapaAbierto}>
                 <MapView
                   provider={PROVIDER_GOOGLE}
@@ -516,18 +517,18 @@ class Reportes extends React.Component {
                   />
                 </MapView>
                 <View style={styles.containerButtons}>
-                  <TouchableHighlight
+                  <TouchableOpacity
                     style={styles.buttonMapClose}
                     onPress={() => this.cerrarMapa()}
                   >
                     <Text style={styles.textButton}>cerrar mapa</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={styles.button4}
                     onPress={() => this.cambiarMarca()}
                   >
                     <Text style={styles.textButton}>Utilizar marca</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
               </Modal>
               {/*<Text style={styles.paragraph}>{lattext}</Text>
@@ -549,18 +550,18 @@ class Reportes extends React.Component {
               marginTop: 15,
             }}>
               <Text styles={styles.text}>Tomar una fotografía</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.buttonOpenCamera}
                 onPress={() => this.setState({ camaraAbierta: true })}
               >
                 <Text style={styles.textButton}>Abrir cámara</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={styles.buttonReport}
                 onPress={() => this.buttonPressed()}
               >
                 <Text style={styles.textButton}>Reportar</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
               <Image
                 Source={{ uri: this.state.previewUri }}
               >
@@ -597,18 +598,18 @@ class Reportes extends React.Component {
                     </View>
                   </Camera>
 
-                  <TouchableHighlight
+                  <TouchableOpacity
                     style={styles.imageButton}
                     onPress={() => this.snap()}
                   >
                     <Text style={styles.textButtonCamera}>Tomar fotografía</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={styles.buttonCerrarCamara}
                     onPress={() => this.setState({ camaraAbierta: false })}
                   >
                     <Text style={styles.textButtonCamera}>cerrar cámara</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
               </Modal>
             </View>
