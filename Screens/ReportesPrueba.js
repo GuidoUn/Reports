@@ -9,7 +9,7 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
+  TouchableHigh,
   Picker,
   Platform
 } from 'react-native';
@@ -108,28 +108,28 @@ class Reportes extends React.Component {
   pressedLeve() {
     this.setState({ PickerValue: 'leve' })
     styles.buttonSlide11 = {
-      backgroundColor: 'green',
+      backgroundColor: 'lightblue',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide12 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide13 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
   }
 
@@ -139,25 +139,25 @@ class Reportes extends React.Component {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide12 = {
-      backgroundColor: 'green',
+      backgroundColor: 'lightblue',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide13 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
   }
 
@@ -167,25 +167,25 @@ class Reportes extends React.Component {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide12 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide13 = {
-      backgroundColor: 'green',
+      backgroundColor: 'lightblue',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
   }
 
@@ -195,7 +195,7 @@ class Reportes extends React.Component {
 
     if (tipo == 'Obra') {
       styles.buttonSlide21 = {
-        backgroundColor: 'green',
+        backgroundColor: 'lightblue',
 
         marginRight: 5,
         marginLeft: 5,
@@ -211,7 +211,7 @@ class Reportes extends React.Component {
       }
     } else if (tipo == 'Pozo') {
       styles.buttonSlide22 = {
-        backgroundColor: 'green',
+        backgroundColor: 'lightblue',
 
         marginRight: 5,
         marginLeft: 5,
@@ -227,7 +227,7 @@ class Reportes extends React.Component {
       }
     } else if (tipo == 'noLuz') {
       styles.buttonSlide23 = {
-        backgroundColor: 'green',
+        backgroundColor: 'lightblue',
 
         marginRight: 5,
         marginLeft: 5,
@@ -243,7 +243,7 @@ class Reportes extends React.Component {
       }
     } else if (tipo == 'Otro') {
       styles.buttonSlide24 = {
-        backgroundColor: 'green',
+        backgroundColor: 'lightblue',
 
         marginRight: 5,
         marginLeft: 5,
@@ -471,20 +471,23 @@ class Reportes extends React.Component {
                 style={styles.buttonSlide11}
                 onPress={() => this.pressedLeve()}
               >
+                <ImageBackground source={require('../Images/transitable.png')} style={{ width: '70%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32, marginTop: 15 }}>
+                </ImageBackground>
 
-                <Text style={styles.textButton}>Transitable</Text>
 
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonSlide12}
                 onPress={() => this.pressedParcial()}
               >
-                <Text style={styles.textButton}>Parcialmente Transitable</Text>
+                <ImageBackground source={require('../Images/parcialtransitable.png')} style={{ width: '80%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 23, marginTop: 15 }}>
+                </ImageBackground>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.buttonSlide13}
                 onPress={() => this.pressedTotal()}
               >
-                <Text style={styles.textButton}>Intransitable</Text>
+                <ImageBackground source={require('../Images/nopasar.png')} style={{ width: '70%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 30, marginTop: 15 }}>
+                </ImageBackground>
 
               </TouchableOpacity>
             </View>
@@ -709,7 +712,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   buttonCerrarCamara: {
-    backgroundColor: 'grey',
+    backgroundColor: 'lightblue',
     paddingTop: 5,
     paddingBottom: 5,
     paddingHorizontal: 22,
@@ -727,7 +730,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonMapClose: {
-    backgroundColor: 'grey',
+    backgroundColor: 'lightblue',
     paddingTop: 5,
     paddingBottom: 5,
     width: '50%',
@@ -737,25 +740,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
-    width: 250,
+    width: 120,
     height: 120,
-    borderRadius: 50,
+    borderRadius: 37,
   },
   buttonSlide12: {
     backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
-    width: 250,
+    width: 120,
     height: 120,
-    borderRadius: 50,
+    borderRadius: 37,
   },
   buttonSlide13: {
     backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
-    width: 250,
+    width: 120,
     height: 120,
-    borderRadius: 50,
+    borderRadius: 37,
   },
   buttonSlide21: {
     backgroundColor: 'white',
