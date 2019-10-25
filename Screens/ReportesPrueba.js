@@ -27,6 +27,8 @@ class Reportes extends React.Component {
   constructor() {
     super()
     this.state = {
+      paginationIndex: 0,
+      swiper: undefined,
       direc: '',
       ciudad: '',
       comment: '',
@@ -58,6 +60,11 @@ class Reportes extends React.Component {
       previewUri: undefined,
       previewBase64: undefined,
     };
+  }
+
+  slide(amount) {
+    console.log('NO LES MINTIERON');
+    this.state.swiper.scrollBy(this.state.paginationIndex + amount);
   }
 
   changeDirec(direc) {
@@ -162,6 +169,7 @@ class Reportes extends React.Component {
   }
 
   pressedTotal() {
+    this.slide(1);
     this.setState({ PickerValue: 'total' })
     styles.buttonSlide11 = {
       backgroundColor: 'white',
@@ -192,6 +200,9 @@ class Reportes extends React.Component {
   tipoPressed(tipo) {
     this.setState({ tipoObstaculo: tipo })
     this.screen2blue();
+    
+    console.log('SOY JEJEJEJE MILEI');
+    this.slide(1);
 
     if (tipo == 'Obra') {
       styles.buttonSlide21 = {
@@ -418,8 +429,8 @@ class Reportes extends React.Component {
       <View style={styles.container}>
         <ImageBackground source={require('../Images/back1.jpeg')} style={{ width: '100%', height: '100%' }}>
           <Text style={styles.title}>Realizando un reporte</Text>
-          <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}
-            showsPagination={true} paginationStyle={{ marginBottom: 10 }}>
+          <Swiper loop={false} ref={swiper => this.state.swiper = swiper} style={styles.wrapper} showsButtons={true} height={500} horizontal={true}
+            showsPagination={true} paginationStyle={{ marginBottom: 10 }} onIndexChanged={index => this.state.paginationIndex = index} >
 
             <View style={{ alignItems: 'center' }}>
 
@@ -538,6 +549,7 @@ class Reportes extends React.Component {
               <Text style={styles.paragraph}>{lontext}</Text>*/}
               <Text styles={styles.text}>Comentarios acerca del reporte</Text>
               <TextInput
+                placeholderTextColor='gray'
                 multiline={true}
                 style={[styles.inputBox, styles.textArea]}
                 placeholder=" Pozo profundo"
@@ -863,17 +875,17 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
-    marginBottom: 15,
+    marginBottom: 30,
     borderWidth: 2
   },
   inputBox: {
+    backgroundColor: 'white',
+    borderColor: 'transparent',
     height: 30,
-    borderColor: '#ccc',
     marginTop: 15,
     marginLeft: 15,
     borderWidth: 2,
-    padding: 15,
+    padding: 25,
   },
   inputSlide3: {
     height: 40,
@@ -886,10 +898,10 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   textArea: {
-    height: 300,
+    height: 150,
     width: 250,
     textAlignVertical: 'top',
-    borderRadius: 37,
+    borderRadius: 40,
   }
 });
 export default Reportes;
