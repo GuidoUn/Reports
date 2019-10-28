@@ -200,7 +200,7 @@ class Reportes extends React.Component {
   tipoPressed(tipo) {
     this.setState({ tipoObstaculo: tipo })
     this.screen2blue();
-    
+
     console.log('SOY JEJEJEJE MILEI');
     this.slide(1);
 
@@ -347,7 +347,7 @@ class Reportes extends React.Component {
       const photo = this.camera.takePictureAsync({ base64: true }).then((data) => {
         const previewBase64 = data.base64;
         this.setState({ previewBase64 });
-        console.log('photo taken');
+        alert('Fotografía tomada con éxito');
       }).catch((err) => {
         console.error(err);
         alert('There was an error taking the picture');
@@ -538,7 +538,7 @@ class Reportes extends React.Component {
                     <Text style={styles.textButton}>cerrar mapa</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={styles.button4}
+                    style={styles.buttonUseMark}
                     onPress={() => this.cambiarMarca()}
                   >
                     <Text style={styles.textButton}>Utilizar marca</Text>
@@ -547,9 +547,62 @@ class Reportes extends React.Component {
               </Modal>
               {/*<Text style={styles.paragraph}>{lattext}</Text>
               <Text style={styles.paragraph}>{lontext}</Text>*/}
+              <Text styles={styles.text}>Tomar una fotografía</Text>
+              <TouchableOpacity
+                style={styles.buttonOpenCamera}
+                onPress={() => this.setState({ camaraAbierta: true })}
+              >
+                <Text style={styles.textButton}>Abrir cámara</Text>
+              </TouchableOpacity>
+
+              <Modal isVisible={this.state.camaraAbierta}>
+                <View style={{ flex: 1, backgroundColor: 'black' }}>
+                  <Camera style={{ flex: 0.8 }} type={this.state.type} ref={ref => {
+                    this.camera = ref;
+                  }}>
+                    <View
+                      style={{
+                        flex: 1,
+                        backgroundColor: 'transparent',
+                        flexDirection: 'row',
+                      }}>
+                      <TouchableOpacity
+                        style={{
+                          flex: 0.2,
+                          alignSelf: 'flex-end',
+                          alignItems: 'center',
+                        }}
+                        onPress={() => {
+                          this.setState({
+                            type:
+                              this.state.type === Camera.Constants.Type.back
+                                ? Camera.Constants.Type.front
+                                : Camera.Constants.Type.back,
+                          });
+                        }}>
+                        <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Rotar</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </Camera>
+
+                  <TouchableOpacity
+                    style={styles.imageButton}
+                    onPress={() => this.snap()}
+                  >
+                    <Text style={styles.textButtonCamera}>Tomar fotografía</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.buttonCerrarCamara}
+                    onPress={() => this.setState({ camaraAbierta: false })}
+                  >
+                    <Text style={styles.textButtonCamera}>cerrar cámara</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+
               <Text styles={styles.text}>Comentarios acerca del reporte</Text>
               <TextInput
-                placeholderTextColor='gray'
+                placeholderTextColor='grey'
                 multiline={true}
                 style={[styles.inputBox, styles.textArea]}
                 placeholder=" Pozo profundo"
@@ -564,25 +617,18 @@ class Reportes extends React.Component {
               alignItems: 'center',
               marginTop: 15,
             }}>
-              <Text styles={styles.text}>Tomar una fotografía</Text>
-              <TouchableOpacity
-                style={styles.buttonOpenCamera}
-                onPress={() => this.setState({ camaraAbierta: true })}
-              >
-                <Text style={styles.textButton}>Abrir cámara</Text>
-              </TouchableOpacity>
               <TouchableOpacity
                 style={styles.buttonReport}
                 onPress={() => this.buttonPressed()}
               >
-                <Text style={styles.textButton}>Reportar</Text>
+                <Text style={styles.textButtonReport}>Reportar</Text>
               </TouchableOpacity>
               <Image
                 Source={{ uri: this.state.previewUri }}
               >
 
               </Image>
-
+              {/*
               <Modal isVisible={this.state.camaraAbierta}>
                 <View style={{ flex: 1 }}>
                   <Camera style={{ flex: 0.8 }} type={this.state.type} ref={ref => {
@@ -627,6 +673,7 @@ class Reportes extends React.Component {
                   </TouchableOpacity>
                 </View>
               </Modal>
+                      */}
             </View>
           </Swiper>
         </ImageBackground>
@@ -678,14 +725,14 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   buttonReport: {
-    height: 40,
-    width: 226,
-    borderRadius: 30,
-    borderColor: 'red',
-    backgroundColor: 'red',
-    marginTop: 15,
+    height: 225,
+    width: 225,
+    borderRadius: 360,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    marginTop: 50,
     marginBottom: 15,
-    borderWidth: 2
+    borderWidth: 2,
   },
   button2: {
     height: 40,
@@ -746,7 +793,18 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     width: '50%',
-    height: 30
+    height: 45,
+    borderBottomLeftRadius: 15,
+    borderTopLeftRadius: 15,
+  },
+  buttonUseMark: {
+    backgroundColor: 'green',
+    paddingTop: 5,
+    paddingBottom: 5,
+    width: '50%',
+    height: 45,
+    borderBottomRightRadius: 15,
+    borderTopRightRadius: 15,
   },
   buttonSlide11: {
     backgroundColor: 'white',
@@ -860,6 +918,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'black',
     marginTop: 8,
+  },
+  textButtonReport: {
+    textAlign: 'center',
+    color: 'black',
+    marginTop: 100,
   },
   textButton1: {
     textAlign: 'center',
