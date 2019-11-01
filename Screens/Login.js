@@ -129,7 +129,7 @@ export default class Login extends React.Component {
           />
           <TouchableHighlight
             style={styles.button}
-            onPress={() => this.loginPressed()}
+            onPress={() => {this.loginPressed(); this.props.navigation.navigate("Home");}}
           >
             <Text style={styles.textButton}>Entrar</Text>
           </TouchableHighlight>

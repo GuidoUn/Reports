@@ -203,7 +203,29 @@ export default class Map extends React.Component {
 
 
   }
+//actualizar ruta
+actruta(e){
+if (e.speed > 1){
+  if(this.state.coordinates[1].latitude !=1){
+  this.setState({
+                  
+    coordinates: [
+      {
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+      },
+     
+    ],
+  });
+}
+}
+if (this.distance(this.state.coordinates[0].latitude,this.state.coordinates[0].longitude,this.state.coordinates[1].latitude,this.state.coordinates[1].longitude,"K") <3 &&this.state.coordinates[0].latitude != 1){
+Alert.alert("hola");
+}
 
+
+
+}
   distanciaentreobs() {
     console.log(this.distance(this.state.latitude, this.state.longitude, -34.564112, -58.489167, "K"));
     this._getLocationAsync();
@@ -349,13 +371,7 @@ export default class Map extends React.Component {
                 // 'details' is provided when fetchDetails = true
                 const { lat, lng } = details.geometry.location;
                 this.setState({
-                  hola: [
-
-                    {
-                      latitude: lat,
-                      longitude: lng,
-                    },
-                  ],
+                  
                   coordinates: [
 
                     {
@@ -430,6 +446,8 @@ export default class Map extends React.Component {
           onRegionChangeComplete={this._handleMapRegionChange}
           onRegionChange={this.toggle}
           ref={c => this.mapView = c}
+          followsUserLocation={true}
+          onUserLocationChange={event => this.actruta(event.nativeEvent.coordinate)}
           //onPress={this.onMapPress}
           loadingEnabled={true}
         >
