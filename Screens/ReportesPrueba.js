@@ -8,8 +8,8 @@ import {
   Button,
   ImageBackground,
   TextInput,
-  TouchableHighlight,
   TouchableOpacity,
+  TouchableHigh,
   Picker,
   Platform
 } from 'react-native';
@@ -27,6 +27,8 @@ class Reportes extends React.Component {
   constructor() {
     super()
     this.state = {
+      paginationIndex: 0,
+      swiper: undefined,
       direc: '',
       ciudad: '',
       comment: '',
@@ -58,6 +60,11 @@ class Reportes extends React.Component {
       previewUri: undefined,
       previewBase64: undefined,
     };
+  }
+
+  slide(amount) {
+    console.log('NO LES MINTIERON');
+    this.state.swiper.scrollBy(this.state.paginationIndex + amount);
   }
 
   changeDirec(direc) {
@@ -108,28 +115,28 @@ class Reportes extends React.Component {
   pressedLeve() {
     this.setState({ PickerValue: 'leve' })
     styles.buttonSlide11 = {
-      backgroundColor: 'green',
+      backgroundColor: 'lightblue',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide12 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide13 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
   }
 
@@ -139,53 +146,54 @@ class Reportes extends React.Component {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide12 = {
-      backgroundColor: 'green',
+      backgroundColor: 'lightblue',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide13 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
   }
 
   pressedTotal() {
+    this.slide(1);
     this.setState({ PickerValue: 'total' })
     styles.buttonSlide11 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide12 = {
       backgroundColor: 'white',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
     styles.buttonSlide13 = {
-      backgroundColor: 'green',
+      backgroundColor: 'lightblue',
       marginTop: 10,
       justifyContent: 'center',
-      width: 250,
+      width: 120,
       height: 120,
-      borderRadius: 50,
+      borderRadius: 37,
     }
   }
 
@@ -193,9 +201,12 @@ class Reportes extends React.Component {
     this.setState({ tipoObstaculo: tipo })
     this.screen2blue();
 
+    console.log('SOY JEJEJEJE MILEI');
+    this.slide(1);
+
     if (tipo == 'Obra') {
       styles.buttonSlide21 = {
-        backgroundColor: 'green',
+        backgroundColor: 'lightblue',
 
         marginRight: 5,
         marginLeft: 5,
@@ -211,7 +222,7 @@ class Reportes extends React.Component {
       }
     } else if (tipo == 'Pozo') {
       styles.buttonSlide22 = {
-        backgroundColor: 'green',
+        backgroundColor: 'lightblue',
 
         marginRight: 5,
         marginLeft: 5,
@@ -227,7 +238,7 @@ class Reportes extends React.Component {
       }
     } else if (tipo == 'noLuz') {
       styles.buttonSlide23 = {
-        backgroundColor: 'green',
+        backgroundColor: 'lightblue',
 
         marginRight: 5,
         marginLeft: 5,
@@ -243,7 +254,7 @@ class Reportes extends React.Component {
       }
     } else if (tipo == 'Otro') {
       styles.buttonSlide24 = {
-        backgroundColor: 'green',
+        backgroundColor: 'lightblue',
 
         marginRight: 5,
         marginLeft: 5,
@@ -336,7 +347,7 @@ class Reportes extends React.Component {
       const photo = this.camera.takePictureAsync({ base64: true }).then((data) => {
         const previewBase64 = data.base64;
         this.setState({ previewBase64 });
-        console.log('photo taken');
+        alert('Fotografía tomada con éxito');
       }).catch((err) => {
         console.error(err);
         alert('There was an error taking the picture');
@@ -418,14 +429,14 @@ class Reportes extends React.Component {
       <View style={styles.container}>
         <ImageBackground source={require('../Images/back1.jpeg')} style={{ width: '100%', height: '100%' }}>
           <Text style={styles.title}>Realizando un reporte</Text>
-          <Swiper style={styles.wrapper} showsButtons={true} height={500} horizontal={true}
-            showsPagination={true} paginationStyle={{ marginBottom: 10 }}>
+          <Swiper loop={false} ref={swiper => this.state.swiper = swiper} style={styles.wrapper} showsButtons={true} height={500} horizontal={true}
+            showsPagination={true} paginationStyle={{ marginBottom: 10 }} onIndexChanged={index => this.state.paginationIndex = index} >
 
             <View style={{ alignItems: 'center' }}>
 
               <Text style={styles.text}>¿Qué tipo de obstáculo es?</Text>
               <View style={styles.slide2}>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.buttonSlide21}
                   onPress={() => this.tipoPressed('Obra')}
                 >
@@ -433,31 +444,31 @@ class Reportes extends React.Component {
                     <Text style={styles.textButton1}>Obra en construcción</Text>
                   </ImageBackground>
                   {//<}
-                  }</TouchableHighlight>
-                <TouchableHighlight style={styles.buttonSlide22}
+                  }</TouchableOpacity>
+                <TouchableOpacity style={styles.buttonSlide22}
                   onPress={() => this.tipoPressed('Pozo')}
                 >
                   <ImageBackground source={require('../Images/barrera.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Pozo o daño en la vereda</Text>
                   </ImageBackground>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
               <View style={styles.slide23}>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.buttonSlide23}
                   onPress={() => this.tipoPressed('noLuz')}
                 >
                   <ImageBackground source={require('../Images/luz.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Calle sin iluminación</Text>
                   </ImageBackground>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.buttonSlide24}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonSlide24}
                   onPress={() => this.tipoPressed('Otro')}
                 >
                   <ImageBackground source={require('../Images/otro.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Otro</Text>
                   </ImageBackground>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
             </View>
 
@@ -467,25 +478,29 @@ class Reportes extends React.Component {
               marginTop: 15,
             }}>
               <Text styles={styles.textEspecial}>¿Es transitable?</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.buttonSlide11}
                 onPress={() => this.pressedLeve()}
               >
-                <Text style={styles.textButton}>Transitable</Text>
+                <ImageBackground source={require('../Images/transitable.png')} style={{ width: '70%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32, marginTop: 15 }}>
+                </ImageBackground>
 
-              </TouchableHighlight>
-              <TouchableHighlight style={styles.buttonSlide12}
+
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonSlide12}
                 onPress={() => this.pressedParcial()}
               >
-                <Text style={styles.textButton}>Parcialmente Transitable</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
+                <ImageBackground source={require('../Images/parcialtransitable.png')} style={{ width: '80%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 23, marginTop: 15 }}>
+                </ImageBackground>
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={styles.buttonSlide13}
                 onPress={() => this.pressedTotal()}
               >
-                <Text style={styles.textButton}>Intransitable</Text>
+                <ImageBackground source={require('../Images/nopasar.png')} style={{ width: '70%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 30, marginTop: 15 }}>
+                </ImageBackground>
 
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
 
             <View style={{
@@ -494,12 +509,12 @@ class Reportes extends React.Component {
               marginTop: 15,
             }}>
               <Text styles={styles.text}>Ubicación</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.button2}
                 onPress={() => this.abrirMapa()}
               >
                 <Text style={styles.textButton}>{this.state.mensajeUbicacion}</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
               <Modal isVisible={this.state.mapaAbierto}>
                 <MapView
                   provider={PROVIDER_GOOGLE}
@@ -516,24 +531,78 @@ class Reportes extends React.Component {
                   />
                 </MapView>
                 <View style={styles.containerButtons}>
-                  <TouchableHighlight
+                  <TouchableOpacity
                     style={styles.buttonMapClose}
                     onPress={() => this.cerrarMapa()}
                   >
                     <Text style={styles.textButton}>cerrar mapa</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight
-                    style={styles.button4}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.buttonUseMark}
                     onPress={() => this.cambiarMarca()}
                   >
                     <Text style={styles.textButton}>Utilizar marca</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
               </Modal>
               {/*<Text style={styles.paragraph}>{lattext}</Text>
               <Text style={styles.paragraph}>{lontext}</Text>*/}
+              <Text styles={styles.text}>Tomar una fotografía</Text>
+              <TouchableOpacity
+                style={styles.buttonOpenCamera}
+                onPress={() => this.setState({ camaraAbierta: true })}
+              >
+                <Text style={styles.textButton}>Abrir cámara</Text>
+              </TouchableOpacity>
+
+              <Modal isVisible={this.state.camaraAbierta}>
+                <View style={{ flex: 1, backgroundColor: 'black' }}>
+                  <Camera style={{ flex: 0.8 }} type={this.state.type} ref={ref => {
+                    this.camera = ref;
+                  }}>
+                    <View
+                      style={{
+                        flex: 1,
+                        backgroundColor: 'transparent',
+                        flexDirection: 'row',
+                      }}>
+                      <TouchableOpacity
+                        style={{
+                          flex: 0.2,
+                          alignSelf: 'flex-end',
+                          alignItems: 'center',
+                        }}
+                        onPress={() => {
+                          this.setState({
+                            type:
+                              this.state.type === Camera.Constants.Type.back
+                                ? Camera.Constants.Type.front
+                                : Camera.Constants.Type.back,
+                          });
+                        }}>
+                        <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Rotar</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </Camera>
+
+                  <TouchableOpacity
+                    style={styles.imageButton}
+                    onPress={() => this.snap()}
+                  >
+                    <Text style={styles.textButtonCamera}>Tomar fotografía</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.buttonCerrarCamara}
+                    onPress={() => this.setState({ camaraAbierta: false })}
+                  >
+                    <Text style={styles.textButtonCamera}>cerrar cámara</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+
               <Text styles={styles.text}>Comentarios acerca del reporte</Text>
               <TextInput
+                placeholderTextColor='grey'
                 multiline={true}
                 style={[styles.inputBox, styles.textArea]}
                 placeholder=" Pozo profundo"
@@ -548,25 +617,18 @@ class Reportes extends React.Component {
               alignItems: 'center',
               marginTop: 15,
             }}>
-              <Text styles={styles.text}>Tomar una fotografía</Text>
-              <TouchableHighlight
-                style={styles.buttonOpenCamera}
-                onPress={() => this.setState({ camaraAbierta: true })}
-              >
-                <Text style={styles.textButton}>Abrir cámara</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.buttonReport}
                 onPress={() => this.buttonPressed()}
               >
-                <Text style={styles.textButton}>Reportar</Text>
-              </TouchableHighlight>
+                <Text style={styles.textButtonReport}>Reportar</Text>
+              </TouchableOpacity>
               <Image
                 Source={{ uri: this.state.previewUri }}
               >
 
               </Image>
-
+              {/*
               <Modal isVisible={this.state.camaraAbierta}>
                 <View style={{ flex: 1 }}>
                   <Camera style={{ flex: 0.8 }} type={this.state.type} ref={ref => {
@@ -597,20 +659,21 @@ class Reportes extends React.Component {
                     </View>
                   </Camera>
 
-                  <TouchableHighlight
+                  <TouchableOpacity
                     style={styles.imageButton}
                     onPress={() => this.snap()}
                   >
                     <Text style={styles.textButtonCamera}>Tomar fotografía</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={styles.buttonCerrarCamara}
                     onPress={() => this.setState({ camaraAbierta: false })}
                   >
                     <Text style={styles.textButtonCamera}>cerrar cámara</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
               </Modal>
+                      */}
             </View>
           </Swiper>
         </ImageBackground>
@@ -662,14 +725,14 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   buttonReport: {
-    height: 40,
-    width: 226,
-    borderRadius: 30,
-    borderColor: 'red',
-    backgroundColor: 'red',
-    marginTop: 15,
+    height: 225,
+    width: 225,
+    borderRadius: 360,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    marginTop: 50,
     marginBottom: 15,
-    borderWidth: 2
+    borderWidth: 2,
   },
   button2: {
     height: 40,
@@ -708,7 +771,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   buttonCerrarCamara: {
-    backgroundColor: 'grey',
+    backgroundColor: 'lightblue',
     paddingTop: 5,
     paddingBottom: 5,
     paddingHorizontal: 22,
@@ -726,35 +789,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonMapClose: {
-    backgroundColor: 'grey',
+    backgroundColor: 'lightblue',
     paddingTop: 5,
     paddingBottom: 5,
     width: '50%',
-    height: 30
+    height: 45,
+    borderBottomLeftRadius: 15,
+    borderTopLeftRadius: 15,
+  },
+  buttonUseMark: {
+    backgroundColor: 'green',
+    paddingTop: 5,
+    paddingBottom: 5,
+    width: '50%',
+    height: 45,
+    borderBottomRightRadius: 15,
+    borderTopRightRadius: 15,
   },
   buttonSlide11: {
     backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
-    width: 250,
+    width: 120,
     height: 120,
-    borderRadius: 50,
+    borderRadius: 37,
   },
   buttonSlide12: {
     backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
-    width: 250,
+    width: 120,
     height: 120,
-    borderRadius: 50,
+    borderRadius: 37,
   },
   buttonSlide13: {
     backgroundColor: 'white',
     marginTop: 10,
     justifyContent: 'center',
-    width: 250,
+    width: 120,
     height: 120,
-    borderRadius: 50,
+    borderRadius: 37,
   },
   buttonSlide21: {
     backgroundColor: 'white',
@@ -845,6 +919,11 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 8,
   },
+  textButtonReport: {
+    textAlign: 'center',
+    color: 'black',
+    marginTop: 100,
+  },
   textButton1: {
     textAlign: 'center',
     marginRight: 25,
@@ -859,17 +938,17 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
-    marginBottom: 15,
+    marginBottom: 30,
     borderWidth: 2
   },
   inputBox: {
+    backgroundColor: 'white',
+    borderColor: 'transparent',
     height: 30,
-    borderColor: '#ccc',
     marginTop: 15,
     marginLeft: 15,
     borderWidth: 2,
-    padding: 15,
+    padding: 25,
   },
   inputSlide3: {
     height: 40,
@@ -882,10 +961,10 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   textArea: {
-    height: 300,
+    height: 150,
     width: 250,
     textAlignVertical: 'top',
-    borderRadius: 37,
+    borderRadius: 40,
   }
 });
 export default Reportes;
