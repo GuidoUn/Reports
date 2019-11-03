@@ -66,7 +66,7 @@ export default class Login extends React.Component {
               userResponse: response.email,
               
           });
-          this.props.navigation.navigate('Home',{userEmail: 'hola'})
+          this.props.navigation.navigate('MapaScreen',{userEmail: 'hola'})
 
           
         })
@@ -129,7 +129,7 @@ export default class Login extends React.Component {
           />
           <TouchableHighlight
             style={styles.button}
-            onPress={() => {this.loginPressed(); this.props.navigation.navigate("Home");}}
+            onPress={() => {this.loginPressed(); this.props.navigation.navigate("MapaScreen");}}
           >
             <Text style={styles.textButton}>Entrar</Text>
           </TouchableHighlight>

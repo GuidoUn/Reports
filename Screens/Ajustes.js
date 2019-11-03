@@ -76,7 +76,7 @@ export default class Ajustes extends React.Component {
         modoNoche: this.state.ModoNoche
       }
     })
-    this.props.navigation.navigate('Home', {notificaciones: this.state.PickerNot, modoCiego: this.state.ModoCiego, modoNoche: this.state.ModoNoche });
+    this.props.navigation.navigate('MapaScreen', {notificaciones: this.state.PickerNot, modoCiego: this.state.ModoCiego, modoNoche: this.state.ModoNoche });
   }
   render() {
     return (

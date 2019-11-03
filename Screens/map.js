@@ -31,6 +31,8 @@ const COORDS = [
 ];
 const showAnimation = "fadeInDownBig"
 const hideAnimation = "fadeOutUpBig"
+const showAnimationmenu = "bounceInLeft"
+const hideAnimationmenu = "bounceOutLeft"
 export default class Map extends React.Component {
 
   // state
@@ -54,10 +56,9 @@ export default class Map extends React.Component {
     show: false,
     anim: false,
     animad: false,
-
-    showmenu: true,
+    showMap:true,
+    showmenu: false,
     animmenu: true,
-    showadjus: false,
     coordinates: [
       {
         latitude: 1,
@@ -269,10 +270,10 @@ Alert.alert("hola");
   onPressad = () => {
     // console.debug(this.state);
     // console.debug(this.state.showadjus);
-    if (!this.state.showadjus) {
-      this.setState({showadjus: true, animad: true});
+    if (!this.state.showmenu) {
+      this.setState({showmenu: true, animad: true});
     } else {
-      this.setState({showadjus: false, animad: false});
+      this.setState({showmenu: false, animad: false});
     }
   }
   distance(lat1, lon1, lat2, lon2, unit) {
@@ -323,6 +324,13 @@ Alert.alert("hola");
 
 
   }
+  ajustes () {
+ 
+      this.setState({showmenu: false, animad: true});
+      console.log(this.state.showadjus);
+      setTimeout(() => this.props.navigation.navigate("Ajustes"),20);
+
+  }
   //refreshea la ubicacion 6
   componentDidMount() {
 
@@ -330,6 +338,8 @@ Alert.alert("hola");
   }
 
   render() {
+    const { navigate } = this.props.navigation
+
 
     const allCoords = COORDS.map(c => ({
       geometry: {
@@ -437,6 +447,7 @@ Alert.alert("hola");
               debounce={700} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
             />
           </Animatable.View>}
+          {this.state.showMap &&(
         <MapView
           style={{ alignSelf: 'stretch', height: 400, flex: 1, zIndex: -1 }}
           initialRegion={this.state.mapRegion}
@@ -448,7 +459,7 @@ Alert.alert("hola");
           ref={c => this.mapView = c}
           followsUserLocation={true}
           onUserLocationChange={event => this.actruta(event.nativeEvent.coordinate)}
-          //onPress={this.onMapPress}
+          onPress={this.onPressad}
           loadingEnabled={true}
         >
           {this.state.hola.map((coordinate, index) =>
@@ -469,20 +480,22 @@ Alert.alert("hola");
               onError={this.onError}
             />
           )}
+             
+        </MapView>
+          )}
+        {this.state.showmenu &&(
+            <Animatable.View style={{backgroundColor:"#ffffff",height:'100%',width:'50%', position: 'absolute',alignItems: 'center',borderTopRightRadius:30,borderBottomRightRadius:30}} animation={this.state.animmenu ? showAnimationmenu : hideAnimationmenu}>
+            <Text style={{    textAlign: 'center',fontSize:30,fontWeight:'bold'}}>Menu   </Text>
+            <TouchableHighlight style={styles.button2} onPress={() => this.ajustes()}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
+            <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')} onPressIn={()=>this.onPressad()}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
+            <TouchableHighlight style={styles.button2} onPress={() => this.setState({showMap:false})} onPressIn={()=>this.onPressad()}  ><Text style={styles.textButton}>Ir al modo ciego</Text></TouchableHighlight>
+            {!this.state.showMap &&(
+            <TouchableHighlight style={styles.button2} onPress={() => this.setState({showMap:true})} onPressIn={()=>this.onPressad()}  ><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
+            )}
+           <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')}onPressIn={()=>this.onPressad()}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
 
-          {this.state.showmenu &&(
-            <Animatable.View style={{backgroundColor:"#000000",height:'99%',width:'40%'}} animation={this.state.animmenu ? showAnimation : hideAnimation}>
-              <TouchableHighlight
-                style={styles.button}
-                onPress={this._hideMenu}
-              >
-                <Text style={styles.textButton}>Crear cuenta</Text>
-              </TouchableHighlight>
-              <Text style={{color: '#ffffff'}}>{this.state.showmenu ? 'MOSTRADO' : 'ESCONDIDO'}</Text>
             </Animatable.View>
           )}
-
-        </MapView>
       </View>
 
     );
@@ -511,7 +524,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
   },
 
@@ -534,16 +546,31 @@ const styles = StyleSheet.create({
     shadowRadius: 16.00,
     elevation: 24,
   },
+  button2: {
+    alignItems: 'center',
+    height: 40,
+    width: 150,
+    borderRadius: 30,
+    borderColor: 'white',
+    backgroundColor: '#787ff6',
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 2
+  },
+  textButton: {
+    textAlign: 'center',
+    color: 'white',
+    marginTop: 8,
+  },
   searchbarview: {
     width: 300,
     flex: 1,
     position: 'absolute',
     alignItems: 'center',
     top: 40,
-    marginLeft: 150,
+    marginLeft: 35
   },
   button: {
-    alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 10
   },
