@@ -59,6 +59,7 @@ export default class Map extends React.Component {
     showMap:true,
     showmenu: false,
     animmenu: true,
+    steps:[],
     coordinates: [
       {
         latitude: 1,
@@ -231,7 +232,7 @@ Alert.alert("hola");
     console.log(this.distance(this.state.latitude, this.state.longitude, -34.564112, -58.489167, "K"));
     this._getLocationAsync();
 
-    fetch(`http://10.8.5.20:3000/api/obstaculos?locationlat=${this.state.latitude}&locationlng=${this.state.longitude}`, {
+    fetch(`http://10.10.32.119:3000/api/obstaculos?locationlat=${this.state.latitude}&locationlng=${this.state.longitude}`, {
 
       method: 'GET',
     })
@@ -298,7 +299,7 @@ Alert.alert("hola");
     }
   }
   tomartodosobjs() {
-    fetch(`http://10.8.5.20:3000/api/obstaculos/todos`, {
+    fetch(`http://10.10.32.119:3000/api/obstaculos/todos`, {
 
       method: 'GET',
     })
@@ -336,7 +337,50 @@ Alert.alert("hola");
 
     this.interval = setInterval(() => this.setState({ Location: this.distanciaentreobs() }), 10000);
   }
+fechaudio(){
 
+  fetch(`http://10.10.32.119:3000/api/ruta?origin=${this.state.coordinates[0]}&destination=${this.state.coordinates[1]}`, {
+
+    method: 'GET',
+  })
+    .then((response) => response.json())
+    .then(json => {
+      let route = { numberOfObstacles: Infinity };
+      for (let i = 0; i < json.routes.length; i++) {
+        const newRoute = json.routes[i];
+        if (newRoute.numberOfObstacles <= route.numberOfObstacles) {
+        route = newRoute;
+        }
+      }
+      return route;
+    })
+    .then(route => {
+      const arrayOfSteps = [];
+      for (let i = 0; i < route.legs.length; i += 1) {
+        const currentLegSteps = route.legs[i].steps.map(step => {
+          const { start_location, html_instructions } = step;
+          return {
+            startLocation: start_location,
+            instructions: html_instructions.replace(/<[^>]*>?/gm, ''),
+          };
+        });
+        arrayOfSteps.push(currentLegSteps);
+      }
+      console.log(arrayOfSteps);
+      this.setState({
+        steps: arrayOfSteps,
+      });
+    }).catch(function (error) {
+      // ADD THIS THROW error
+      throw error;
+    });
+
+
+
+
+
+
+}
   render() {
     const { navigate } = this.props.navigation
 
@@ -485,7 +529,8 @@ Alert.alert("hola");
           )}
         {this.state.showmenu &&(
             <Animatable.View style={{backgroundColor:"#ffffff",height:'100%',width:'50%', position: 'absolute',alignItems: 'center',borderTopRightRadius:30,borderBottomRightRadius:30}} animation={this.state.animmenu ? showAnimationmenu : hideAnimationmenu}>
-            <Text style={{    textAlign: 'center',fontSize:30,fontWeight:'bold'}}>Menu   </Text>
+            <Text style={{    textAlign: 'center',fontSize:30,fontWeight:'bold',marginTop:70}}>Menu   </Text>
+            <View style={{marginTop:30,width:'100%'}}>
             <TouchableHighlight style={styles.button2} onPress={() => this.ajustes()}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
             <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')} onPressIn={()=>this.onPressad()}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
             <TouchableHighlight style={styles.button2} onPress={() => this.setState({showMap:false})} onPressIn={()=>this.onPressad()}  ><Text style={styles.textButton}>Ir al modo ciego</Text></TouchableHighlight>
@@ -493,7 +538,7 @@ Alert.alert("hola");
             <TouchableHighlight style={styles.button2} onPress={() => this.setState({showMap:true})} onPressIn={()=>this.onPressad()}  ><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
             )}
            <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')}onPressIn={()=>this.onPressad()}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
-
+              </View>
             </Animatable.View>
           )}
       </View>
@@ -548,18 +593,15 @@ const styles = StyleSheet.create({
   },
   button2: {
     alignItems: 'center',
-    height: 40,
-    width: 150,
-    borderRadius: 30,
+    height: 50,
+    width: '100%',
     borderColor: 'white',
-    backgroundColor: '#787ff6',
-    marginTop: 15,
-    marginBottom: 15,
-    borderWidth: 2
+    backgroundColor: '#F2EFEF',
+    borderWidth:2,
   },
   textButton: {
     textAlign: 'center',
-    color: 'white',
+    color: 'black',
     marginTop: 8,
   },
   searchbarview: {

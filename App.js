@@ -28,7 +28,10 @@ const AppNavigator = createStackNavigator({
     screen: Ajustes
   },
   Login: {
-    screen: Login
+    screen: Login,
+    navigationOptions:{
+header:null
+    }
   },
   Registrarse: {
     screen: Registrarse
@@ -40,7 +43,11 @@ const AppNavigator = createStackNavigator({
     screen: RecuperarPass
   },
   MapaScreen: {
-    screen: MapaScreen
+    screen: MapaScreen,
+    navigationOptions:{
+      header:null
+          }
+
   },
   MapaBlind: {
     screen: MapaBlind
