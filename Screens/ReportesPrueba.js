@@ -618,62 +618,11 @@ class Reportes extends React.Component {
               marginTop: 15,
             }}>
               <TouchableOpacity
-                style={styles.buttonReport}
-                onPress={() => this.buttonPressed()}
-              >
-                <Text style={styles.textButtonReport}>Reportar</Text>
-              </TouchableOpacity>
-              <Image
-                Source={{ uri: this.state.previewUri }}
-              >
-
-              </Image>
-              {/*
-              <Modal isVisible={this.state.camaraAbierta}>
-                <View style={{ flex: 1 }}>
-                  <Camera style={{ flex: 0.8 }} type={this.state.type} ref={ref => {
-                    this.camera = ref;
-                  }}>
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: 'transparent',
-                        flexDirection: 'row',
-                      }}>
-                      <TouchableOpacity
-                        style={{
-                          flex: 0.2,
-                          alignSelf: 'flex-end',
-                          alignItems: 'center',
-                        }}
-                        onPress={() => {
-                          this.setState({
-                            type:
-                              this.state.type === Camera.Constants.Type.back
-                                ? Camera.Constants.Type.front
-                                : Camera.Constants.Type.back,
-                          });
-                        }}>
-                        <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Rotar</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </Camera>
-
-                  <TouchableOpacity
-                    style={styles.imageButton}
-                    onPress={() => this.snap()}
-                  >
-                    <Text style={styles.textButtonCamera}>Tomar fotografía</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.buttonCerrarCamara}
-                    onPress={() => this.setState({ camaraAbierta: false })}
-                  >
-                    <Text style={styles.textButtonCamera}>cerrar cámara</Text>
-                  </TouchableOpacity>
-                </View>
-              </Modal>
-                      */}
+                  style={styles.buttonReport}
+                  onPress={() => this.buttonPressed()}
+                >
+                  <Text style={styles.textButtonReport}>Reportar</Text>
+                </TouchableOpacity>
             </View>
           </Swiper>
         </ImageBackground>
@@ -725,12 +674,12 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   buttonReport: {
-    height: 225,
+    height: 50,
     width: 225,
-    borderRadius: 360,
+    borderRadius: 90,
     borderColor: 'white',
     backgroundColor: 'white',
-    marginTop: 50,
+    marginTop: 150,
     marginBottom: 15,
     borderWidth: 2,
   },
@@ -922,7 +871,7 @@ const styles = StyleSheet.create({
   textButtonReport: {
     textAlign: 'center',
     color: 'black',
-    marginTop: 100,
+    marginTop: 15,
   },
   textButton1: {
     textAlign: 'center',
