@@ -232,7 +232,7 @@ Alert.alert("hola");
     console.log(this.distance(this.state.latitude, this.state.longitude, -34.564112, -58.489167, "K"));
     this._getLocationAsync();
 
-    fetch(`http://10.10.32.119:3000/api/obstaculos?locationlat=${this.state.latitude}&locationlng=${this.state.longitude}`, {
+    fetch(`http://10.10.32.85:3000/api/obstaculos?locationlat=${this.state.latitude}&locationlng=${this.state.longitude}`, {
 
       method: 'GET',
     })
@@ -299,7 +299,7 @@ Alert.alert("hola");
     }
   }
   tomartodosobjs() {
-    fetch(`http://10.10.32.119:3000/api/obstaculos/todos`, {
+    fetch(`http://10.10.32.85:3000/api/obstaculos/todos`, {
 
       method: 'GET',
     })
@@ -338,8 +338,10 @@ Alert.alert("hola");
     this.interval = setInterval(() => this.setState({ Location: this.distanciaentreobs() }), 10000);
   }
 fechaudio(){
-
-  fetch(`http://10.10.32.119:3000/api/ruta?origin=${this.state.coordinates[0]}&destination=${this.state.coordinates[1]}`, {
+  console.log('ESTE ES EL DEL MAPA')
+  console.log(this.state.coordinates[0])
+  console.log(this.state.coordinates[1])
+  fetch(`http://10.10.32.85:3000/api/ruta?origin=${this.state.coordinates[0].latitude},${this.state.coordinates[0].longitude}&destination=${this.state.coordinates[1].latitude},${this.state.coordinates[1].longitude}`, {
 
     method: 'GET',
   })
@@ -374,10 +376,6 @@ fechaudio(){
       // ADD THIS THROW error
       throw error;
     });
-
-
-
-
 
 
 }
@@ -423,6 +421,7 @@ fechaudio(){
               fetchDetails={true}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
+               
                 const { lat, lng } = details.geometry.location;
                 this.setState({
                   
@@ -438,6 +437,7 @@ fechaudio(){
                     },
                   ],
                 });
+                this.fechaudio(); 
               }}
 
 
