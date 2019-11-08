@@ -66,7 +66,7 @@ export default class Login extends React.Component {
               userResponse: response.email,
               
           });
-          this.props.navigation.navigate('MapaScreen',{userEmail: 'hola'})
+          this.props.navigation.navigate('MapaScreen',{userEmail: this.state.userInput})
 
           
         })

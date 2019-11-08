@@ -76,6 +76,34 @@ export default class Ajustes extends React.Component {
         modoNoche: this.state.ModoNoche
       }
     })
+
+    fetch('http://10.8.5.20:3000/api/usuarios/reg', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        notificaciones: this.state.notificaciones,
+        modoCiego: this.state.ModoCiego,
+        modoNoche: this.state.ModoNoche
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('RESULTS HERE:', responseData)
+        /*
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        });
+        */
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Se ha producido un error guardando las configuraciones')
+      })
+
     this.props.navigation.navigate('MapaScreen', {notificaciones: this.state.PickerNot, modoCiego: this.state.ModoCiego, modoNoche: this.state.ModoNoche });
   }
   render() {

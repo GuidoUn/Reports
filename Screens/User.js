@@ -26,23 +26,8 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      userInput: '',
-      passInput: '',
-      modalPass: false,
-      checked: true,
       ip: 'http://10.8.5.20:3000/api/usuarios/log?',
-      userResponse: '',
-      token: '',
-      accountLogged: '',
     }
-  }
-
-  changeUserInput(userInput) {
-    this.setState({ userInput })
-  }
-
-  changePassInput(passInput) {
-    this.setState({ passInput })
   }
 
   loginPressed() {
@@ -94,6 +79,7 @@ export default class Login extends React.Component {
     this.cerrarModalPass();
   }
 
+
   goToRecuperarPass() {
     this.props.navigation.navigate('RecuperarPass')
   }
@@ -106,7 +92,7 @@ export default class Login extends React.Component {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Log-In</Text>
+          <Text style={styles.title}>Editar</Text>
           <TextInput
             style={styles.input}
             placeholder=" Ingresar correo electrónico"
@@ -145,33 +131,6 @@ export default class Login extends React.Component {
           >
             <Text style={styles.textButton}>Registrarse</Text>
           </TouchableHighlight>
-
-          <Modal isVisible={this.state.modalPass}>
-            <View style={styles.containerModal}>
-              <Text style={styles.title}>Recuperar Contraseña</Text>
-              <Text style={styles.modalText}>Ingresar Email</Text>
-              <TextInput
-                style={styles.input}
-                placeholder=""
-                value={this.state.userInput}
-                onChangeText={(userInput) => this.changeUserInput(userInput)}
-              />
-              <View style={styles.containerButtons}>
-                <TouchableHighlight
-                  style={styles.button3}
-                  onPress={() => this.cerrarModalPass()}
-                >
-                  <Text style={styles.textButton}>cancelar</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                  style={styles.button4}
-                  onPress={() => this.mailRecuperarPass()}
-                >
-                  <Text style={styles.textButton}>Enviar Email</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </Modal>
         </View>
       </View>
     );
