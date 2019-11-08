@@ -24,6 +24,7 @@ export default class Ajustes extends React.Component {
       ModoCiego: 'desactivado',
       ModoNoche: 'desactivado',
       Sonido: 'activado,',
+      userEmail: this.props.navigation.state.params.userEmail,
       valueCiego: false,
       valueNoche: false,
       valueSonido: true,
@@ -84,6 +85,7 @@ export default class Ajustes extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        userEmail: this.state.userEmail,
         notificaciones: this.state.notificaciones,
         modoCiego: this.state.ModoCiego,
         modoNoche: this.state.ModoNoche
