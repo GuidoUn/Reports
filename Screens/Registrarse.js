@@ -227,7 +227,7 @@ export default class Login extends React.Component {
           id: 0,
           name: 'no ha seleccionado barrio',
         }],
-      
+
     }
   }
 
@@ -289,91 +289,97 @@ export default class Login extends React.Component {
   render() {
     const { navigate } = this.props.navigation
     return (
-      <View style={styles.container}>
+      <View style={styles.container} accessible={true}>
         {/*<ImageBackground source={require('../Images/back2.jpeg')} style={{ width: '100%', height: '100%' }}>*/}
-          <View>
-            <Text style={styles.title}>Sign Up</Text>
-            <SearchableDropdown
-              onItemSelect={(item) => {
-                //const items = this.state.selectedItems;
-                //items.push(item)
-                this.setState({ selectedItems: item });
-              }}
-              containerStyle={{ padding: 5 }}
-              onRemoveItem={(item, index) => {
-                const items = this.state.selectedItems.filter((sitem) => sitem.id !== item.id);
-                this.setState({ createBarrio: items });
-              }}
-              itemStyle={{
-                padding: 10,
-                marginTop: 2,
-                backgroundColor: '#ddd',
-                borderColor: '#bbb',
-                borderWidth: 1,
-                borderRadius: 5,
-              }}
-              itemTextStyle={{ color: '#222' }}
-              itemsContainerStyle={{ maxHeight: 140 }}
-              items={items}
-              defaultIndex={0}
-              resetValue={false}
-              textInputProps={
-                {
-                  placeholderTextColor:'black',
-                  placeholder: " Seleccionar barrio",
-                  underlineColorAndroid: "transparent",
-                  style: {
-                    height:50,
-                    borderWidth: 1,
-                    borderColor: '#ccc',
-                    borderRadius: 5,
-                  },
-                }
+        <View accessible={true}>
+          <Text style={styles.title} accessibilityLabel="Registro">Sign Up</Text>
+          <SearchableDropdown
+            accessibilityLabel="Seleccionar Barrio"
+            onItemSelect={(item) => {
+              //const items = this.state.selectedItems;
+              //items.push(item)
+              this.setState({ selectedItems: item });
+            }}
+            containerStyle={{ padding: 5 }}
+            onRemoveItem={(item, index) => {
+              const items = this.state.selectedItems.filter((sitem) => sitem.id !== item.id);
+              this.setState({ createBarrio: items });
+            }}
+            itemStyle={{
+              padding: 10,
+              marginTop: 2,
+              backgroundColor: '#ddd',
+              borderColor: '#bbb',
+              borderWidth: 1,
+              borderRadius: 5,
+            }}
+            itemTextStyle={{ color: '#222' }}
+            itemsContainerStyle={{ maxHeight: 140 }}
+            items={items}
+            defaultIndex={0}
+            resetValue={false}
+            textInputProps={
+              {
+                placeholderTextColor: 'black',
+                placeholder: " Seleccionar barrio",
+                underlineColorAndroid: "transparent",
+                style: {
+                  height: 50,
+                  borderWidth: 1,
+                  borderColor: '#ccc',
+                  borderRadius: 5,
+                },
               }
-              listProps={
-                {
-                  nestedScrollEnabled: true,
-                }
+            }
+            listProps={
+              {
+                nestedScrollEnabled: true,
               }
-            />
-            <TextInput
-              style={styles.input}
-              placeholderTextColor='white'
-              placeholder=" Nombre de Usuario"
-              value={this.state.createUserInput}
-              onChangeText={(createUserInput) => this.changeCreateUserInput(createUserInput)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholderTextColor='white'
-              placeholder=" Correo electrónico"
-              value={this.state.createMailInput}
-              onChangeText={(createMailInput) => this.changeCreateMailInput(createMailInput)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholderTextColor='white'
-              placeholder=" Número de documento"
-              value={this.state.createDNIInput}
-              onChangeText={(createDNIInput) => this.changeCreateDNIInput(createDNIInput)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholderTextColor='white'
-              placeholder=" Contraseña"
-              value={this.state.createPassInput}
-              secureTextEntry
-              onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
-            />
+            }
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor='white'
+            placeholder=" Nombre de Usuario"
+            accessibilityLabel="Ingresar Nombre de Usuario"
+            value={this.state.createUserInput}
+            onChangeText={(createUserInput) => this.changeCreateUserInput(createUserInput)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor='white'
+            placeholder=" Correo electrónico"
+            accessibilityLabel="Ingresar Correo electrónico"
+            value={this.state.createMailInput}
+            onChangeText={(createMailInput) => this.changeCreateMailInput(createMailInput)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor='white'
+            placeholder=" Número de documento"
+            accessibilityLabel="Ingresar Número de documento"
+            value={this.state.createDNIInput}
+            onChangeText={(createDNIInput) => this.changeCreateDNIInput(createDNIInput)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor='white'
+            placeholder=" Contraseña"
+            accessibilityLabel="Ingresar Constraseña"
+            value={this.state.createPassInput}
+            secureTextEntry
+            onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
+          />
 
-            <TouchableHighlight
-              style={styles.button}
-              onPress={() => this.createPressed()}
-            >
-              <Text style={styles.textButton}>Crear cuenta</Text>
-            </TouchableHighlight>
-            <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
-          </View>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => this.createPressed()}
+            accessibilityLabel="Crear cuenta"
+          >
+            <Text style={styles.textButton}>Crear cuenta</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textButton}>Login</Text></TouchableHighlight>
+        </View>
         {/*</ImageBackground>*/}
 
       </View>
@@ -434,8 +440,8 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: '#787FF6',
     borderBottomRightRadius: 30,
-    borderTopRightRadius:30,
-    marginRight:50,
+    borderTopRightRadius: 30,
+    marginRight: 50,
     borderColor: '#787FF6',
     marginBottom: 15,
     borderWidth: 2
