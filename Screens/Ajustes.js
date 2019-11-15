@@ -110,26 +110,28 @@ export default class Ajustes extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container}accessible={true}>
         <Text style={styles.title}>Ajustes</Text>
         <View style={styles.rowContainer}>
-          <Text style={{ marginTop: 25, fontSize: 20 }} > Modo ciego</Text>
+          <Text style={{ marginTop: 25, fontSize: 20 }} accessibilityLabel="Activar modo ciego" > Modo ciego</Text>
           <Switch width={60}
             height={30}
             label={2}
             backgroundActive={'#787FF6'}
             value={this.state.valueCiego}
             style={{ position: 'absolute', left: '75%', top: '50%' }}
+            accessibilityLabel='Modo ciego'
             onSyncPress={(value) => this.switch1Cambiado(value)} />
         </View>
-        <View style={styles.rowContainer}>
-          <Text style={{ marginTop: 25, fontSize: 20 }} > Modo noche</Text>
+        <View style={styles.rowContainer}accessible={true}>
+          <Text style={{ marginTop: 25, fontSize: 20 }}accessibilityLabel="Activar modo noche" > Modo noche</Text>
           <Switch width={60}
             height={30}
             label={2}
             backgroundActive={'#787FF6'}
             value={this.state.valueNoche}
             style={{ position: 'absolute', left: '75%', top: '50%' }}
+            accessibilityLabel="Activar modo noche"
             onSyncPress={(value) => this.switch2Cambiado(value)} />
         </View>
         {/*
@@ -143,8 +145,8 @@ export default class Ajustes extends React.Component {
                 onSyncPress={(value) => this.switch3Cambiado(value)} />                          
               </View>
               */}
-        <View style={styles.rowContainer}>
-          <Text style={{ marginTop: 25, fontSize: 20 }} > Notificaciones</Text>
+        <View style={styles.rowContainer}accessible={true}>
+          <Text style={{ marginTop: 25, fontSize: 20 }} accessibilityLabel="Frecuencia de las notificaciones"> Notificaciones</Text>
           <Picker
             style={{ width: '55%', position: 'absolute', left: '50%', top: '30%' }}
             selectedValue={this.state.PickerNot}
@@ -159,6 +161,7 @@ export default class Ajustes extends React.Component {
         <TouchableHighlight
           style={styles.button}
           onPress={() => this.guardarAjustes()}
+          accessibilityLabel="Guardar la configuración de los ajustes"
         >
           <Text style={styles.textButton}>Guardar Ajustes</Text>
         </TouchableHighlight>
