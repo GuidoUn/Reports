@@ -134,17 +134,7 @@ export default class Ajustes extends React.Component {
             accessibilityLabel="Activar modo noche"
             onSyncPress={(value) => this.switch2Cambiado(value)} />
         </View>
-        {/*
-              <View style ={styles.rowContainer}>
-              <Text style={{marginTop: 25, fontSize: 20}} > Sonido</Text>
-              <Switch width={60}
-                height={30}
-                label={2} 
-                value={this.state.valueSonido} 
-                style={{position: 'absolute', left: '75%', top: '50%'}} 
-                onSyncPress={(value) => this.switch3Cambiado(value)} />                          
-              </View>
-              */}
+        
         <View style={styles.rowContainer}accessible={true}>
           <Text style={{ marginTop: 25, fontSize: 20 }} accessibilityLabel="Frecuencia de las notificaciones"> Notificaciones</Text>
           <Picker
