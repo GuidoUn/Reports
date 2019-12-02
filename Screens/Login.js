@@ -71,7 +71,7 @@ export default class Login extends React.Component {
           
         })
         .catch((error) => {
-          alert('Se produjo un error logueando')
+        //  alert('Se produjo un error logueando')
         })
 
     }

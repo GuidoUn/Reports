@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, Button, Component, Animated, Dimensions ,TouchableOpacity,TouchableHighlight} from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, Component, Animated, Dimensions, TouchableOpacity, TouchableHighlight,ImageBackground } from 'react-native';
 import { Callout, Notifications, Speech } from 'expo';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -56,10 +56,10 @@ export default class Map extends React.Component {
     show: false,
     anim: false,
     animad: false,
-    showMap:true,
+    showMap: true,
     showmenu: false,
     animmenu: true,
-    steps:[],
+    steps: [],
     coordinates: [
       {
         latitude: 1,
@@ -205,41 +205,73 @@ export default class Map extends React.Component {
 
 
   }
-//actualizar ruta
-actruta(e){
-if (e.speed > 1){
-  if(this.state.coordinates[1].latitude !=1){
-  this.setState({
-                  
-    coordinates: [
-      {
-        latitude: this.state.latitude,
-        longitude: this.state.longitude,
-      },
-     
-    ],
-  });
-}
-}
-if (this.distance(this.state.coordinates[0].latitude,this.state.coordinates[0].longitude,this.state.coordinates[1].latitude,this.state.coordinates[1].longitude,"K") <3 &&this.state.coordinates[0].latitude != 1){
-Alert.alert("hola");
-}
+  //actualizar ruta
+  actruta() {
+    // Object {
+    //   "instructions": "Gira a la izquierda hacia Av. Gral. Eustaquio FríasEl destino está a la derecha.",
+    //   "startLocation": Object {
+    //     "lat": -34.7838994,
+    //     "lng": -58.42176289999999,
+    //   },
+    // },
+    
+   //if (e.speed > 0.5) {
+      
+      /*if (this.state.coordinates[1]) {
+        this.setState({
+          coordinates: [
+            {
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+            },
+          ],
+        });
+      }*/
+      const stepsall= this.state.steps;
+      if (this.state.steps) {
+        console.log(stepsall);
 
+        for (let i = 0; i < this.state.steps.length ; i += 1) {
+          const step = stepsall[i];
+          //console.log(step[i].startLocation)
+          if (this.state.steps) {
+          if (this.distance(this.state.latitude, this.state.longitude, step[0].startLocation.lat, step[0].startLocation.lng, 'K') < 50) {
+            this.speakViernes(step[i].instructions);
+            stepsall[0].shift();
 
-
-}
+            this.setState({
+              steps: stepsall,
+            },() => { this.forceUpdate() })          }
+        }
+        } 
+   //   }
+    }
+  }
   distanciaentreobs() {
-    console.log(this.distance(this.state.latitude, this.state.longitude, -34.564112, -58.489167, "K"));
     this._getLocationAsync();
 
-    fetch(`http://10.10.32.85:3000/api/obstaculos?locationlat=${this.state.latitude}&locationlng=${this.state.longitude}`, {
+    fetch(`https://data-base-obs.herokuapp.com/api/obstaculos/todos`, {
 
       method: 'GET',
     })
       .then((response) => response.json())
       .then((responseJson) => {
+        const obstacles = responseJson;
+       const latitude = this.state.latitude;
+        const longitude = this.state.longitude;
+        const ALERT_DISTANCE =100 // in meterss
+        for (let i = 0; i < obstacles.length; i++) {
+          const obstacle = obstacles[i];
+          const obstacleType = obstacle.clasification;
+          console.log(this.distance(latitude, longitude, obstacle.location.coordinates[0], obstacle.location.coordinates[1], 'K'));
+          const distanceFromObstacle = this.distance(latitude, longitude, obstacle.location.coordinates[0], obstacle.location.coordinates[1], 'K');
+          if (distanceFromObstacle<ALERT_DISTANCE ) {
+            obstacles.shift();
 
-        const arrayOfPosition = responseJson.obstaculos.map((obstacle) => {
+            this.speakViernes(`Cuidado, hay un obstáculo ${obstacleType} en su cercanía`);
+          }
+        }
+        const arrayOfPosition = responseJson.map((obstacle) => {
           const latitud = obstacle.location.coordinates[0];
           const longitud = obstacle.location.coordinates[1];
           return { latitud, longitud };
@@ -253,28 +285,28 @@ Alert.alert("hola");
         // ADD THIS THROW error
         throw error;
       });
+/*
+     for (var i = 0; i < this.state.posicionessx.length; i++) {
 
-    for (var i = 0; i < this.state.posicionessx.length; i++) {
-
-      this.setState({ distancia: this.distance(this.state.latitude, this.state.longitude, this.state.posicionessx[i].latitud, this.state.posicionessx[i].longitud, "K") })
+       this.setState({ distancia: this.distance(this.state.latitude, this.state.longitude, this.state.posicionessx[i].latitud, this.state.posicionessx[i].longitud, "K") })
       if (this.state.distancia[i] < 50) {
         this.setState({ selectedExample: EXAMPLES[1] });
-        this._speak;
+        this._speak();
 
-      }
+       }
       else {
         this.setState({ selectedExample: EXAMPLES[0] });
-        this._speak;
-      }
-    }
+         this._speak();
+       }
+     }*/
   }
   onPressad = () => {
     // console.debug(this.state);
     // console.debug(this.state.showadjus);
     if (!this.state.showmenu) {
-      this.setState({showmenu: true, animad: true});
+      this.setState({ showmenu: true, animad: true });
     } else {
-      this.setState({showmenu: false, animad: false});
+      this.setState({ showmenu: false, animad: false });
     }
   }
   distance(lat1, lon1, lat2, lon2, unit) {
@@ -299,7 +331,7 @@ Alert.alert("hola");
     }
   }
   tomartodosobjs() {
-    fetch(`http://10.10.32.85:3000/api/obstaculos/todos`, {
+    fetch(`https://data-base-obs.herokuapp.com/api/obstaculos/todos`, {
 
       method: 'GET',
     })
@@ -312,7 +344,6 @@ Alert.alert("hola");
           return { latitude, longitude };
         });
 
-        console.log(arrayOfPosition);
         this.setState({
           todoslosobs: arrayOfPosition,
         });
@@ -325,60 +356,62 @@ Alert.alert("hola");
 
 
   }
-  ajustes () {
- 
-      this.setState({showmenu: false, animad: true});
-      console.log(this.state.showadjus);
-      setTimeout(() => this.props.navigation.navigate("Ajustes"),20);
+  ajustes() {
+
+    this.setState({ showmenu: false, animad: true });
+    console.log(this.state.showadjus);
+    setTimeout(() => this.props.navigation.navigate("Ajustes"), 20);
 
   }
   //refreshea la ubicacion 6
   componentDidMount() {
+    this.interval = setInterval(() =>  this.distanciaentreobs(), 100000);
 
-    this.interval = setInterval(() => this.setState({ Location: this.distanciaentreobs() }), 10000);
+    this.interval = setInterval(() =>  this.actruta(), 100);
+    this.interval = setInterval(() =>  this.tomartodosobjs(), 1000);
+
   }
-fechaudio(){
-  console.log('ESTE ES EL DEL MAPA')
-  console.log(this.state.coordinates[0])
-  console.log(this.state.coordinates[1])
-  fetch(`http://10.10.32.85:3000/api/ruta?origin=${this.state.coordinates[0].latitude},${this.state.coordinates[0].longitude}&destination=${this.state.coordinates[1].latitude},${this.state.coordinates[1].longitude}`, {
+  fechaudio() {
+   
+    fetch(`https://data-base-obs.herokuapp.com/api/ruta?origin=${this.state.coordinates[0].latitude},${this.state.coordinates[0].longitude}&destination=${this.state.coordinates[1].latitude},${this.state.coordinates[1].longitude}`, {
 
-    method: 'GET',
-  })
-    .then((response) => response.json())
-    .then(json => {
-      let route = { numberOfObstacles: Infinity };
-      for (let i = 0; i < json.routes.length; i++) {
-        const newRoute = json.routes[i];
-        if (newRoute.numberOfObstacles <= route.numberOfObstacles) {
-        route = newRoute;
-        }
-      }
-      return route;
+      method: 'GET',
     })
-    .then(route => {
-      const arrayOfSteps = [];
-      for (let i = 0; i < route.legs.length; i += 1) {
-        const currentLegSteps = route.legs[i].steps.map(step => {
-          const { start_location, html_instructions } = step;
-          return {
-            startLocation: start_location,
-            instructions: html_instructions.replace(/<[^>]*>?/gm, ''),
-          };
-        });
-        arrayOfSteps.push(currentLegSteps);
-      }
-      console.log(arrayOfSteps);
-      this.setState({
-        steps: arrayOfSteps,
+      .then((response) => response.json())
+      .then(json => {
+        let route = { numberOfObstacles: Infinity };
+        for (let i = 0; i < json.routes.length; i++) {
+          const newRoute = json.routes[i];
+          if (newRoute.numberOfObstacles <= route.numberOfObstacles) {
+            route = newRoute;
+          }
+        }
+        return route;
+      })
+      .then(route => {
+        const arrayOfSteps = [];
+        for (let i = 0; i < route.legs.length; i += 1) {
+          const currentLegSteps = route.legs[i].steps.map(step => {
+                    
+            const { start_location, html_instructions } = step;
+            return {
+              startLocation: start_location,
+              instructions: html_instructions.replace(/<[^>]*>?/gm, ''),
+            };
+          });
+         
+          arrayOfSteps.push(currentLegSteps);
+        }
+        this.setState({
+          steps: arrayOfSteps,
+        },() => { this.forceUpdate() })
+      }).catch(function (error) {
+        // ADD THIS THROW error
+        throw error;
       });
-    }).catch(function (error) {
-      // ADD THIS THROW error
-      throw error;
-    });
 
 
-}
+  }
   render() {
     const { navigate } = this.props.navigation
 
@@ -403,13 +436,14 @@ fechaudio(){
     const { firstQuery } = this.state.serach;
     return (
       <View style={styles.container}>
-        {!this.state.show && !this.state.showmenu &&
+       
+          {!this.state.show && !this.state.showmenu &&
           <Animatable.View style={styles.searchbarview} animation={this.state.anim ? showAnimation : hideAnimation}>
             <TouchableOpacity
-              style={{marginRight:270}}
+              style={{ marginRight: 270 }}
               onPress={this._showMenu}
             >
-              <Ionicons name="ios-menu" size={28} color="#000000"  />
+              <Ionicons name="ios-menu" size={28} color="#000000" />
             </TouchableOpacity>
             <GooglePlacesAutocomplete
               style={{ backgroundColor: '#fff' }}
@@ -421,10 +455,10 @@ fechaudio(){
               fetchDetails={true}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
-               
+
                 const { lat, lng } = details.geometry.location;
                 this.setState({
-                  
+
                   coordinates: [
 
                     {
@@ -437,7 +471,7 @@ fechaudio(){
                     },
                   ],
                 });
-                this.fechaudio(); 
+                this.fechaudio();
               }}
 
 
@@ -491,56 +525,150 @@ fechaudio(){
               debounce={700} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
             />
           </Animatable.View>}
-          {this.state.showMap &&(
-        <MapView
-          style={{ alignSelf: 'stretch', height: 400, flex: 1, zIndex: -1 }}
-          initialRegion={this.state.mapRegion}
-          provider={PROVIDER_GOOGLE}
-          showsMyLocationButton={true}
-          showsUserLocation={true}
-          onRegionChangeComplete={this._handleMapRegionChange}
-          onRegionChange={this.toggle}
-          ref={c => this.mapView = c}
-          followsUserLocation={true}
-          onUserLocationChange={event => this.actruta(event.nativeEvent.coordinate)}
-          onPress={this.onPressad}
-          loadingEnabled={true}
-        >
-          {this.state.hola.map((coordinate, index) =>
-            <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} /> // eslint-disable-line react/no-array-index-key
-          )}
-          {this.state.todoslosobs.map((coordinate, index) =>
+          {!this.state.showMap && (
+          <ImageBackground source={require('../Images/back1.jpeg')} style={{ width: '100%', height: '100%' }}>
+            {!this.state.show && !this.state.showmenu &&
+          <Animatable.View style={styles.searchbarview} animation={this.state.anim ? showAnimation : hideAnimation}>
+            <TouchableOpacity
+              style={{ marginRight: 270 }}
+              onPress={this._showMenu}
+            >
+              <Ionicons name="ios-menu" size={28} color="#000000" />
+            </TouchableOpacity>
+            <GooglePlacesAutocomplete
+              style={{ backgroundColor: '#fff' }}
+              placeholder='Search'
+              minLength={5} // minimum length of text to search
+              autoFocus={false}
+              returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+              listViewDisplayed='auto'    // true/false/undefined
+              fetchDetails={true}
+              onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
 
-            <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} /> // eslint-disable-line react/no-array-index-key
-          )}
-          {(this.state.coordinates.length === 2) && (
-            <MapViewDirections
-              origin={this.state.coordinates[0]}
-              destination={this.state.coordinates[1]}
-              apikey={GOOGLE_MAPS_APIKEY}
-              strokeWidth={3}
-              strokeColor="hotpink"
-              onReady={this.onReady}
-              onError={this.onError}
+                const { lat, lng } = details.geometry.location;
+                this.setState({
+
+                  coordinates: [
+
+                    {
+                      latitude: this.state.latitude,
+                      longitude: this.state.longitude,
+                    },
+                    {
+                      latitude: lat,
+                      longitude: lng,
+                    },
+                  ],
+                });
+                this.fechaudio();
+              }}
+
+
+              query={{
+                // available options: https://developers.google.com/places/web-service/autocomplete
+                key: GOOGLE_MAPS_APIKEY,
+                language: 'es', // language of the results
+                componentRestrictions: { country: "ar" }
+
+              }}
+
+              styles={{
+                textInputContainer: {
+                  width: '100%',
+                  borderWidth: 0,
+                  backgroundColor: '#fff',
+                  borderColor: '#fff',
+                  marginBottom: 0,
+                  opacity: 0.9,
+                  borderRadius: 15
+
+                },
+                description: {
+                  fontWeight: 'bold'
+                },
+                predefinedPlacesDescription: {
+                  color: '#fff',
+                  opacity: 0.9,
+                  borderRadius: 15
+                },
+
+
+
+              }}
+
+              currentLocationLabel="Current location"
+              nearbyPlacesAPI='GooglePlacesSearch'
+              GoogleReverseGeocodingQuery={{
+                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+              }}
+              GooglePlacesSearchQuery={{
+                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                rankby: 'distance',
+              }}
+
+              renderRightButton={() => <Ionicons name="ios-pin" size={28} color="#d2d1d1" style={{ marginTop: 7, marginRight: 15 }} />}
+              renderLeftButton={() => <Ionicons name="md-navigate" size={28} color="#787ff6" style={{ marginTop: 7, marginLeft: 10 }} />}
+
+              debounce={700} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
             />
-          )}
-             
-        </MapView>
-          )}
-        {this.state.showmenu &&(
-            <Animatable.View style={{backgroundColor:"#ffffff",height:'100%',width:'50%', position: 'absolute',alignItems: 'center',borderTopRightRadius:30,borderBottomRightRadius:30}} animation={this.state.animmenu ? showAnimationmenu : hideAnimationmenu}>
-            <Text style={{    textAlign: 'center',fontSize:30,fontWeight:'bold',marginTop:70}}>Menu   </Text>
-            <View style={{marginTop:30,width:'100%'}}>
-            <TouchableHighlight style={styles.button2} onPress={() => this.ajustes()}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
-            <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')} onPressIn={()=>this.onPressad()}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
-            <TouchableHighlight style={styles.button2} onPress={() => this.setState({showMap:false})} onPressIn={()=>this.onPressad()}  ><Text style={styles.textButton}>Ir al modo ciego</Text></TouchableHighlight>
-            {!this.state.showMap &&(
-            <TouchableHighlight style={styles.button2} onPress={() => this.setState({showMap:true})} onPressIn={()=>this.onPressad()}  ><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
+          </Animatable.View>}
+          </ImageBackground>)}
+
+        {this.state.showMap && (
+          <MapView
+            style={{ alignSelf: 'stretch', height: 400, flex: 1, zIndex: -1 }}
+            initialRegion={this.state.mapRegion}
+            provider={PROVIDER_GOOGLE}
+            showsMyLocationButton={true}
+            showsUserLocation={true}
+            onRegionChangeComplete={this._handleMapRegionChange}
+            onRegionChange={this.toggle}
+            ref={c => this.mapView = c}
+            followsUserLocation={true}
+            onUserLocationChange={event => this.actruta(event.nativeEvent.coordinate)}
+            onPress={this.onPressad}
+            loadingEnabled={true}
+          >
+            {this.state.hola.map((coordinate, index) =>
+              <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} /> // eslint-disable-line react/no-array-index-key
             )}
-           <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')}onPressIn={()=>this.onPressad()}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
-              </View>
-            </Animatable.View>
-          )}
+            {this.state.todoslosobs.map((coordinate, index) =>
+
+              <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} /> // eslint-disable-line react/no-array-index-key
+            )}
+            {(this.state.coordinates.length === 2) && (
+              <MapViewDirections
+                origin={this.state.coordinates[0]}
+                destination={this.state.coordinates[1]}
+                apikey={GOOGLE_MAPS_APIKEY}
+                strokeWidth={3}
+                strokeColor="hotpink"
+                onReady={this.onReady}
+                onError={this.onError}
+              />
+            )}
+
+          </MapView>
+        )}
+        {this.state.showmenu && (
+          <Animatable.View style={{ backgroundColor: "#ffffff", height: '100%', width: '50%', position: 'absolute', alignItems: 'center', borderTopRightRadius: 30, borderBottomRightRadius: 30 }} animation={this.state.animmenu ? showAnimationmenu : hideAnimationmenu}>
+            <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold', marginTop: 70 }}>Menu   </Text>
+            <View style={{ marginTop: 30, width: '100%' }}>
+              <TouchableHighlight style={styles.button2} onPress={() => this.ajustes()}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
+              <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')} onPressIn={() => this.onPressad()}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
+              <TouchableHighlight style={styles.button2} onPress={() => this.setState({ showMap: false })} onPressIn={() => this.onPressad()}  ><Text style={styles.textButton}>Ir al modo ciego</Text></TouchableHighlight>
+              {!this.state.showMap && (
+                <TouchableHighlight style={styles.button2} onPress={() => this.setState({ showMap: true })} onPressIn={() => this.onPressad()}  ><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
+              )}
+              <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')} onPressIn={() => this.onPressad()}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
+
+            </View>
+          </Animatable.View>
+        )}
+       
       </View>
 
     );
@@ -563,6 +691,25 @@ fechaudio(){
       onError: complete,
     });
   };
+
+  speakViernes = (textToSay) => {
+    const start = () => {
+      this.setState({ inProgress: true });
+    };
+    const complete = () => {
+      this.state.inProgress && this.setState({ inProgress: false });
+    };
+
+    Speech.speak(textToSay, {
+      language: 'ES',
+      pitch: this.state.pitch,
+      rate: this.state.rate,
+      onStart: start,
+      onDone: complete,
+      onStopped: complete,
+      onError: complete,
+    });
+  }
 }
 
 const styles = StyleSheet.create({
@@ -597,7 +744,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderColor: 'white',
     backgroundColor: '#F2EFEF',
-    borderWidth:2,
+    borderWidth: 2,
   },
   textButton: {
     textAlign: 'center',

@@ -26,7 +26,7 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      ip: 'http://10.8.5.20:3000/api/usuarios/log?',
+      ip: 'https://data-base-obs.herokuapp.com/api/usuarios/log?',
     }
   }
 

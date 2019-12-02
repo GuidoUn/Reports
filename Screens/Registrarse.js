@@ -249,7 +249,7 @@ export default class Login extends React.Component {
 
   createPressed() {
     if (this.state.createUserInput && this.state.createMailInput && this.state.createPassInput) {
-      fetch('http://10.8.5.20:3000/api/usuarios/reg', {
+      fetch('https://data-base-obs.herokuapp.com/api/usuarios/reg', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -278,7 +278,7 @@ export default class Login extends React.Component {
         })
         .catch((error) => {
           console.error(error);
-          alert('Se ha producido un error registrando su cuenta')
+        //  alert('Se ha producido un error registrando su cuenta')
         })
     }
     else {

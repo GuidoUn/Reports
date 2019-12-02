@@ -83,13 +83,12 @@ class MapViewDirections extends Component {
 
 	fetchRoute = (origin, destination, apikey) => {
 		const mode = 'walking';
-		const url = `http://10.10.32.85:3000/api/ruta?origin=${origin}&destination=${destination}`;
+		const url = `https://data-base-obs.herokuapp.com/api/ruta?origin=${origin}&destination=${destination}`;
 		console.log(url);
 
 		return fetch(url)
 			.then(response => response.json())
 			.then(json => {
-                //console.log(response.json());
 				if (json.status !== 'OK') {
 					const errorMessage = json.error_message || 'Unknown error';
 					return Promise.reject(errorMessage);

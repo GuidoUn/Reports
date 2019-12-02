@@ -54,7 +54,7 @@ class Reportes extends React.Component {
       this.setState({ comment })
     }
     hacerFetch (sendLatitude, sendLongitude){
-      fetch('http://10.10.32.58:3000/api/obstaculos/creo', {
+      fetch('https://data-base-obs.herokuapp.com/api/obstaculos/creo', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
