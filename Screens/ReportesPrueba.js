@@ -426,18 +426,19 @@ class Reportes extends React.Component {
 
     return (
 
-      <View style={styles.container}>
+      <View style={styles.container} accessible={true}>
         <ImageBackground source={require('../Images/back1.jpeg')} style={{ width: '100%', height: '100%' }}>
-          <Text style={styles.title}>Realizando un reporte</Text>
+          <Text style={styles.title} accessibilityLabel="Realizando un reporte">Realizando un reporte</Text>
           <Swiper loop={false} ref={swiper => this.state.swiper = swiper} style={styles.wrapper} showsButtons={true} height={500} horizontal={true}
             showsPagination={true} paginationStyle={{ marginBottom: 10 }} onIndexChanged={index => this.state.paginationIndex = index} >
 
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ alignItems: 'center' }} accessible={true}>
 
-              <Text style={styles.text}>¿Qué tipo de obstáculo es?</Text>
-              <View style={styles.slide2}
-              accessible={true}>
+              <Text style={styles.text} accessibilityLabel="Qué tipo de obstáculo es">¿Qué tipo de obstáculo es?</Text>
+              <View style={styles.slide2} accessible={true}>
                 <TouchableOpacity
+
+                  accessibilityLabel="Obra en construcción"
                   style={styles.buttonSlide21}
                   onPress={() => this.tipoPressed('Obra')}
                   accessible={true}
@@ -451,6 +452,7 @@ class Reportes extends React.Component {
                   {//<}
                   }</TouchableOpacity>
                 <TouchableOpacity style={styles.buttonSlide22}
+                  accessibilityLabel="Pozo o daño en la vereda"
                   onPress={() => this.tipoPressed('Pozo')}
                   accessible={true}
                   accessibilityLabel="Pozo o vereda dañada"
@@ -464,9 +466,10 @@ class Reportes extends React.Component {
                   </ImageBackground>
                 </TouchableOpacity>
               </View>
-              <View style={styles.slide23}>
+              <View style={styles.slide23} accessible={true}>
                 <TouchableOpacity
                   style={styles.buttonSlide23}
+                  accessibilityLabel="Calle sin iluminación nocturna"
                   onPress={() => this.tipoPressed('noLuz')}
                   accessible={true}
                   accessibilityLabel="Calle sin iluminación"
@@ -480,7 +483,6 @@ class Reportes extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonSlide24}
                   onPress={() => this.tipoPressed('Otro')}
-                  accessible={true}
                   accessibilityLabel="Otro tipo de obstáculo"
                 >
                   <ImageBackground
@@ -499,12 +501,11 @@ class Reportes extends React.Component {
               alignItems: 'center',
               marginTop: 15,
             }}>
-              <Text styles={styles.textEspecial}>¿Es transitable?</Text>
+              <Text styles={styles.textEspecial} accessibilityLabel="Cuando transitable es?">¿Es transitable?</Text>
               <TouchableOpacity
                 style={styles.buttonSlide11}
                 onPress={() => this.pressedLeve()}
-                accessible={true}
-                accessibilityLabel="Transitable sin problemas"
+                accessibilityLabel="Es Transitable"
               >
                 <ImageBackground
                   accessible={true}
@@ -544,7 +545,7 @@ class Reportes extends React.Component {
               //justifyContent: 'center',
               alignItems: 'center',
               marginTop: 15,
-            }}>
+            }} accesible={true}>
               <Text styles={styles.text}>Ubicación</Text>
               <TouchableOpacity
                 style={styles.button2}
@@ -569,16 +570,18 @@ class Reportes extends React.Component {
                     onDragEnd={(e) => this.setState({ coordinateCambiada: e.nativeEvent.coordinate })}
                   />
                 </MapView>
-                <View style={styles.containerButtons}>
+                <View style={styles.containerButtons} accesible={true}>
                   <TouchableOpacity
                     style={styles.buttonMapClose}
                     onPress={() => this.cerrarMapa()}
+                    accessibilityLabel="Cerrar mapa"
                   >
                     <Text style={styles.textButton}>cerrar mapa</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.buttonUseMark}
                     onPress={() => this.cambiarMarca()}
+                    accessibilityLabel="Confirmar ubicación del obstáculo"
                   >
                     <Text style={styles.textButton}>Utilizar marca</Text>
                   </TouchableOpacity>
@@ -629,12 +632,14 @@ class Reportes extends React.Component {
                   <TouchableOpacity
                     style={styles.imageButton}
                     onPress={() => this.snap()}
+                    accessibilityLabel="Tomar fotográfia"
                   >
                     <Text style={styles.textButtonCamera}>Tomar fotografía</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.buttonCerrarCamara}
                     onPress={() => this.setState({ camaraAbierta: false })}
+                    accessibilityLabel="Cerrar cámara"
                   >
                     <Text style={styles.textButtonCamera}>cerrar cámara</Text>
                   </TouchableOpacity>
@@ -649,6 +654,7 @@ class Reportes extends React.Component {
                 multiline={true}
                 style={[styles.inputBox, styles.textArea]}
                 placeholder=" Pozo profundo"
+                accessibilityLabel="Contamos más acerca del obstáculo"
                 value={this.state.comment}
                 onChangeText={(comment) => this.changeComment(comment)}
 

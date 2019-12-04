@@ -37,6 +37,7 @@ export default class Map extends React.Component {
 
   // state
   state = {
+    userEmail:this.props.navigation.state.params.userEmail,
     address: null,
     coordinates: null,
     mapRegion: null,
@@ -356,11 +357,11 @@ export default class Map extends React.Component {
 
 
   }
-  ajustes() {
-
-    this.setState({ showmenu: false, animad: true });
-    console.log(this.state.showadjus);
-    setTimeout(() => this.props.navigation.navigate("Ajustes"), 20);
+  ajustes () {
+ 
+      this.setState({showmenu: false, animad: true});
+      console.log(this.state.showadjus);
+      setTimeout(() => this.props.navigation.navigate("Ajustes",{userEmail: this.state.userEmail}),20);
 
   }
   //refreshea la ubicacion 6

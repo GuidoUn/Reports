@@ -289,14 +289,12 @@ export default class Login extends React.Component {
   render() {
     const { navigate } = this.props.navigation
     return (
-      <View style={styles.container}>
+      <View style={styles.container} accessible={true}>
         {/*<ImageBackground source={require('../Images/back2.jpeg')} style={{ width: '100%', height: '100%' }}>*/}
-        <View>
-          <Text style={styles.title} accessible={true}
-            accessibilityLabel="Registrarse">Sign Up</Text>
+        <View accessible={true}>
+          <Text style={styles.title} accessibilityLabel="Registro">Sign Up</Text>
           <SearchableDropdown
-            accessible={true}
-            accessibilityLabel="Barrio de recidencia"
+            accessibilityLabel="Seleccionar Barrio"
             onItemSelect={(item) => {
               //const items = this.state.selectedItems;
               //items.push(item)
@@ -340,38 +338,34 @@ export default class Login extends React.Component {
             }
           />
           <TextInput
-            accessible={true}
-            accessibilityLabel="Nombre de usuario"
             style={styles.input}
             placeholderTextColor='white'
             placeholder=" Nombre de Usuario"
+            accessibilityLabel="Ingresar Nombre de Usuario"
             value={this.state.createUserInput}
             onChangeText={(createUserInput) => this.changeCreateUserInput(createUserInput)}
           />
           <TextInput
-            accessible={true}
-            accessibilityLabel="ingresar correo electrónico"
             style={styles.input}
             placeholderTextColor='white'
             placeholder=" Correo electrónico"
+            accessibilityLabel="Ingresar Correo electrónico"
             value={this.state.createMailInput}
             onChangeText={(createMailInput) => this.changeCreateMailInput(createMailInput)}
           />
           <TextInput
-            accessible={true}
-            accessibilityLabel="ingresar numero de documento"
             style={styles.input}
             placeholderTextColor='white'
             placeholder=" Número de documento"
+            accessibilityLabel="Ingresar Número de documento"
             value={this.state.createDNIInput}
             onChangeText={(createDNIInput) => this.changeCreateDNIInput(createDNIInput)}
           />
           <TextInput
-            accessible={true}
-            accessibilityLabel="Crear contraseña"
             style={styles.input}
             placeholderTextColor='white'
             placeholder=" Contraseña"
+            accessibilityLabel="Ingresar Constraseña"
             value={this.state.createPassInput}
             secureTextEntry
             onChangeText={(createPassInput) => this.changeCreatePassInput(createPassInput)}
@@ -380,8 +374,7 @@ export default class Login extends React.Component {
           <TouchableHighlight
             style={styles.button}
             onPress={() => this.createPressed()}
-            accessible={true}
-            accessibilityLabel="crear cuenta"
+            accessibilityLabel="Crear cuenta"
           >
             <Text style={styles.textButton}>Crear cuenta</Text>
           </TouchableHighlight>

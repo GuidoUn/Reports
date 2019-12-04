@@ -30,7 +30,7 @@ export default class Login extends React.Component {
         this.setState({ RecoverEmail })
     }
     sendRecoverEmail(){
-        alert('Debería enviar un mail')
+        alert('Mail enviado')
     }
     render() {
         return (

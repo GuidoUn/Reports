@@ -104,10 +104,9 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.container} >
-        <View >
-          <Text style={styles.title} accessible={true}
-          >Log-In</Text>
+      <View style={styles.container}accessible={true}>
+        <View>
+          <Text style={styles.title} accessibilityLabel="Inicio de sesión">Log-In</Text>
           <TextInput
             accessible={true}
             accessibilityLabel=" Ingresar correo electrónico"
@@ -115,6 +114,7 @@ export default class Login extends React.Component {
             placeholder=" Ingresar correo electrónico"
             value={this.state.userInput}
             onChangeText={(userInput) => this.changeUserInput(userInput)}
+            accessibilityLabel="Ingresar correo electrónico"
           />
           <TextInput
             accessible={true}
@@ -125,6 +125,7 @@ export default class Login extends React.Component {
             value={this.state.passInput}
             secureTextEntry
             onChangeText={(passInput) => this.changePassInput(passInput)}
+            accessibilityLabel="Constraseña"
           />
           <CheckBox
             accessible={true}
@@ -133,6 +134,7 @@ export default class Login extends React.Component {
 
             left
             rightText='Recordarme'
+            accessibilityLabel="Recordarme"
             onClick={() => this.setState({ checked: !this.state.checked })}
             isChecked={this.state.checked}
           />
@@ -141,7 +143,8 @@ export default class Login extends React.Component {
             accessibilityLabel=" Ingresar"
 
             style={styles.button}
-            onPress={() => { this.loginPressed(); this.props.navigation.navigate("MapaScreen"); }}
+            accessibilityLabel="Iniciar sesión"
+            onPress={() => {this.loginPressed(); this.props.navigation.navigate("MapaScreen");}}
           >
             <Text style={styles.textButton} accessible={true}>Entrar</Text>
           </TouchableHighlight>
@@ -150,6 +153,7 @@ export default class Login extends React.Component {
             accessibilityLabel="Recuperar contreseña"
 
             style={styles.button}
+            accessibilityLabel="Recuperar contraseña"
             onPress={() => this.goToRecuperarPass()}
           >
             <Text accessible={true}
@@ -160,26 +164,19 @@ export default class Login extends React.Component {
             accessibilityLabel="registrarse"
 
             style={styles.button}
+            accessibilityLabel="Crear nueva cuenta"
             onPress={() => this.goToRegistrarse()}
           >
             <Text accessible={true}
               style={styles.textButton}>Registrarse</Text>
           </TouchableHighlight>
 
-          <Modal isVisible={this.state.modalPass} accessible={true}
-          >
-            <View style={styles.containerModal}
-
-            >
-              <Text
-                accessible={true}
-                accessibilityLabel="recuperar contraseña"
-
-                style={styles.title}>Recuperar Contraseña</Text>
-              <Text accessible={true}
-                style={styles.modalText}>Ingresar Email</Text>
-              <TextInput accessible={true}
-
+          <Modal isVisible={this.state.modalPass}>
+            <View style={styles.containerModal}accessible={true}>
+              <Text style={styles.title}>Recuperar Contraseña</Text>
+              <Text style={styles.modalText}>Ingresar Email</Text>
+              <TextInput
+                accessibilityLabel="Ingresar Email"
                 style={styles.input}
                 placeholder=""
                 value={this.state.userInput}
@@ -189,6 +186,7 @@ export default class Login extends React.Component {
               >
                 <TouchableHighlight
                   style={styles.button3}
+                  accessibilityLabel="Cancelar"
                   onPress={() => this.cerrarModalPass()}
                   accessible={true}
 
@@ -201,6 +199,7 @@ export default class Login extends React.Component {
 
                   style={styles.button4}
                   onPress={() => this.mailRecuperarPass()}
+                  accessibilityLabel="Evitar Email"
                 >
                   <Text accessible={true}
                     style={styles.textButton}>Enviar Email</Text>
