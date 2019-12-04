@@ -435,21 +435,32 @@ class Reportes extends React.Component {
             <View style={{ alignItems: 'center' }}>
 
               <Text style={styles.text}>¿Qué tipo de obstáculo es?</Text>
-              <View style={styles.slide2}>
+              <View style={styles.slide2}
+              accessible={true}>
                 <TouchableOpacity
                   style={styles.buttonSlide21}
                   onPress={() => this.tipoPressed('Obra')}
+                  accessible={true}
+                  accessibilityLabel="Obra en construcción"
                 >
-                  <ImageBackground source={require('../Images/cono.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
+                  <ImageBackground accessible={true}
+                    accessibilityLabel="Icono obra en construcción"
+                    source={require('../Images/cono.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Obra en construcción</Text>
                   </ImageBackground>
                   {//<}
                   }</TouchableOpacity>
                 <TouchableOpacity style={styles.buttonSlide22}
                   onPress={() => this.tipoPressed('Pozo')}
+                  accessible={true}
+                  accessibilityLabel="Pozo o vereda dañada"
                 >
-                  <ImageBackground source={require('../Images/barrera.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
+                  <ImageBackground
+                    accessible={true}
+                    accessibilityLabel="Icono pozo"
+                    source={require('../Images/barrera.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Pozo o daño en la vereda</Text>
+
                   </ImageBackground>
                 </TouchableOpacity>
               </View>
@@ -457,16 +468,27 @@ class Reportes extends React.Component {
                 <TouchableOpacity
                   style={styles.buttonSlide23}
                   onPress={() => this.tipoPressed('noLuz')}
+                  accessible={true}
+                  accessibilityLabel="Calle sin iluminación"
                 >
-                  <ImageBackground source={require('../Images/luz.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
+                  <ImageBackground
+                    accessible={true}
+                    accessibilityLabel="Icono calle sin iluminación"
+                    source={require('../Images/luz.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Calle sin iluminación</Text>
                   </ImageBackground>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonSlide24}
                   onPress={() => this.tipoPressed('Otro')}
+                  accessible={true}
+                  accessibilityLabel="Otro tipo de obstáculo"
                 >
-                  <ImageBackground source={require('../Images/otro.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
+                  <ImageBackground
+                    accessible={true}
+                    accessibilityLabel="Icono otro"
+                    source={require('../Images/otro.png')} style={{ width: '75%', height: '75%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32 }}>
                     <Text style={styles.textButton1}>Otro</Text>
+
                   </ImageBackground>
                 </TouchableOpacity>
               </View>
@@ -481,23 +503,38 @@ class Reportes extends React.Component {
               <TouchableOpacity
                 style={styles.buttonSlide11}
                 onPress={() => this.pressedLeve()}
+                accessible={true}
+                accessibilityLabel="Transitable sin problemas"
               >
-                <ImageBackground source={require('../Images/transitable.png')} style={{ width: '70%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32, marginTop: 15 }}>
+                <ImageBackground
+                  accessible={true}
+                  accessibilityLabel="Icono transitable"
+                  source={require('../Images/transitable.png')} style={{ width: '70%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 32, marginTop: 15 }}>
                 </ImageBackground>
 
 
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonSlide12}
                 onPress={() => this.pressedParcial()}
+                accessible={true}
+                accessibilityLabel="Transitable con dificultad"
               >
-                <ImageBackground source={require('../Images/parcialtransitable.png')} style={{ width: '80%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 23, marginTop: 15 }}>
+                <ImageBackground
+                  accessible={true}
+                  accessibilityLabel="Icono parcialmente transitable"
+                  source={require('../Images/parcialtransitable.png')} style={{ width: '80%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 23, marginTop: 15 }}>
                 </ImageBackground>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.buttonSlide13}
                 onPress={() => this.pressedTotal()}
+                accessible={true}
+                  accessibilityLabel="Completamente intransitable"
               >
-                <ImageBackground source={require('../Images/nopasar.png')} style={{ width: '70%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 30, marginTop: 15 }}>
+                <ImageBackground 
+                accessible={true}
+                accessibilityLabel="Icono intansitable"
+                source={require('../Images/nopasar.png')} style={{ width: '70%', height: '90%', /*alignItems: 'center', justifyContent: 'center',*/ marginLeft: 30, marginTop: 15 }}>
                 </ImageBackground>
 
               </TouchableOpacity>
@@ -512,6 +549,8 @@ class Reportes extends React.Component {
               <TouchableOpacity
                 style={styles.button2}
                 onPress={() => this.abrirMapa()}
+                accessible={true}
+                  accessibilityLabel="Abrir mapa (no adaptado)"
               >
                 <Text style={styles.textButton}>{this.state.mensajeUbicacion}</Text>
               </TouchableOpacity>
@@ -551,6 +590,8 @@ class Reportes extends React.Component {
               <TouchableOpacity
                 style={styles.buttonOpenCamera}
                 onPress={() => this.setState({ camaraAbierta: true })}
+                accessible={true}
+                  accessibilityLabel="Abrir cámara"
               >
                 <Text style={styles.textButton}>Abrir cámara</Text>
               </TouchableOpacity>
@@ -602,6 +643,8 @@ class Reportes extends React.Component {
 
               <Text styles={styles.text}>Comentarios acerca del reporte</Text>
               <TextInput
+              accessible={true}
+              accessibilityLabel="Ingresar un comentario"
                 placeholderTextColor='grey'
                 multiline={true}
                 style={[styles.inputBox, styles.textArea]}
@@ -618,11 +661,13 @@ class Reportes extends React.Component {
               marginTop: 15,
             }}>
               <TouchableOpacity
-                  style={styles.buttonReport}
-                  onPress={() => this.buttonPressed()}
-                >
-                  <Text style={styles.textButtonReport}>Reportar</Text>
-                </TouchableOpacity>
+                style={styles.buttonReport}
+                onPress={() => this.buttonPressed()}
+                accessible={true}
+                  accessibilityLabel="Publicar reporte"
+              >
+                <Text style={styles.textButtonReport}>Reportar</Text>
+              </TouchableOpacity>
             </View>
           </Swiper>
         </ImageBackground>

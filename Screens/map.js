@@ -440,12 +440,16 @@ export default class Map extends React.Component {
           {!this.state.show && !this.state.showmenu &&
           <Animatable.View style={styles.searchbarview} animation={this.state.anim ? showAnimation : hideAnimation}>
             <TouchableOpacity
+             accessible={true}
+             accessibilityLabel="MENU"
               style={{ marginRight: 270 }}
               onPress={this._showMenu}
             >
               <Ionicons name="ios-menu" size={28} color="#000000" />
             </TouchableOpacity>
             <GooglePlacesAutocomplete
+              accessible={true}
+              accessibilityLabel="Buscar direccion"
               style={{ backgroundColor: '#fff' }}
               placeholder='Search'
               minLength={5} // minimum length of text to search
@@ -532,10 +536,14 @@ export default class Map extends React.Component {
             <TouchableOpacity
               style={{ marginRight: 270 }}
               onPress={this._showMenu}
+              accessible={true}
+              accessibilityLabel="MENU"
             >
               <Ionicons name="ios-menu" size={28} color="#000000" />
             </TouchableOpacity>
             <GooglePlacesAutocomplete
+              accessible={true}
+              accessibilityLabel="Buscar destino"
               style={{ backgroundColor: '#fff' }}
               placeholder='Search'
               minLength={5} // minimum length of text to search
@@ -619,6 +627,8 @@ export default class Map extends React.Component {
 
         {this.state.showMap && (
           <MapView
+          accessible={true}
+          accessibilityLabel="mapa"
             style={{ alignSelf: 'stretch', height: 400, flex: 1, zIndex: -1 }}
             initialRegion={this.state.mapRegion}
             provider={PROVIDER_GOOGLE}
@@ -633,11 +643,13 @@ export default class Map extends React.Component {
             loadingEnabled={true}
           >
             {this.state.hola.map((coordinate, index) =>
-              <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} /> // eslint-disable-line react/no-array-index-key
+              <MapView.Marker   accessible={true}
+              accessibilityLabel="obstaculo" key={`coordinate_${index}`} coordinate={coordinate} /> // eslint-disable-line react/no-array-index-key
             )}
             {this.state.todoslosobs.map((coordinate, index) =>
 
-              <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} /> // eslint-disable-line react/no-array-index-key
+              <MapView.Marker  accessible={true}
+              accessibilityLabel="obstaculo" key={`coordinate_${index}`} coordinate={coordinate} /> // eslint-disable-line react/no-array-index-key
             )}
             {(this.state.coordinates.length === 2) && (
               <MapViewDirections
@@ -657,13 +669,18 @@ export default class Map extends React.Component {
           <Animatable.View style={{ backgroundColor: "#ffffff", height: '100%', width: '50%', position: 'absolute', alignItems: 'center', borderTopRightRadius: 30, borderBottomRightRadius: 30 }} animation={this.state.animmenu ? showAnimationmenu : hideAnimationmenu}>
             <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold', marginTop: 70 }}>Menu   </Text>
             <View style={{ marginTop: 30, width: '100%' }}>
-              <TouchableHighlight style={styles.button2} onPress={() => this.ajustes()}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
-              <TouchableHighlight style={styles.button2} onPress={() => navigate('ReportesPrueba')} onPressIn={() => this.onPressad()}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
-              <TouchableHighlight style={styles.button2} onPress={() => this.setState({ showMap: false })} onPressIn={() => this.onPressad()}  ><Text style={styles.textButton}>Ir al modo ciego</Text></TouchableHighlight>
+              <TouchableHighlight accessible={true}
+              accessibilityLabel="ajustes"  style={styles.button2} onPress={() => this.ajustes()}><Text style={styles.textButton}>Ajustes</Text></TouchableHighlight>
+              <TouchableHighlight accessible={true}
+              accessibilityLabel="Reportes"  style={styles.button2} onPress={() => navigate('ReportesPrueba')} onPressIn={() => this.onPressad()}><Text style={styles.textButton}>Reportes</Text></TouchableHighlight>
+              <TouchableHighlight accessible={true}
+              accessibilityLabel="modo no vidente"  style={styles.button2} onPress={() => this.setState({ showMap: false })} onPressIn={() => this.onPressad()}  ><Text style={styles.textButton}>Ir al modo ciego</Text></TouchableHighlight>
               {!this.state.showMap && (
-                <TouchableHighlight style={styles.button2} onPress={() => this.setState({ showMap: true })} onPressIn={() => this.onPressad()}  ><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
+                <TouchableHighlight accessible={true}
+                accessibilityLabel="volver al mapa"  style={styles.button2} onPress={() => this.setState({ showMap: true })} onPressIn={() => this.onPressad()}  ><Text style={styles.textButton}>Ir al mapa</Text></TouchableHighlight>
               )}
-              <TouchableHighlight style={styles.button2} onPress={() => navigate('Registrarse')} onPressIn={() => this.onPressad()}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
+              <TouchableHighlight accessible={true}
+              accessibilityLabel="registrarse" style={styles.button2} onPress={() => navigate('Registrarse')} onPressIn={() => this.onPressad()}><Text style={styles.textButton}>Registrarse</Text></TouchableHighlight>
 
             </View>
           </Animatable.View>

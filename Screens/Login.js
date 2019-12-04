@@ -52,31 +52,31 @@ export default class Login extends React.Component {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-        },body: JSON.stringify({
+        }, body: JSON.stringify({
           email: this.state.userInput,
           password: this.state.passInput
         }),
       })
         .then((response) => response.json())
 
-        
+
         .then((response) => {
           console.log('RESULTS HERE:', response)
-            this.setState({
-              userResponse: response.email,
-              
-          });
-          this.props.navigation.navigate('MapaScreen',{userEmail: this.state.userInput})
+          this.setState({
+            userResponse: response.email,
 
-          
+          });
+          this.props.navigation.navigate('MapaScreen', { userEmail: this.state.userInput })
+
+
         })
         .catch((error) => {
-        //  alert('Se produjo un error logueando')
+          //  alert('Se produjo un error logueando')
         })
 
     }
-    
-    else{
+
+    else {
       alert('Por favor ingrese mail y contraseña');
     }
   }
@@ -104,70 +104,106 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.title}>Log-In</Text>
+      <View style={styles.container} >
+        <View >
+          <Text style={styles.title} accessible={true}
+          >Log-In</Text>
           <TextInput
+            accessible={true}
+            accessibilityLabel=" Ingresar correo electrónico"
             style={styles.input}
             placeholder=" Ingresar correo electrónico"
             value={this.state.userInput}
             onChangeText={(userInput) => this.changeUserInput(userInput)}
           />
           <TextInput
+            accessible={true}
             style={styles.input}
+            accessibilityLabel=" Ingresar contraseña"
+
             placeholder=" Contraseña"
             value={this.state.passInput}
             secureTextEntry
             onChangeText={(passInput) => this.changePassInput(passInput)}
           />
           <CheckBox
+            accessible={true}
             style={styles.checkbox}
+            accessibilityLabel=" boton recordarme"
+
             left
             rightText='Recordarme'
             onClick={() => this.setState({ checked: !this.state.checked })}
             isChecked={this.state.checked}
           />
           <TouchableHighlight
+            accessible={true}
+            accessibilityLabel=" Ingresar"
+
             style={styles.button}
-            onPress={() => {this.loginPressed(); this.props.navigation.navigate("MapaScreen");}}
+            onPress={() => { this.loginPressed(); this.props.navigation.navigate("MapaScreen"); }}
           >
-            <Text style={styles.textButton}>Entrar</Text>
+            <Text style={styles.textButton} accessible={true}>Entrar</Text>
           </TouchableHighlight>
           <TouchableHighlight
+            accessible={true}
+            accessibilityLabel="Recuperar contreseña"
+
             style={styles.button}
             onPress={() => this.goToRecuperarPass()}
           >
-            <Text style={styles.textButton}>Recuperar contraseña</Text>
+            <Text accessible={true}
+              style={styles.textButton}>Recuperar contraseña</Text>
           </TouchableHighlight>
           <TouchableHighlight
+            accessible={true}
+            accessibilityLabel="registrarse"
+
             style={styles.button}
             onPress={() => this.goToRegistrarse()}
           >
-            <Text style={styles.textButton}>Registrarse</Text>
+            <Text accessible={true}
+              style={styles.textButton}>Registrarse</Text>
           </TouchableHighlight>
 
-          <Modal isVisible={this.state.modalPass}>
-            <View style={styles.containerModal}>
-              <Text style={styles.title}>Recuperar Contraseña</Text>
-              <Text style={styles.modalText}>Ingresar Email</Text>
-              <TextInput
+          <Modal isVisible={this.state.modalPass} accessible={true}
+          >
+            <View style={styles.containerModal}
+
+            >
+              <Text
+                accessible={true}
+                accessibilityLabel="recuperar contraseña"
+
+                style={styles.title}>Recuperar Contraseña</Text>
+              <Text accessible={true}
+                style={styles.modalText}>Ingresar Email</Text>
+              <TextInput accessible={true}
+
                 style={styles.input}
                 placeholder=""
                 value={this.state.userInput}
                 onChangeText={(userInput) => this.changeUserInput(userInput)}
               />
-              <View style={styles.containerButtons}>
+              <View style={styles.containerButtons}
+              >
                 <TouchableHighlight
                   style={styles.button3}
                   onPress={() => this.cerrarModalPass()}
+                  accessible={true}
+
                 >
-                  <Text style={styles.textButton}>cancelar</Text>
+                  <Text style={styles.textButton} accessible={true}
+                  >cancelar</Text>
                 </TouchableHighlight>
                 <TouchableHighlight
+                  accessible={true}
+
                   style={styles.button4}
                   onPress={() => this.mailRecuperarPass()}
                 >
-                  <Text style={styles.textButton}>Enviar Email</Text>
+                  <Text accessible={true}
+                    style={styles.textButton}>Enviar Email</Text>
                 </TouchableHighlight>
               </View>
             </View>
