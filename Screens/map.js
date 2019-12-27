@@ -14,12 +14,7 @@ import { selectAssetSource } from 'expo-asset/build/AssetSources';
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 
-const EXAMPLES = [
-  { language: 'es', text: 'Ten cuidado dentro de muy poco hay un obstaculo' },
-  { language: 'es', text: 'Ten cuidado en los proximos metros hay un obstaculo' },
-  { language: 'en', text: 'Charlie Cheever chased a chortling choosy child' },
-  { language: 'en', text: 'Adam Perry ate a pear in pairs in Paris' },
-];
+
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDcCRO3-f2sklPcIz-hUwdxiEpwbXiWwBg';
 
 const COORDS = [
@@ -37,7 +32,6 @@ export default class Map extends React.Component {
 
   // state
   state = {
-    userEmail:this.props.navigation.state.params.userEmail,
     address: null,
     coordinates: null,
     mapRegion: null,
@@ -49,7 +43,6 @@ export default class Map extends React.Component {
     todoslosobs: [],
     distancia: [],
     flag: true,
-    selectedExample: EXAMPLES[0],
     inProgress: false,
     pitch: 1,
     rate: 0.75,
@@ -105,8 +98,9 @@ export default class Map extends React.Component {
 
   }
   _handleMapRegionChange = mapRegion => {
+   
+
     if (!this.state.flag) {
-      console.log(mapRegion);
       this.setState({ mapRegion });
       this.toggle();
     }
@@ -147,6 +141,7 @@ export default class Map extends React.Component {
   }
 
   onMapPress = (e) => {
+    
     if (this.state.coordinates.length == 2) {
       this.setState({
         coordinates: [
@@ -163,14 +158,15 @@ export default class Map extends React.Component {
     }
   }
   onReady = (result) => {
-    this.mapView.fitToCoordinates(result.coordinates, {
+
+    /*this.mapView.fitToCoordinates(result.coordinates, {
       edgePadding: {
         right: (width / 20),
         bottom: (height / 20),
         left: (width / 20),
         top: (height / 20),
       }
-    });
+    });*/
   }
   //pide permisos
   componentWillMount() {
@@ -230,11 +226,9 @@ export default class Map extends React.Component {
       }*/
       const stepsall= this.state.steps;
       if (this.state.steps) {
-        console.log(stepsall);
 
         for (let i = 0; i < this.state.steps.length ; i += 1) {
           const step = stepsall[i];
-          //console.log(step[i].startLocation)
           if (this.state.steps) {
           if (this.distance(this.state.latitude, this.state.longitude, step[0].startLocation.lat, step[0].startLocation.lng, 'K') < 50) {
             this.speakViernes(step[i].instructions);
@@ -367,7 +361,6 @@ export default class Map extends React.Component {
   //refreshea la ubicacion 6
   componentDidMount() {
     this.interval = setInterval(() =>  this.distanciaentreobs(), 100000);
-
     this.interval = setInterval(() =>  this.actruta(), 100);
     this.interval = setInterval(() =>  this.tomartodosobjs(), 1000);
 
@@ -460,7 +453,14 @@ export default class Map extends React.Component {
               fetchDetails={true}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
-
+                this.mapView.getCamera().then((result)=>{ 
+                  console.log(result); 
+                  let hola= result;
+                  hola.pitch=700;
+                  hola.zoom=100;
+            
+                    this.mapView.setCamera( hola, { duration: 1 });
+              })
                 const { lat, lng } = details.geometry.location;
                 this.setState({
 
@@ -549,6 +549,7 @@ export default class Map extends React.Component {
               placeholder='Search'
               minLength={5} // minimum length of text to search
               autoFocus={false}
+              pitchEnabled	={true}
               returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
               listViewDisplayed='auto'    // true/false/undefined
               fetchDetails={true}
@@ -637,7 +638,7 @@ export default class Map extends React.Component {
             showsUserLocation={true}
             onRegionChangeComplete={this._handleMapRegionChange}
             onRegionChange={this.toggle}
-            ref={c => this.mapView = c}
+            ref = {map => this.mapView = map}
             followsUserLocation={true}
             onUserLocationChange={event => this.actruta(event.nativeEvent.coordinate)}
             onPress={this.onPressad}
