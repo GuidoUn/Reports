@@ -54,6 +54,7 @@ export default class Map extends React.Component {
     showmenu: false,
     animmenu: true,
     steps: [],
+    heading:null,
     coordinates: [
       {
         latitude: 1,
@@ -74,7 +75,11 @@ export default class Map extends React.Component {
         longitude: 1,
       }
     ],
-
+    prevPos: null,
+    curPos: { latitude: 37.420814, longitude: -122.081949 },
+    curAng: 45,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
     markers: [{
       title: 'hello',
       coordinates: {
@@ -121,7 +126,33 @@ export default class Map extends React.Component {
     }
 
   }
+  changePosition(latOffset, lonOffset) {
+    this.setState({
+    
+      curPos: { latitude: this.state.latitude, longitude:this.state.longitude },
+    });
+    const latitude = this.state.curPos.latitude + latOffset;
+    const longitude = this.state.curPos.longitude + lonOffset;
+    this.setState({
+      prevPos: this.state.curPos,
+      curPos: { latitude, longitude },
+    });
+    this.updateMap();
+  }
+  getRotation(prevPos, curPos) {
+    if (!prevPos) {
+      return 0;
+    }
+    const xDiff = curPos.latitude - prevPos.latitude;
+    const yDiff = curPos.longitude - prevPos.longitude;
+    return (Math.atan2(yDiff, xDiff) * 180.0) / Math.PI;
+  }
 
+  updateMap() {
+    const { curPos, prevPos, curAng } = this.state;
+    const curRot = this.getRotation(prevPos, curPos);
+    this.map.animateCamera({ heading: curRot, center: curPos, pitch: curAng });
+  }
   _showMenu = () => {
     console.log('MOSTRAR');
     this.setState({
@@ -192,12 +223,13 @@ export default class Map extends React.Component {
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ mapRegion: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 } });
-
-    this.setState({ latitude: location.coords.latitude, longitude: location.coords.longitude });
+    console.log(location)
+    this.setState({ latitude: location.coords.latitude, longitude: location.coords.longitude,heading:location.coords.heading });
     if (this.state.flag) {
       console.log("sirve");
       this.setState({ flag: false });
-      this.setState({ mapRegion: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 } });
+      this.setState({ mapRegion: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }
+       });
     }
 
 
@@ -453,13 +485,25 @@ export default class Map extends React.Component {
               fetchDetails={true}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
+                /*Object {
+                 "center": Object {
+                  "latitude": -34.476019260651995,
+                    "longitude": -58.56565531343222,
+                  },
+                "heading": 0,
+                "pitch": 0,
+                 "zoom": 13.033835411071777,
+                }*/
+                this._getLocationAsync();
                 this.mapView.getCamera().then((result)=>{ 
                   console.log(result); 
                   let hola= result;
-                  hola.pitch=700;
+                  hola.center= this.state.coordinates[0];
+                  hola.heading=this.state.heading;
+                  hola.pitch=30;
                   hola.zoom=100;
             
-                    this.mapView.setCamera( hola, { duration: 1 });
+                  this.mapView.setCamera( hola, { duration: 1 });
               })
                 const { lat, lng } = details.geometry.location;
                 this.setState({
@@ -555,7 +599,7 @@ export default class Map extends React.Component {
               fetchDetails={true}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
-
+                
                 const { lat, lng } = details.geometry.location;
                 this.setState({
 
@@ -640,7 +684,7 @@ export default class Map extends React.Component {
             onRegionChange={this.toggle}
             ref = {map => this.mapView = map}
             followsUserLocation={true}
-            onUserLocationChange={event => this.actruta(event.nativeEvent.coordinate)}
+          //  onUserLocationChange={event =>console.log(event.nativeEvent.coordinate)}
             onPress={this.onPressad}
             loadingEnabled={true}
           >
