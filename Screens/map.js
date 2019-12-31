@@ -258,7 +258,9 @@ export default class Map extends React.Component {
       }*/
      
       const stepsall= this.state.steps;
-      if (this.state.steps >1) {
+      console.log(this.state.steps.length)
+      if (this.state.coordinates[1].latitude !=1) {
+
         this.cameranavegation();
         for (let i = 0; i < this.state.steps.length ; i += 1) {
           const step = stepsall[i];
@@ -441,7 +443,7 @@ export default class Map extends React.Component {
  
   cameranavegation(){
     const stepsall= this.state.steps;
-      
+   
     const step = stepsall[0];
     this.mapView.getCamera().then((result)=>{ 
       let hola= result;
@@ -456,7 +458,6 @@ export default class Map extends React.Component {
    getRotationAngle (previousPosition, currentPosition) {
     const x1 = previousPosition.latitude;
     const y1 = previousPosition.longitude;
-    console.log(currentPosition)
     const x2 = currentPosition.lat;
     const y2 = currentPosition.lng;
   
