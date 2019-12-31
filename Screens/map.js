@@ -256,9 +256,10 @@ export default class Map extends React.Component {
           ],
         });
       }*/
+     
       const stepsall= this.state.steps;
       if (this.state.steps) {
-
+        this.cameranavegation();
         for (let i = 0; i < this.state.steps.length ; i += 1) {
           const step = stepsall[i];
           if (this.state.steps) {
@@ -398,7 +399,6 @@ export default class Map extends React.Component {
 
   }
   fechaudio() {
-   
     fetch(`https://data-base-obs.herokuapp.com/api/ruta?origin=${this.state.coordinates[0].latitude},${this.state.coordinates[0].longitude}&destination=${this.state.coordinates[1].latitude},${this.state.coordinates[1].longitude}`, {
 
       method: 'GET',
@@ -435,8 +435,35 @@ export default class Map extends React.Component {
         // ADD THIS THROW error
         throw error;
       });
+      
 
+  }
+ 
+  cameranavegation(){
+    const stepsall= this.state.steps;
+      
+    const step = stepsall[0];
+    this.mapView.getCamera().then((result)=>{ 
+      let hola= result;
+      hola.center= this.state.coordinates[0];
+      hola.heading=this.getRotationAngle(this.state.coordinates[0],step[0].startLocation);
+      hola.pitch=100;
+      hola.zoom=100;
 
+      this.mapView.setCamera( hola, { duration: 1 });
+  })
+  }
+   getRotationAngle (previousPosition, currentPosition) {
+    const x1 = previousPosition.latitude;
+    const y1 = previousPosition.longitude;
+    console.log(currentPosition)
+    const x2 = currentPosition.lat;
+    const y2 = currentPosition.lng;
+  
+    const xDiff = x2 - x1;
+    const yDiff = y2 - y1;
+  
+    return (Math.atan2(yDiff, xDiff) * 180.0) / Math.PI;
   }
   render() {
     const { navigate } = this.props.navigation
@@ -465,6 +492,7 @@ export default class Map extends React.Component {
        
           {!this.state.show && !this.state.showmenu &&
           <Animatable.View style={styles.searchbarview} animation={this.state.anim ? showAnimation : hideAnimation}>
+             
             <TouchableOpacity
              accessible={true}
              accessibilityLabel="MENU"
@@ -495,16 +523,7 @@ export default class Map extends React.Component {
                  "zoom": 13.033835411071777,
                 }*/
                 this._getLocationAsync();
-                this.mapView.getCamera().then((result)=>{ 
-                  console.log(result); 
-                  let hola= result;
-                  hola.center= this.state.coordinates[0];
-                  hola.heading=this.state.heading;
-                  hola.pitch=30;
-                  hola.zoom=100;
-            
-                  this.mapView.setCamera( hola, { duration: 1 });
-              })
+                
                 const { lat, lng } = details.geometry.location;
                 this.setState({
 
@@ -521,6 +540,8 @@ export default class Map extends React.Component {
                   ],
                 });
                 this.fechaudio();
+                
+
               }}
 
 
@@ -574,6 +595,7 @@ export default class Map extends React.Component {
               debounce={700} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
             />
           </Animatable.View>}
+         
           {!this.state.showMap && (
           <ImageBackground source={require('../Images/back1.jpeg')} style={{ width: '100%', height: '100%' }}>
             {!this.state.show && !this.state.showmenu &&
