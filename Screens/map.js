@@ -258,7 +258,7 @@ export default class Map extends React.Component {
       }*/
      
       const stepsall= this.state.steps;
-      if (this.state.steps) {
+      if (this.state.steps >1) {
         this.cameranavegation();
         for (let i = 0; i < this.state.steps.length ; i += 1) {
           const step = stepsall[i];
