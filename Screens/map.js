@@ -223,7 +223,6 @@ export default class Map extends React.Component {
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ mapRegion: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 } });
-    console.log(location)
     this.setState({ latitude: location.coords.latitude, longitude: location.coords.longitude,heading:location.coords.heading });
     if (this.state.flag) {
       console.log("sirve");
@@ -258,10 +257,9 @@ export default class Map extends React.Component {
       }*/
      
       const stepsall= this.state.steps;
-      console.log(this.state.steps.length)
       if (this.state.coordinates[1].latitude !=1) {
 
-        this.cameranavegation();
+       
         for (let i = 0; i < this.state.steps.length ; i += 1) {
           const step = stepsall[i];
           if (this.state.steps) {
@@ -274,6 +272,7 @@ export default class Map extends React.Component {
             },() => { this.forceUpdate() })          }
         }
         } 
+        this.cameranavegation();
    //   }
     }
   }
@@ -293,7 +292,6 @@ export default class Map extends React.Component {
         for (let i = 0; i < obstacles.length; i++) {
           const obstacle = obstacles[i];
           const obstacleType = obstacle.clasification;
-          console.log(this.distance(latitude, longitude, obstacle.location.coordinates[0], obstacle.location.coordinates[1], 'K'));
           const distanceFromObstacle = this.distance(latitude, longitude, obstacle.location.coordinates[0], obstacle.location.coordinates[1], 'K');
           if (distanceFromObstacle<ALERT_DISTANCE ) {
             obstacles.shift();
@@ -389,7 +387,7 @@ export default class Map extends React.Component {
   ajustes () {
  
       this.setState({showmenu: false, animad: true});
-      console.log(this.state.showadjus);
+
       setTimeout(() => this.props.navigation.navigate("Ajustes",{userEmail: this.state.userEmail}),20);
 
   }
@@ -445,15 +443,23 @@ export default class Map extends React.Component {
     const stepsall= this.state.steps;
    
     const step = stepsall[0];
-    this.mapView.getCamera().then((result)=>{ 
-      let hola= result;
-      hola.center= this.state.coordinates[0];
-      hola.heading=this.getRotationAngle(this.state.coordinates[0],step[0].startLocation);
-      hola.pitch=100;
-      hola.zoom=100;
+if(step ){  
+  let hola= { 
+    center:  {
+      latitude: -34.476044412074025,
+      longitude: -58.565559424459934,
+    },
+    heading: 0,
+    pitch: 0,
+    zoom: 13.033835411071777,
+  }
+  hola.center= this.state.coordinates[0];
+  hola.heading=this.getRotationAngle(this.state.coordinates[0],step[0].startLocation);
+  hola.pitch=100;
+  hola.zoom=100;
 
-      this.mapView.setCamera( hola, { duration: 1 });
-  })
+  this.mapView.setCamera( hola, { duration: 1 });
+}
   }
    getRotationAngle (previousPosition, currentPosition) {
     const x1 = previousPosition.latitude;
